@@ -1,0 +1,23 @@
+Message Handling
+
+Message send, read, delete, move to folder between users.
+
+Each user may see own folders:
+* Inbox
+* Sent
+* Draft
+* Deleted
+* Other User-created folders
+
+Message may be composed and afterwards sent by everyone to one, many or all users.
+After being sent it stored into folder ‘Inbox’ of the user or users to whom it was sent and marked unread.
+User may open it, then it marked as read, move to another folder or delete permanently.
+Message may be replied and forwarded – it will be opened in ‘Compose Message’ with modifications shown below.
+If message is replied:
+* Title: “Re: “ + OriginalTitle	“Fwd: “ + OriginalTitle
+* Body: “Replied Message on ” + OriginalMessageTimestamp + “<br><br>” + OriginalBody
+* Recipient: OriginalSender	empty
+If message is forwarded:
+* Title: “Fwd: “ + OriginalTitle
+* Body: Forwarded Message on ” + OriginalMessageTimestamp + “<br><br>” + OriginalBody
+* Recipient: empty
