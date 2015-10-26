@@ -1,5 +1,4 @@
-1. User Authentication
+1. User roles, user groups, authentication, profile
 2. Message Handling
 3. Message Board
 4. Image Gallery
-5. User Profile
