@@ -1,0 +1,9 @@
+Message Board
+
+Anyone can post message on the Message Board. Who can read message depends on visibility level.
+Levels are "group" and "all users".
+
+Message can be updated or deleted.
+
+Message can have comments.
+
