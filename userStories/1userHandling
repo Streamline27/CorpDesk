@@ -1,0 +1,14 @@
+User handling
+
+All operation are allowed for admin only. Modify single user is allowed for user itself.
+1. Single user profile:
+Add, modify, delete
+2. User groups:
+Add, modify, delete
+3. User roles (Admin, Writer, Reader)
+Add, modify, delete
+4. User log (debug time and IP for user logins)
+
+Authentication using spring security.
+User locking.
+Correct password handling (hiding, encryption etc)
