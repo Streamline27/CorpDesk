@@ -1,0 +1,49 @@
+Image Gallery
+
+User have one gallery with categories.
+Core operations:
+Upload image/image collection, delete/rename image/category, config,
+ optional(enable rate/assign special marks as brutal/cute/Putin affects
+ and other.. images, users from unregistered/ban list cant rate/view, search),
+  sort by name/date/optional(rating/marked).
+
+UI/UX:
+
+images stored as files, formats(png, optional(converter on client side, example jpg -> png)),
+add image before upload operation by select/collection select it or optional drag and drop,
+folders with images on server side thumbs/middle/origin categories with limitation on height/width,
+ uses javascript, AJAX, bootstrap, pagination, path line.
+
+ Backend uses core operations except rating
+ Frontend uses core operations(rating), imeges will shown as tabled list, view marked images.
+
+Database:
+ 3 Tables: Galleries, Categories, Images
+
+ Galleries
+ user_id int (association with user),
+ head_img string(100) by default: as defined(gallery head),
+ description text(short description about gallery)
+
+ Categories:
+ id int auto increment,
+ gallery_id int,
+ img_id int(as label),
+ label string(100)(category name),
+ description text(show as hint),
+ created timestamp,
+ modified date,
+
+ Images
+ id int auto increment,
+ img_id int(as label),
+ label string(100)(image name/description),
+ thumb string(250)(thumb image),
+ middle string(250)(middle image),
+ origin string(250)(origin image),
+ created timestamp,
+ modified date,
+
+
+
+
