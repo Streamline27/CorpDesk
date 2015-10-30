@@ -1,6 +1,6 @@
-package lv.javaguru.java3.core.services.clients;
+package lv.javaguru.java3.core.services;
 
-import lv.javaguru.java3.core.domain.Client;
+import lv.javaguru.java3.core.domain.client.Client;
 
 
 public interface ClientService {

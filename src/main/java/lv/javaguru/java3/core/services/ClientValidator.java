@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.services.clients;
+package lv.javaguru.java3.core.services;
 
 public interface ClientValidator {
 

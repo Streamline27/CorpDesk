@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.domain;
+package lv.javaguru.java3.core.domain.client;
 
 public class ClientBuilder {
 

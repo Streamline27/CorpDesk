@@ -1,7 +1,7 @@
-package lv.javaguru.java3.core.services.clients;
+package lv.javaguru.java3.core.services;
 
-import lv.javaguru.java3.core.database.ClientDAO;
-import lv.javaguru.java3.core.domain.Client;
+import lv.javaguru.java3.core.database.client.ClientDAO;
+import lv.javaguru.java3.core.domain.client.Client;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
