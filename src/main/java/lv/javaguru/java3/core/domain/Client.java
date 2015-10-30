@@ -7,9 +7,8 @@ import javax.persistence.*;
 public class Client {
 
     @Id
-    @GeneratedValue(generator = "clients_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "clients_seq", sequenceName = "clients_seq", allocationSize = 1)
-    @Column(name="id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name="login", nullable = false)
