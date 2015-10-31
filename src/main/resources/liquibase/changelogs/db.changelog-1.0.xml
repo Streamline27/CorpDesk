@@ -6,10 +6,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="1" author="viktor" context="main">
-        <createSequence sequenceName="clients_seq" />
-    </changeSet>
-
     <changeSet id="2" author="viktor" context="main">
         <createTable tableName="clients">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -57,5 +53,108 @@
             <column name="password" value="1gre8sd"/>
         </insert>
     </changeSet>
+
+
+    <changeSet id="createTable-states" author="nastasjab" >
+        <createTable tableName="states">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="state" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+        <insert tableName="states">
+            <column name="id" value="1"/>
+            <column name="state" value="Created"/>
+        </insert>
+        <insert tableName="states">
+            <column name="id" value="2"/>
+            <column name="state" value="Modified"/>
+        </insert>
+        <insert tableName="states">
+            <column name="id" value="3"/>
+            <column name="state" value="Deleted"/>
+        </insert>
+        <insert tableName="states">
+            <column name="id" value="4"/>
+            <column name="state" value="Blocked"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="createTable-roles" author="nastasjab" >
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+        <insert tableName="roles">
+            <column name="id" value="1"/>
+            <column name="name" value="Administrator"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" value="2"/>
+            <column name="name" value="User"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="createTable-users" author="nastasjab" >
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="userRoleId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstName" type="varchar(50)"></column>
+            <column name="lastName" type="varchar(50)"></column>
+            <column name="email" type="varchar(100)"></column>
+            <column name="lastModified" type="datetime"></column>
+            <column name="stateId" type="BIGINT"></column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="createTable-groups" author="nastasjab" >
+        <createTable tableName="groups">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="lastModified" type="datetime"></column>
+            <column name="stateId" type="BIGINT"></column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="createTable-users_groups" author="nastasjab" >
+        <createTable tableName="users_groups">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="userId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="groupId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>

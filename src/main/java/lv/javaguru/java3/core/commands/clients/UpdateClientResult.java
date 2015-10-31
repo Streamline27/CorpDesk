@@ -1,7 +1,7 @@
 package lv.javaguru.java3.core.commands.clients;
 
 import lv.javaguru.java3.core.commands.DomainCommandResult;
-import lv.javaguru.java3.core.domain.Client;
+import lv.javaguru.java3.core.domain.client.Client;
 
 public class UpdateClientResult implements DomainCommandResult {
 

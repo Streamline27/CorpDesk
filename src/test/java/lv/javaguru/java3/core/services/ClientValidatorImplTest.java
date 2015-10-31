@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.services.clients;
+package lv.javaguru.java3.core.services;
 
 import org.junit.Test;
 
@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 
 public class ClientValidatorImplTest {
 
-    private ClientValidator validator = new ClientValidatorImpl();
+    private final ClientValidator validator = new ClientValidatorImpl();
 
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";

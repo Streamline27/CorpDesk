@@ -1,11 +1,11 @@
-package lv.javaguru.java3.core.services.clients;
+package lv.javaguru.java3.core.services;
 
-import lv.javaguru.java3.core.database.ClientDAO;
-import lv.javaguru.java3.core.domain.Client;
+import lv.javaguru.java3.core.database.client.ClientDAO;
+import lv.javaguru.java3.core.domain.client.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static lv.javaguru.java3.core.domain.ClientBuilder.createClient;
+import static lv.javaguru.java3.core.domain.client.ClientBuilder.createClient;
 
 @Component
 class ClientFactoryImpl implements ClientFactory {
