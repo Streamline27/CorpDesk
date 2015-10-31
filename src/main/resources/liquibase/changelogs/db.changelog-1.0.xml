@@ -25,5 +25,37 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="3" author="aleksej" context="main">
+        <createTable tableName="categories">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="label" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="aleksej" context="main">
+        <insert tableName="clients">
+            <column name="id" value="1"/>
+            <column name="login" value="Vasja"/>
+            <column name="password" value="12358"/>
+        </insert>
+        <insert tableName="clients">
+            <column name="id" value="2"/>
+            <column name="login" value="Petja"/>
+            <column name="password" value="12358sd"/>
+        </insert>
+        <insert tableName="clients">
+            <column name="id" value="3"/>
+            <column name="login" value="Misha"/>
+            <column name="password" value="1gre8sd"/>
+        </insert>
+    </changeSet>
 
 </databaseChangeLog>
