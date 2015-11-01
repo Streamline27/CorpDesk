@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.transaction.Transactional;
@@ -19,6 +20,7 @@ import javax.transaction.Transactional;
 @ContextConfiguration(classes = {AppCoreConfig.class})
 @TransactionConfiguration(transactionManager = "hibernateTX", defaultRollback = true)
 @Transactional
+@WebAppConfiguration
 public abstract class DatabaseHibernateTest {
 
 	@Autowired

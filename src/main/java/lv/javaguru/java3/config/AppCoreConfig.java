@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan(basePackages = {"lv.javaguru.java3"})
 @Import({DataSourceConfig.class, HibernateConfig.class,
-        TransactionConfig.class, AppPropertiesConfig.class})
+        TransactionConfig.class, AppPropertiesConfig.class,
+        SpringWebConfig.class})
 public class AppCoreConfig {
 
 

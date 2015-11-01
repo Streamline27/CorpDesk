@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Aleksej_home
-  Date: 2015.07.25.
-  Time: 23:22
-  To change this template use File | Settings | File Templates.
---%>
-<!--  <h3 class="text-muted">Project name</h3> -->
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -15,17 +7,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Project name</a>
+      <a class="navbar-brand">CorpDesk</a>
     </div>
     <div class="navbar-collapse collapse">
       <form class="navbar-form navbar-right" role="form">
-        <div class="form-group">
-          <input type="text" placeholder="Email" class="form-control">
-        </div>
-        <div class="form-group">
-          <input type="password" placeholder="Password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-success">Sign in</button>
+
       </form>
     </div><!--/.navbar-collapse -->
   </div>
