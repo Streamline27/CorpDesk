@@ -1,22 +1,25 @@
 package lv.javaguru.java3.core.domain.user;
 
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 
 @Entity
 @Table(name = "groups")
 public class Group {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "groups_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "groups_seq", sequenceName = "groups_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "lastModified")
+    @Column(name = "last_modified")
     private Date lastModified;
 
     @ManyToMany(mappedBy="groups")

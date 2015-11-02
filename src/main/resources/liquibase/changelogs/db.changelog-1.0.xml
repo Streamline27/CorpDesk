@@ -6,6 +6,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <changeSet id="1" author="viktor" context="main" dbms="hsqldb">
+        <createSequence sequenceName="clients_seq"/>
+    </changeSet>
+
     <changeSet id="2" author="viktor" context="main">
         <createTable tableName="clients">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -54,8 +58,7 @@
         </insert>
     </changeSet>
 
-
-    <changeSet id="createTable-states" author="nastasjab" >
+    <changeSet id="5" author="nastasjab" context="main">
         <createTable tableName="states">
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
@@ -83,8 +86,7 @@
         </insert>
     </changeSet>
 
-
-    <changeSet id="createTable-roles" author="nastasjab" >
+    <changeSet id="6" author="nastasjab" context="main">
         <createTable tableName="roles">
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
@@ -104,53 +106,62 @@
         </insert>
     </changeSet>
 
+    <changeSet id="7" author="nastasjab" context="main"  dbms="hsqldb" >
+        <createSequence sequenceName="users_seq" startValue="1"/>
+    </changeSet>
 
-    <changeSet id="createTable-users" author="nastasjab" >
+    <changeSet id="8" author="nastasjab" context="main">
         <createTable tableName="users">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login" type="varchar(50)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="password" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="userRoleId" type="BIGINT">
+            <column name="user_role_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="firstName" type="varchar(50)"></column>
-            <column name="lastName" type="varchar(50)"></column>
+            <column name="first_name" type="varchar(50)"></column>
+            <column name="last_name" type="varchar(50)"></column>
             <column name="email" type="varchar(100)"></column>
-            <column name="lastModified" type="datetime"></column>
-            <column name="stateId" type="BIGINT"></column>
+            <column name="last_modified" type="datetime"></column>
+            <column name="state_id" type="BIGINT"></column>
         </createTable>
     </changeSet>
 
+    <changeSet id="9" author="nastasjab" context="main"  dbms="hsqldb">
+        <createSequence sequenceName="groups_seq" startValue="1"/>
+    </changeSet>
 
-    <changeSet id="createTable-groups" author="nastasjab" >
+    <changeSet id="10" author="nastasjab" context="main">
         <createTable tableName="groups">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
-            <column name="lastModified" type="datetime"></column>
-            <column name="stateId" type="BIGINT"></column>
+            <column name="last_modified" type="datetime"></column>
+            <column name="state_id" type="BIGINT"></column>
         </createTable>
     </changeSet>
 
+    <changeSet id="11" author="nastasjab" context="main"  dbms="hsqldb">
+        <createSequence sequenceName="users_groups_seq" startValue="1"/>
+    </changeSet>
 
-    <changeSet id="createTable-users_groups" author="nastasjab" >
+    <changeSet id="12" author="nastasjab" context="main">
         <createTable tableName="users_groups">
-            <column name="id" type="BIGINT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true" valueComputed="users_groups_seq.NEXTVAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="userId" type="BIGINT">
+            <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="groupId" type="BIGINT">
+            <column name="group_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>

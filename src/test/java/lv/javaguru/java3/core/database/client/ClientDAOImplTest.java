@@ -1,25 +1,25 @@
-package lv.javaguru.java3.core.database;
+package lv.javaguru.java3.core.database.client;
 
 
-import lv.javaguru.java3.core.database.client.ClientDAO;
+import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.client.Client;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 import static lv.javaguru.java3.core.domain.client.ClientBuilder.createClient;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 
 public class ClientDAOImplTest extends DatabaseHibernateTest {
 
     private final boolean SH = false;
 
-    @Autowired
-    protected ClientDAO clientDAO;
-
-
     @Test
+    @Transactional
     public void testCreateClient() {
 
 
@@ -34,10 +34,14 @@ public class ClientDAOImplTest extends DatabaseHibernateTest {
             useDBManager();
         }
 
+        List<Client> clientList = clientDAO.getAll();
+        assertTrue(clientList.size()>0);
+
 
     }
 
     @Test
+    @Transactional
     public void testGetClientById() {
         Client client = createClient()
                 .withLogin("login")

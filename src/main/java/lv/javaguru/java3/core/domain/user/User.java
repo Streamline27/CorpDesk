@@ -11,7 +11,8 @@ import java.util.*;
 public class User extends Generic {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "groups_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "groups_seq", sequenceName = "users_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private long id;
 
@@ -22,30 +23,30 @@ public class User extends Generic {
     private String password;
 
     @ManyToOne (fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "userRoleId")
+    @JoinColumn(name = "user_role_id")
     private Role userRole;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "lastModified")
+    @Column(name = "last_modified")
     private Date lastModified;
 
     @ManyToOne (fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "stateId")
+    @JoinColumn(name = "state_id")
     private State state;
 
     @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)  // ALL gives us inserting not existing groups
     @JoinTable(
             name = "users_groups",
-            joinColumns={@JoinColumn(name="userId", referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="groupId", referencedColumnName="id")}
+            joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="group_id", referencedColumnName="id")}
     )
     private List<Group> groups = new ArrayList<>();
 

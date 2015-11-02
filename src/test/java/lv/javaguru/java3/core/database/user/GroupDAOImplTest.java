@@ -1,30 +1,20 @@
-package lv.javaguru.java3.core.database;
+package lv.javaguru.java3.core.database.user;
 
-import lv.javaguru.java3.core.database.user.GroupDAO;
-import lv.javaguru.java3.core.database.user.UserDAO;
+import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.Group;
-import lv.javaguru.java3.core.domain.user.User;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collections;
+import javax.transaction.Transactional;
 import java.util.List;
 
-import static lv.javaguru.java3.core.domain.user.RoleBuilder.createRole;
 import static lv.javaguru.java3.core.domain.user.GroupBuilder.createGroup;
-import static lv.javaguru.java3.core.domain.user.UserBuilder.createUser;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 
 public class GroupDAOImplTest extends DatabaseHibernateTest {
-
-    @Autowired
-    protected UserDAO userDAO;
-
-    @Autowired
-    protected GroupDAO groupDAO;
 
     private Group group;
     private Group group2;
@@ -40,9 +30,12 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
     }
 
     @Test
+    @Transactional
     public void testCreateGroup() {
         assertEquals(0, group.getId());
         groupDAO.create(group);
+
+        assertTrue(group.getId() > 0);
 
         assertThat(group.getId(), is(notNullValue()));
         assertThat(group.getLastModified(), is(notNullValue()));
@@ -53,6 +46,7 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
     }
 
    /* @Test
+   @Transactional
     public void testCreateUserWithGroup() {
 
         groupDAO.create(group);
@@ -75,6 +69,7 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
     }*/
 
     @Test
+    @Transactional
     public void testGetGroupById() {
         groupDAO.create(group);
         Group groupFromDb = groupDAO.getById(group.getId());
@@ -82,6 +77,8 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
     }
 
     @Test
+    @Transactional
+    @Ignore
     public void testMultipleGroupCreation()  {
         List<Group> groups = groupDAO.getAll();
         int groupsCount = groups==null ? 0 : groups.size();
@@ -93,6 +90,8 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
     }
 
     @Test
+    @Transactional
+    @Ignore
     public void testDelete()  {
         List<Group> groups = groupDAO.getAll();
         int groupsCount = groups==null ? 0 : groups.size();
@@ -113,6 +112,7 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
 
 
     @Test
+    @Transactional
     public void testUpdate()  {
         groupDAO.create(group);
 
