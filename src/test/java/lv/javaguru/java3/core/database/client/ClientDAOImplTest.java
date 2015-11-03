@@ -3,6 +3,7 @@ package lv.javaguru.java3.core.database.client;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.client.Client;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,7 @@ public class ClientDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
+    @Ignore
     public void testCreateClient() {
 
 
