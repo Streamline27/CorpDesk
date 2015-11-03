@@ -3,16 +3,13 @@ package lv.javaguru.java3.core.database.client;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.client.Client;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 import static lv.javaguru.java3.core.domain.client.ClientBuilder.createClient;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 
 public class ClientDAOImplTest extends DatabaseHibernateTest {
@@ -21,7 +18,6 @@ public class ClientDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
-    @Ignore
     public void testCreateClient() {
 
 
@@ -35,11 +31,6 @@ public class ClientDAOImplTest extends DatabaseHibernateTest {
         if (SH) {
             useDBManager();
         }
-
-        List<Client> clientList = clientDAO.getAll();
-        assertTrue(clientList.size()>0);
-
-
     }
 
     @Test
