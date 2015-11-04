@@ -14,6 +14,8 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.stream.Collectors;
+
 
 public class ClientDAOImplTest extends DatabaseHibernateTest {
 
@@ -32,12 +34,12 @@ public class ClientDAOImplTest extends DatabaseHibernateTest {
         clientDAO.create(client);
         assertThat(client.getId(), is(notNullValue()));
 
+        List<Client> clientList = clientDAO.getAll();
+        assertTrue(clientList.size() > 0);
+
         if (SH) {
             useDBManager();
         }
-
-        List<Client> clientList = clientDAO.getAll();
-        assertTrue(clientList.size()>0);
 
 
     }
@@ -54,6 +56,8 @@ public class ClientDAOImplTest extends DatabaseHibernateTest {
 
 
     }
+
+
 
     private void useDBManager(){
         try {

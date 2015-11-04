@@ -25,9 +25,10 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="3" author="aleksej" context="main">
-        <createTable tableName="categories">
-            <column name="id" type="BIGINT" autoIncrement="true">
+
+    <changeSet id="gallery_1" author="aleksej" context="main">
+        <createTable tableName="galleries">
+            <column name="user_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
@@ -35,11 +36,187 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="description" type="varchar(250)">
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="allow_rate" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="allow_rate_icons" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="boolean">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="gallery_2" author="aleksej" context="main">
+        <createTable tableName="categories">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="gallery_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="img_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="allow_rate" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="allow_rate_icons" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="gallery_3" author="aleksej" context="main">
+        <createTable tableName="images">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="cat_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="thumb" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="orig" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="allow_rate" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="allow_rate_icons" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="gallery_4" author="aleksej" context="main">
+        <createTable tableName="rewards">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="gallery_5" author="aleksej" context="main">
+        <createTable tableName="rewards_images">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="reward_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="img_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="gallery_6" author="aleksej" context="main">
+
+
+
+        <addForeignKeyConstraint baseColumnNames="gallery_id"
+                                 baseTableName="categories"
+                                 constraintName="fk_galleries_categories"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="galleries"/>
+        <addForeignKeyConstraint baseColumnNames="img_id"
+                                 baseTableName="categories"
+                                 constraintName="fk_images_categories"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="images"/>
+        <addForeignKeyConstraint baseColumnNames="cat_id"
+                                 baseTableName="images"
+                                 constraintName="fk_categories_images"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="categories"/>
+        <addForeignKeyConstraint baseColumnNames="reward_id"
+                                 baseTableName="rewards_images"
+                                 constraintName="fk_rewards_rewards_images"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rewards"/>
+        <addForeignKeyConstraint baseColumnNames="img_id"
+                                 baseTableName="rewards_images"
+                                 constraintName="fk_images_rewards_images"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="images"/>
+
+    </changeSet>
+
+
+
+
     <changeSet id="4" author="aleksej" context="main">
         <insert tableName="clients">
             <column name="id" value="1"/>
