@@ -1,0 +1,64 @@
+package lv.javaguru.java3.core.database.post;
+
+import lv.javaguru.java3.core.database.DatabaseHibernateTest;
+import lv.javaguru.java3.core.domain.posts.Comment;
+import org.junit.Test;
+
+import javax.transaction.Transactional;
+import java.sql.Date;
+
+import static lv.javaguru.java3.core.domain.posts.CommentBuilder.createComment;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
+/**
+ * Created by svetlana on 02/11/15.
+ */
+public class CommentDAOImplTest extends DatabaseHibernateTest {
+
+    private Date currentDate = new Date(System.currentTimeMillis());
+
+    @Test
+    @Transactional
+    public void testCreatePost() {
+        Comment comment = createCommentForTest();
+        assertThat(comment.getId(), is(nullValue()));
+        commentDAO.create(comment);
+        assertThat(comment.getId(), is(notNullValue()));
+    }
+
+    @Test
+    @Transactional
+    public void testGetCommentById() {
+        Comment comment = createCommentForTest();
+        commentDAO.create(comment);
+        Comment commentFromDB = commentDAO.getById(comment.getId());
+        assertThat(commentFromDB, is(notNullValue()));
+    }
+
+    @Test
+    @Transactional
+    public void testDeleteComment() {
+        Comment comment1 = createCommentForTest();
+        Comment comment2 = createCommentForTest();
+        commentDAO.create(comment1);
+        commentDAO.create(comment2);
+        assertThat(commentDAO.getById(comment1.getId()), is(notNullValue()));
+        assertThat(commentDAO.getById(comment2.getId()), is(notNullValue()));
+        commentDAO.delete(comment1);
+        assertThat(commentDAO.getById(comment1.getId()), is(nullValue()));
+        assertThat(commentDAO.getById(comment2.getId()), is(notNullValue()));
+        commentDAO.delete(comment2);
+        assertThat(commentDAO.getById(comment2.getId()), is(nullValue()));
+    }
+
+    private Comment createCommentForTest() {
+        return createComment()
+                .withPostId(1L)
+                .withPostId(1L)
+                .withText("Text")
+                .withPostedDate(currentDate)
+                .build();
+    }
+
+}
