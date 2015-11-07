@@ -7,8 +7,8 @@ public class CreateUserResult implements DomainCommandResult {
 
 	private final User user;
 
-	public CreateUserResult(User user) {
-		this.user = user;
+	public CreateUserResult(User user1) {
+		this.user = user1;
 	}
 
 	public User getUser() {
