@@ -12,7 +12,7 @@ public interface UserService {
     List<User> getAll();
 
     User create(String login, String password, Role role, String firstName, String lastName,
-                String email);
+                String email) throws Exception;
 
     User update(long userId, String password, Role role, String firstName, String lastName,
                 String email, List<Group> groups);

@@ -12,9 +12,14 @@ import java.util.List;
 @Component
 class UserServiceImpl implements UserService {
 
-    @Autowired private UserDAO userDAO;
-    @Autowired private UserValidator userValidator;
+    private final UserDAO userDAO;
+    private final UserFactory userFactory;
 
+    @Autowired
+    public UserServiceImpl(UserDAO userDAO, UserFactory userFactory) {
+        this.userDAO = userDAO;
+        this.userFactory = userFactory;
+    }
 
     @Override
     public List<User> getAll() {
@@ -22,8 +27,8 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(String login, String password, Role role, String firstName, String lastName, String email) {
-        return null;
+    public User create(String login, String password, Role role, String firstName, String lastName, String email) throws Exception {
+        return userFactory.create(login, password, role, firstName, lastName, email);
     }
 
     @Override

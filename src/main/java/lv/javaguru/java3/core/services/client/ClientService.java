@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.services;
+package lv.javaguru.java3.core.services.client;
 
 import lv.javaguru.java3.core.domain.client.Client;
 

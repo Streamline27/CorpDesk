@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.services;
+package lv.javaguru.java3.core.services.client;
 
 import org.springframework.stereotype.Component;
 

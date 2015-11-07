@@ -5,6 +5,6 @@ import lv.javaguru.java3.core.commands.DomainCommandResult;
 
 public interface CommandExecutor {
 
-    <T extends DomainCommandResult> T execute(DomainCommand<T> domainCommand);
+    <T extends DomainCommandResult> T execute(DomainCommand<T> domainCommand) throws Exception;
 
 }
