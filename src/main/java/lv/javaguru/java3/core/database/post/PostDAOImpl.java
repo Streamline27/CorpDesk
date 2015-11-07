@@ -1,7 +1,7 @@
-package lv.javaguru.java3.core.database.posts;
+package lv.javaguru.java3.core.database.post;
 
 import lv.javaguru.java3.core.database.CRUDOperationDAOImpl;
-import lv.javaguru.java3.core.domain.posts.Post;
+import lv.javaguru.java3.core.domain.post.Post;
 import org.springframework.stereotype.Component;
 
 /**
