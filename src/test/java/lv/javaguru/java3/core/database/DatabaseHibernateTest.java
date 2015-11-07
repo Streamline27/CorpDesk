@@ -6,6 +6,7 @@ import lv.javaguru.java3.core.database.posts.CommentDAO;
 import lv.javaguru.java3.core.database.posts.PostDAO;
 import lv.javaguru.java3.core.database.user.GroupDAO;
 import lv.javaguru.java3.core.database.user.UserDAO;
+import lv.javaguru.java3.core.database.user.UserLogDAO;
 import org.hibernate.SessionFactory;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,7 @@ public abstract class DatabaseHibernateTest {
 
     @Autowired
     protected CommentDAO commentDAO;
+
+	@Autowired
+	protected UserLogDAO userLogDAO;
 }

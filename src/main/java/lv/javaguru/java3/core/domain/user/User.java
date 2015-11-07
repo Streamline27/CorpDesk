@@ -11,8 +11,8 @@ import java.util.*;
 public class User extends Generic {
 
     @Id
-    @GeneratedValue(generator = "groups_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "groups_seq", sequenceName = "users_seq", allocationSize = 1)
+    @GeneratedValue(generator = "users_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private long id;
 

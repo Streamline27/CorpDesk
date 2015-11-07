@@ -408,4 +408,21 @@
         <createSequence sequenceName="comments_seq"/>
     </changeSet>
 
+    <changeSet id="17" author="nastasjab" context="main"  dbms="hsqldb">
+        <createSequence sequenceName="user_log_seq" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="18" author="nastasjab" context="main">
+        <createTable tableName="user_log">
+            <column name="id" type="BIGINT" autoIncrement="true" valueComputed="user_log_seq.NEXTVAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="access_time" type="datetime"></column>
+            <column name="success" type="boolean"></column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

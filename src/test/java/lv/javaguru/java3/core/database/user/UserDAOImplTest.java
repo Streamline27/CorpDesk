@@ -18,6 +18,7 @@ import static lv.javaguru.java3.core.domain.user.GroupBuilder.createGroup;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+@Transactional
 public class UserDAOImplTest extends DatabaseHibernateTest {
     private User user;
     private User user2;
