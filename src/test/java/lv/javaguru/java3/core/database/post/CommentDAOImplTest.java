@@ -1,13 +1,13 @@
 package lv.javaguru.java3.core.database.post;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
-import lv.javaguru.java3.core.domain.posts.Comment;
+import lv.javaguru.java3.core.domain.post.Comment;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
 
-import static lv.javaguru.java3.core.domain.posts.CommentBuilder.createComment;
+import static lv.javaguru.java3.core.domain.post.CommentBuilder.createComment;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -38,6 +38,29 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
+    public void testUpdatePost() {
+        Comment comment = createCommentForTest();
+        commentDAO.create(comment);
+
+        Long newPostId = 2L;
+        Long newUserId = 2L;
+        String newText = "New Text";
+        Date newPostedDate = new Date(System.currentTimeMillis() + 2);
+
+        comment.setPostId(newPostId);
+        comment.setUserId(newUserId);
+        comment.setText(newText);
+        comment.setPostedDate(newPostedDate);
+
+        Comment commentFromDB = commentDAO.getById(comment.getId());
+        assertEquals(commentFromDB.getPostId(), newPostId);
+        assertEquals(commentFromDB.getUserId(), newUserId);
+        assertEquals(commentFromDB.getText(), newText);
+        assertEquals(commentFromDB.getPostedDate(), newPostedDate);
+    }
+
+    @Test
+    @Transactional
     public void testDeleteComment() {
         Comment comment1 = createCommentForTest();
         Comment comment2 = createCommentForTest();
@@ -55,7 +78,7 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
     private Comment createCommentForTest() {
         return createComment()
                 .withPostId(1L)
-                .withPostId(1L)
+                .withUserId(1L)
                 .withText("Text")
                 .withPostedDate(currentDate)
                 .build();

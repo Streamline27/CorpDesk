@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.domain.posts;
+package lv.javaguru.java3.core.domain.post;
 
 import java.sql.Date;
 
