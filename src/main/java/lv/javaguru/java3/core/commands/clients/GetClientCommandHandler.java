@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.services.handlers;
+package lv.javaguru.java3.core.commands.clients;
 
 import lv.javaguru.java3.core.commands.clients.GetClientCommand;
 import lv.javaguru.java3.core.commands.clients.GetClientResult;

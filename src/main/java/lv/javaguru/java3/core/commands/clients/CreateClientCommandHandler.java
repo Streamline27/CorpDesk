@@ -1,10 +1,9 @@
-package lv.javaguru.java3.core.services.handlers;
+package lv.javaguru.java3.core.commands.clients;
 
-import lv.javaguru.java3.core.commands.clients.CreateClientCommand;
-import lv.javaguru.java3.core.commands.clients.CreateClientResult;
 import lv.javaguru.java3.core.domain.client.Client;
-import lv.javaguru.java3.core.services.client.ClientFactory;
+import lv.javaguru.java3.core.dto.ClientDTO;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
+import lv.javaguru.java3.core.services.client.ClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Component;
 class CreateClientCommandHandler
 		implements DomainCommandHandler<CreateClientCommand, CreateClientResult> {
 
-	@Autowired
-	private ClientFactory clientFactory;
+	@Autowired private ClientFactory clientFactory;
+	@Autowired private ClientConverter clientConverter;
 
 
 	@Override
@@ -22,12 +21,13 @@ class CreateClientCommandHandler
 				command.getLogin(),
 				command.getPassword()
 		);
-		return new CreateClientResult(client);
+		ClientDTO clientDTO = clientConverter.convert(client);
+		return new CreateClientResult(clientDTO);
 	}
 
 	@Override
 	public Class getCommandType() {
 		return CreateClientCommand.class;
 	}
-	
+
 }
