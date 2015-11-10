@@ -1,4 +1,6 @@
-package lv.javaguru.java3.core.domain.gallery;
+package lv.javaguru.java3.core.domain.gallery_cluster.image;
+
+import lv.javaguru.java3.core.domain.gallery_cluster.GalleryModifer;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -24,6 +26,15 @@ public class Image extends GalleryModifer {
 
     @Column(name = "orig")
     private String orig;
+
+    @Column(name = "rate")
+    private int rate;
+
+    @Column(name = "allow_rate")
+    private boolean allowRate;
+
+    @Column(name = "allow_rate_icons")
+    private boolean allowRateIcons;
 
     @Column(name = "created")
     private Timestamp created;
@@ -63,7 +74,7 @@ public class Image extends GalleryModifer {
         this.orig = orig;
     }
 
-  /*  public void setAllowRate(boolean allowRate){
+    public void setAllowRate(boolean allowRate){
         this.allowRate = allowRate;
     }
     public boolean getAllowRate(){
@@ -74,7 +85,15 @@ public class Image extends GalleryModifer {
     }
     public boolean getAllowRateIcons(){
         return allowRateIcons;
-    }*/
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
 
     public Timestamp getCreated() {
         return created;

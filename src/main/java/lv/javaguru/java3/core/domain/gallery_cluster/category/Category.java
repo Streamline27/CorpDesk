@@ -1,6 +1,6 @@
-package lv.javaguru.java3.core.domain.gallery;
+package lv.javaguru.java3.core.domain.gallery_cluster.category;
 
-import lv.javaguru.java3.core.domain.Generic;
+import lv.javaguru.java3.core.domain.gallery_cluster.GalleryModifer;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "categories")
-public class Category extends GalleryModifer{
+public class Category extends GalleryModifer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +23,12 @@ public class Category extends GalleryModifer{
 
     @Column(name = "img_id")
     private long imgId;
+
+    @Column(name = "allow_rate")
+    private boolean allowRate;
+
+    @Column(name = "allow_rate_icons")
+    private boolean allowRateIcons;
 
     @Column(name = "created")
     private Timestamp created;
@@ -48,7 +54,7 @@ public class Category extends GalleryModifer{
     }
 
 
-  /*  public void setAllowRate(boolean allowRate){
+    public void setAllowRate(boolean allowRate){
         this.allowRate = allowRate;
     }
     public boolean getAllowRate(){
@@ -59,7 +65,7 @@ public class Category extends GalleryModifer{
     }
     public boolean getAllowRateIcons(){
         return allowRateIcons;
-    }*/
+    }
 
     public Date getModifed() {
         return modified;

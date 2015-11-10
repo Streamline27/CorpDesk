@@ -1,4 +1,6 @@
-package lv.javaguru.java3.core.domain.gallery;
+package lv.javaguru.java3.core.domain.gallery_cluster.reward;
+
+import lv.javaguru.java3.core.domain.gallery_cluster.GalleryModifer;
 
 import javax.persistence.*;
 
@@ -7,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "rewards")
-public class Reward extends GalleryModifer{
+public class Reward extends GalleryModifer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", columnDefinition = "bigint")

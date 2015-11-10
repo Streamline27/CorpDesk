@@ -111,6 +111,9 @@
             <column name="orig" type="varchar(250)">
                 <constraints nullable="false"/>
             </column>
+            <column name="rate" type="INT">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="description" type="TEXT">
                 <constraints nullable="false"/>

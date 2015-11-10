@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.domain.gallery;
+package lv.javaguru.java3.core.domain.gallery_cluster;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,12 +16,6 @@ public abstract class GalleryModifer implements Serializable{
 
     @Column(name = "description", columnDefinition = "clob")
     protected String description;
-
-  /*  @Column(name = "allow_rate")
-    protected boolean allowRate;
-
-    @Column(name = "allow_rate_icons")
-    protected boolean allowRateIcons;*/
 
     @Column(name = "is_active")
     protected boolean isActive;
