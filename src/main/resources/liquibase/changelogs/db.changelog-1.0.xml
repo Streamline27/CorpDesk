@@ -427,5 +427,65 @@
             <column name="success" type="boolean"></column>
         </createTable>
     </changeSet>
+    
+    <changeSet id="19" author="Andrew" context="main" dbms="hsqldb">
+
+        <createTable tableName="messages">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sender_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="body" type="CLOB"/>
+            <column name="is_important" type="BOOLEAN" defaultValue="false"/>
+            <column name="is_active" type="BOOLEAN" defaultValue="true"/>
+            <column name="created" type="DATETIME">
+                    <constraints nullable="false"/>
+            </column>
+            <column name="modified" type="DATETIME"/>
+        </createTable>
+        
+        <createTable tableName="messages_users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="folder_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_unread" type="BOOLEAN" defaultValue="true"/>
+            <column name="is_active" type="BOOLEAN" defaultValue="true"/>
+        </createTable>
+        
+        <createTable tableName="message_folders">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)"/>
+            <column name="category_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="message_folder_categories">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
 
 </databaseChangeLog>
