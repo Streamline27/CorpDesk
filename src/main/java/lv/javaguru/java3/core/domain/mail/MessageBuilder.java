@@ -4,6 +4,7 @@ import lv.javaguru.java3.core.domain.user.User;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,8 +17,7 @@ public class MessageBuilder {
     private String body;
     private boolean isImportant;
     private boolean isActive;
-    private Timestamp created;
-    private Timestamp modified;
+    private Date created;
     private List<Recipient> recipients = new ArrayList<>();
 
     public MessageBuilder() {
@@ -38,7 +38,6 @@ public class MessageBuilder {
         message.setIsImportant(isImportant);
         message.setIsActive(isActive);
         message.setCreated(created);
-        message.setModified(modified);
         message.setRecipients(recipients);
 
         return message;
@@ -70,13 +69,8 @@ public class MessageBuilder {
         return this;
     }
 
-    public MessageBuilder createdOn(Timestamp created) {
+    public MessageBuilder createdOn(Date created) {
         this.created = created;
-        return this;
-    }
-
-    public MessageBuilder modifiedOn(Timestamp modified) {
-        this.modified = modified;
         return this;
     }
 

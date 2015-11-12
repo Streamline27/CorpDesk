@@ -488,4 +488,17 @@
 
     </changeSet>
 
+    <changeSet id="20" author="andrew">
+        <insert tableName="message_folder_categories">
+            <column name="name" value="Inbox"/>
+            <column name="name" value="Sent"/>
+            <column name="name" value="Draft"/>
+            <column name="name" value="Deleted"/>
+            <column name="name" value="Custom"/>
+        </insert>
+
+        <dropColumn tableName="messages" columnName="modified"/>
+    </changeSet>
+
+
 </databaseChangeLog>

@@ -6,6 +6,7 @@ import lv.javaguru.java3.core.domain.user.User;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,10 +38,7 @@ public class Message extends Generic {
     private boolean isActive;
 
     @Column(name = "created", nullable = false)
-    private Timestamp created;
-
-    @Column(name = "modified")
-    private Timestamp modified;
+    private Date created;
 
     @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
@@ -103,20 +101,12 @@ public class Message extends Generic {
         this.isActive = isActive;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
-    }
-
-    public Timestamp getModified() {
-        return modified;
-    }
-
-    public void setModified(Timestamp modified) {
-        this.modified = modified;
     }
 
     public List<Recipient> getRecipients() {
