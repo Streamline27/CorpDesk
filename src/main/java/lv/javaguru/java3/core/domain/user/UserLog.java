@@ -10,8 +10,7 @@ import java.util.Date;
 public class UserLog extends Generic {
 
     @Id
-    @GeneratedValue(generator = "user_log_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "user_log_seq", sequenceName = "users_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private long id;
 

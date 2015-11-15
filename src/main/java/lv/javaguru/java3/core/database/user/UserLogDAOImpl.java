@@ -6,6 +6,7 @@ import org.hibernate.JDBCException;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static lv.javaguru.java3.core.domain.user.UserLogBuilder.createUserLog;
@@ -15,10 +16,9 @@ import static lv.javaguru.java3.core.domain.user.UserLogBuilder.createUserLog;
 class UserLogDAOImpl extends CRUDOperationDAOImpl<UserLog, Long> implements UserLogDAO {
 
     @Override
-    public List<UserLog> getAll(long userLogId) throws JDBCException {
-        UserLog userLog = createUserLog().withUserId(userLogId).build();
-        return getCurrentSession().createCriteria(UserLogDAO.class)
-                .add(Restrictions.eq("userId", userLog))
+    public List<UserLog> getAll(long userId) throws JDBCException {
+         return getCurrentSession().createCriteria(UserLog.class)
+                .add(Restrictions.eq("userId", userId))
                 .list();
 
     }

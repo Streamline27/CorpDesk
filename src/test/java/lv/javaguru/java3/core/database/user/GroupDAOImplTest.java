@@ -2,14 +2,17 @@ package lv.javaguru.java3.core.database.user;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.Group;
+import lv.javaguru.java3.core.domain.user.User;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 
 import static lv.javaguru.java3.core.domain.user.GroupBuilder.createGroup;
+import static lv.javaguru.java3.core.domain.user.UserBuilder.createUser;
+import static lv.javaguru.java3.core.domain.user.RoleBuilder.createRole;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
@@ -45,8 +48,8 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
         assertEquals(group.getLastModified(), groupFromDB.getLastModified());
     }
 
-   /* @Test
-   @Transactional
+    /*@Test
+    @Transactional
     public void testCreateUserWithGroup() {
 
         groupDAO.create(group);
@@ -62,7 +65,7 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
         userDAO.create(user);
 
         Group groupFromDB = groupDAO.getById(group.getId());
-        //User userFromDB = userDAO.getById(user.getId());
+        User userFromDB = userDAO.getById(user.getId());
         assertEquals(1, groupFromDB.getUsers().size());
         assertEquals(user.getId(), groupFromDB.getUsers().get(0).getId());
         assertTrue(user.getLogin().equals(groupFromDB.getUsers().get(0).getLogin()));
@@ -78,7 +81,6 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
-    @Ignore
     public void testMultipleGroupCreation()  {
         List<Group> groups = groupDAO.getAll();
         int groupsCount = groups==null ? 0 : groups.size();
@@ -91,7 +93,6 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
-    @Ignore
     public void testDelete()  {
         List<Group> groups = groupDAO.getAll();
         int groupsCount = groups==null ? 0 : groups.size();

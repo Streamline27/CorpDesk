@@ -428,7 +428,7 @@
         </createTable>
     </changeSet>
     
-    <changeSet id="19" author="Andrew" context="main" dbms="hsqldb">
+    <changeSet id="19" author="Andrew" context="main">
 
         <createTable tableName="messages">
             <column name="id" type="BIGINT" autoIncrement="true">

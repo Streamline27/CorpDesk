@@ -3,7 +3,6 @@ package lv.javaguru.java3.core.database.user;
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.UserLog;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
@@ -57,10 +56,11 @@ public class UserLogDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
-    @Ignore
     public void testMultipleUserLogCreation()  {
         List<UserLog> userLogs = userLogDAO.getAll();
         int userLogsCount = userLogs==null ? 0 : userLogs.size();
+        List<UserLog> userLogs1 = userLogDAO.getAll((long) 1);
+        int userLogsCount1 = userLogs1==null ? 0 : userLogs1.size();
 
         userLogDAO.create(userLog);
         userLogDAO.create(userLog2);
@@ -68,8 +68,8 @@ public class UserLogDAOImplTest extends DatabaseHibernateTest {
         userLogs = userLogDAO.getAll();
         assertEquals(3, userLogs.size()-userLogsCount);
 
-        userLogs = userLogDAO.getAll(1);
-        assertEquals(2, userLogs.size()-userLogsCount);
+        userLogs1 = userLogDAO.getAll((long) 1);
+        assertEquals(2, userLogs1.size()-userLogsCount1);
     }
 
 }

@@ -1,5 +1,7 @@
 package lv.javaguru.java3.core.domain.user;
 
+import lv.javaguru.java3.core.domain.State;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,8 +13,7 @@ import java.util.List;
 public class Group {
 
     @Id
-    @GeneratedValue(generator = "groups_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "groups_seq", sequenceName = "groups_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private long id;
 
@@ -22,7 +23,11 @@ public class Group {
     @Column(name = "last_modified")
     private Date lastModified;
 
-    @ManyToMany(mappedBy="groups")
+    @ManyToOne (fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "state_id")
+    private State state;
+
+    @ManyToMany(mappedBy="groups") //, fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<User> users = new ArrayList<>();
 
     public long getId() {
@@ -47,6 +52,14 @@ public class Group {
 
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public List<User> getUsers() {
