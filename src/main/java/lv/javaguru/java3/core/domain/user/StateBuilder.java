@@ -1,6 +1,4 @@
-package lv.javaguru.java3.core.domain;
-
-import lv.javaguru.java3.core.domain.State;
+package lv.javaguru.java3.core.domain.user;
 
 public class StateBuilder {
 
@@ -18,8 +16,18 @@ public class StateBuilder {
         state.setState(stateName);
 
         return state;
-
     }
+
+    public StateBuilder withId(long id) {
+        this.id = id;
+        return this;
+    }
+
+    public StateBuilder withState(String state) {
+        this.stateName = state;
+        return this;
+    }
+
     public StateBuilder created() {
         this.id = 1;
         return this;

@@ -2,17 +2,14 @@ package lv.javaguru.java3.core.database.user;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.Group;
-import lv.javaguru.java3.core.domain.user.User;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
 import java.util.List;
 
 import static lv.javaguru.java3.core.domain.user.GroupBuilder.createGroup;
-import static lv.javaguru.java3.core.domain.user.UserBuilder.createUser;
-import static lv.javaguru.java3.core.domain.user.RoleBuilder.createRole;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
@@ -92,6 +89,7 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
     }
 
     @Test
+    @Ignore
     @Transactional
     public void testDelete()  {
         List<Group> groups = groupDAO.getAll();

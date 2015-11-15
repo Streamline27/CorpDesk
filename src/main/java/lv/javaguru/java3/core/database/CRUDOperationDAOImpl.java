@@ -54,9 +54,9 @@ public abstract class CRUDOperationDAOImpl<E, K extends Serializable> implements
 
     @Override
     public void delete(E entity) {
-        Transaction tx = getCurrentSession().beginTransaction();
+        //Transaction tx = getCurrentSession().beginTransaction();
         getCurrentSession().delete(entity);
-        tx.commit();
+        //tx.commit();
     }
 
     @Override

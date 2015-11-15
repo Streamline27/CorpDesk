@@ -27,6 +27,11 @@ public class UserLogBuilder {
         return userLog;
     }
 
+    public UserLogBuilder withId(long id) {
+        this.id = id;
+        return this;
+    }
+
     public UserLogBuilder withUserId(long userId) {
         this.userId = userId;
         return this;

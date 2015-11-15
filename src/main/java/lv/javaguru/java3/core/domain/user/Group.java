@@ -1,7 +1,5 @@
 package lv.javaguru.java3.core.domain.user;
 
-import lv.javaguru.java3.core.domain.State;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;

@@ -23,12 +23,10 @@ public class UserLog extends Generic {
     @Column(name = "success")
     private Boolean success;
 
-       @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

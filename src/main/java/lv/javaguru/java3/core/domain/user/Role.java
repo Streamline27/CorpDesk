@@ -19,12 +19,10 @@ public class Role extends Generic {
     @Column(name = "name")
     private String name;
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

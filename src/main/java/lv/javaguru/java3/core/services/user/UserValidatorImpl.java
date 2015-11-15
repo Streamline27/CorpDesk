@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.services.user;
 
 import lv.javaguru.java3.core.domain.user.Role;
+import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.user.exception.InvalidEmailException;
 import org.springframework.stereotype.Component;
 
@@ -12,18 +13,13 @@ import static org.apache.commons.lang.StringUtils.isBlank;
 class UserValidatorImpl implements UserValidator {
 
     @Override
-    public void validate(String login,
-                         String password,
-                         Role role,
-                         String firstName,
-                         String lastName,
-                         String email) throws Exception {
-        validateLogin(login);
-        validatePassword(password);
-        validateRole(role);
-        validateFirstName(firstName);
-        validateLastName(lastName);
-        validateEmail(email);
+    public void validate(User user) throws Exception {
+        validateLogin(user.getLogin());
+        validatePassword(user.getPassword());
+        validateRole(user.getUserRole());
+        validateFirstName(user.getFirstName());
+        validateLastName(user.getLastName());
+        validateEmail(user.getEmail());
     }
 
     private void validateLogin(String login) {

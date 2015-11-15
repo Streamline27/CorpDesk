@@ -1,4 +1,6 @@
-package lv.javaguru.java3.core.domain;
+package lv.javaguru.java3.core.domain.user;
+
+import lv.javaguru.java3.core.domain.Generic;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,12 +18,10 @@ public class State extends Generic {
     @Column(name = "state")
     private String state;
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

@@ -1,9 +1,11 @@
 package lv.javaguru.java3.core.services.user;
 
 import lv.javaguru.java3.core.domain.user.Role;
+import lv.javaguru.java3.core.domain.user.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import static lv.javaguru.java3.core.domain.user.UserBuilder.createUser;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -84,7 +86,15 @@ public class UserValidatorImplTest {
                                     String firstName, String lastName, String email,
                                     String errorMessage) {
         try {
-            validator.validate(login, password, role, firstName, lastName, email);
+            User user = createUser()
+                    .withLogin(login)
+                    .withPassword(password)
+                    .withUserRole(role)
+                    .withFirstName(firstName)
+                    .withLastName(lastName)
+                    .withEmail(email)
+                    .build();
+            validator.validate(user);
             fail();
         } catch (Exception e) {
             if (errorMessage!=null)
