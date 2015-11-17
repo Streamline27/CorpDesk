@@ -407,7 +407,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="16" author="svetlana" context="main">
+    <changeSet id="16" author="svetlana" context="main" dbms="hsqldb">
         <createSequence sequenceName="comments_seq"/>
     </changeSet>
 
