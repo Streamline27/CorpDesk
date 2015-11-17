@@ -18,6 +18,17 @@ public class RoleBuilder {
         return role;
 
     }
+
+    public RoleBuilder withId(long id) {
+        this.id = id;
+        return this;
+    }
+
+    public RoleBuilder withName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public RoleBuilder admin() {
         this.id = 1;
         return this;

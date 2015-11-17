@@ -1,10 +1,10 @@
 package lv.javaguru.java3.core.services.user;
 
-import lv.javaguru.java3.core.commands.user.CreateUserCommand;
-import lv.javaguru.java3.core.commands.user.CreateUserResult;
+import lv.javaguru.java3.core.commands.user.command.CreateUserCommand;
+import lv.javaguru.java3.core.commands.user.command.CreateUserResult;
+import lv.javaguru.java3.core.commands.user.convertor.UserConverter;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
-import lv.javaguru.java3.core.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +14,15 @@ class CreateUserCommandHandler
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserConverter userConverter;
 
 
 	@Override
 	public CreateUserResult execute(CreateUserCommand command) throws Exception {
-		User user = userService.create(command.getLogin(), command.getPassword(), command.getUserRole(),
-				command.getFirstName(), command.getLastName(), command.getEmail());
-		return new CreateUserResult(user);
+		User user = userConverter.convertDTO(command.getUserDTO());
+		userService.create(user);
+		return new CreateUserResult(userConverter.convert(user));
 	}
 
 	@Override

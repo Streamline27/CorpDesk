@@ -1,8 +1,6 @@
 package lv.javaguru.java3.core.domain.user;
 
 
-import lv.javaguru.java3.core.domain.State;
-
 import java.sql.Date;
 import java.util.List;
 
@@ -33,11 +31,17 @@ public class UserBuilder {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        user.setLastModified(lastModified);
         user.setState(state);
         user.setGroups(groups);
 
         return user;
 
+    }
+
+    public UserBuilder withId(long id) {
+        this.id = id;
+        return this;
     }
 
     public UserBuilder withLogin(String login) {
@@ -67,6 +71,11 @@ public class UserBuilder {
 
     public UserBuilder withEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public UserBuilder withLastModified(Date lastModified) {
+        this.lastModified = lastModified;
         return this;
     }
 

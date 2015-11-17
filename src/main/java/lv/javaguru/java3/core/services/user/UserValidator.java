@@ -1,9 +1,8 @@
 package lv.javaguru.java3.core.services.user;
 
-import lv.javaguru.java3.core.domain.user.Role;
+import lv.javaguru.java3.core.domain.user.User;
 
 public interface UserValidator {
 
-    void validate(String login, String password, Role role, String firstName, String lastName,
-                  String email) throws Exception;
+    void validate(User user) throws Exception;
 }

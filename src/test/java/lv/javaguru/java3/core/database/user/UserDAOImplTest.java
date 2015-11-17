@@ -4,7 +4,6 @@ import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.domain.user.Group;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
@@ -18,7 +17,7 @@ import static lv.javaguru.java3.core.domain.user.GroupBuilder.createGroup;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-@Transactional
+
 public class UserDAOImplTest extends DatabaseHibernateTest {
     private User user;
     private User user2;
@@ -112,7 +111,6 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
-    @Ignore
     public void testMultipleUserCreation()  {
         List<User> users = userDAO.getAll();
         int usersCount = users==null ? 0 : users.size();
@@ -120,12 +118,12 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
         userDAO.create(user);
         userDAO.create(user2);
         users = userDAO.getAll();
-        assertEquals(2, users.size()-usersCount);
+        assertEquals(2, users.size() - usersCount);
     }
 
+    /*
     @Test
     @Transactional
-    @Ignore
     public void testDelete()  {
         List<User> users = userDAO.getAll();
         int usersCount = users==null ? 0 : users.size();
@@ -143,7 +141,7 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
         users = userDAO.getAll();
         assertEquals(0, users.size()-usersCount);
     }
-
+*/
 
     @Test
     @Transactional

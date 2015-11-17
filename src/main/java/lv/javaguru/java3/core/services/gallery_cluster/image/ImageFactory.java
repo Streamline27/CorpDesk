@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.services.gallery_cluster.image;
 
 import lv.javaguru.java3.core.domain.gallery_cluster.image.Image;
+import lv.javaguru.java3.core.dto.gallery_cluster.ImageDTO;
 
 import java.sql.Date;
 
@@ -19,4 +20,5 @@ public interface ImageFactory {
                     boolean allowRate,
                     boolean allowRateIcons,
                     Date modified);
+    ImageDTO create(ImageDTO imageDTO);
 }

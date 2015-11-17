@@ -1,7 +1,9 @@
 package lv.javaguru.java3.core.services.gallery_cluster.image;
 
+import lv.javaguru.java3.core.commands.gallery_cluster.converter.ImageConverter;
 import lv.javaguru.java3.core.database.gallery_cluster.image.ImageDAO;
 import lv.javaguru.java3.core.domain.gallery_cluster.image.Image;
+import lv.javaguru.java3.core.dto.gallery_cluster.ImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static lv.javaguru.java3.core.domain.gallery_cluster.image.ImageBuilder.anImage;
@@ -15,6 +17,7 @@ public class ImageFactoryImpl implements ImageFactory {
 
     @Autowired private ImageValidator imageValidator;
     @Autowired private ImageDAO imageDAO;
+    @Autowired private ImageConverter imageConverter;
 
     @Override
     public Image create(int rate,
@@ -54,4 +57,10 @@ public class ImageFactoryImpl implements ImageFactory {
         return image;
     }
 
+    @Override
+    public ImageDTO create(ImageDTO imageDTO) {
+        imageValidator.validate(imageDTO);
+        imageDAO.create(imageConverter.convert(imageDTO));
+        return imageDTO;
+    }
 }

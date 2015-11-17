@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.services.gallery_cluster.category;
 
 import lv.javaguru.java3.core.domain.gallery_cluster.category.Category;
+import lv.javaguru.java3.core.dto.gallery_cluster.CategoryDTO;
 
 import java.sql.Date;
 
@@ -16,6 +17,11 @@ public interface CategoryService {
                     boolean newAllowRate,
                     boolean newAllowRateIcons,
                     Date newModified);
+    Category update(Category category);
+
+    CategoryDTO update(CategoryDTO categoryDTO);
 
     Category get(Long id);
+
+    void delete(long id);
 }

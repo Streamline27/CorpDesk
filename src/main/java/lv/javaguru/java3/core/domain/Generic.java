@@ -1,13 +1,7 @@
 package lv.javaguru.java3.core.domain;
 
-public abstract class Generic {
-    private long id;
+import java.io.Serializable;
 
-    public long getId() {
-        return id;
-    }
+public abstract class Generic implements Serializable {
 
-    public void setId(long id) {
-        this.id = id;
-    }
 }

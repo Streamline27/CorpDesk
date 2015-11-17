@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.services.gallery_cluster.image;
 
 import lv.javaguru.java3.core.domain.gallery_cluster.image.Image;
+import lv.javaguru.java3.core.dto.gallery_cluster.ImageDTO;
 
 import java.sql.Date;
 
@@ -21,4 +22,10 @@ public interface ImageService {
                     Date newModified);
 
     Image get(Long id);
+
+    Image update(Image image);
+
+    ImageDTO update(ImageDTO imageDTO);
+
+    void delete(long id);
 }

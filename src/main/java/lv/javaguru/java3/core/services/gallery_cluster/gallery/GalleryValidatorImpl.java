@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.services.gallery_cluster.gallery;
 
+import lv.javaguru.java3.core.dto.gallery_cluster.GalleryDTO;
 import lv.javaguru.java3.core.services.gallery_cluster.Validator;
 
 /**
@@ -24,5 +25,14 @@ public class GalleryValidatorImpl extends Validator implements GalleryValidator{
 
     private void validateLabel(String label) {
 
+    }
+
+    @Override
+    public void validate(GalleryDTO galleryDTO) {
+        validateText(galleryDTO.getLabel(), BASE + "label");
+        validateText(galleryDTO.getDescription(), BASE + "description");
+        validateState(galleryDTO.isActive(), BASE + "active state");
+        validateState(galleryDTO.getAllowRate(), BASE + "allowRate");
+        validateState(galleryDTO.getAllowRateIcons(), BASE + "allowRateIcons");
     }
 }

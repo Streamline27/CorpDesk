@@ -45,8 +45,8 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
         assertEquals(group.getLastModified(), groupFromDB.getLastModified());
     }
 
-   /* @Test
-   @Transactional
+    /*@Test
+    @Transactional
     public void testCreateUserWithGroup() {
 
         groupDAO.create(group);
@@ -62,7 +62,7 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
         userDAO.create(user);
 
         Group groupFromDB = groupDAO.getById(group.getId());
-        //User userFromDB = userDAO.getById(user.getId());
+        User userFromDB = userDAO.getById(user.getId());
         assertEquals(1, groupFromDB.getUsers().size());
         assertEquals(user.getId(), groupFromDB.getUsers().get(0).getId());
         assertTrue(user.getLogin().equals(groupFromDB.getUsers().get(0).getLogin()));
@@ -78,7 +78,6 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
-    @Ignore
     public void testMultipleGroupCreation()  {
         List<Group> groups = groupDAO.getAll();
         int groupsCount = groups==null ? 0 : groups.size();
@@ -90,8 +89,8 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
     }
 
     @Test
-    @Transactional
     @Ignore
+    @Transactional
     public void testDelete()  {
         List<Group> groups = groupDAO.getAll();
         int groupsCount = groups==null ? 0 : groups.size();

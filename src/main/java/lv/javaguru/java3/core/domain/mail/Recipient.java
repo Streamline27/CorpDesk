@@ -37,12 +37,10 @@ public class Recipient extends Generic{
     public Recipient() {
     }
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

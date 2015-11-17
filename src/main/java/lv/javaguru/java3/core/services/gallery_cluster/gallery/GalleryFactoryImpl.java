@@ -1,8 +1,11 @@
 package lv.javaguru.java3.core.services.gallery_cluster.gallery;
 
+import lv.javaguru.java3.core.commands.gallery_cluster.converter.GalleryConverter;
 import lv.javaguru.java3.core.database.gallery_cluster.gallery.GalleryDAO;
 import lv.javaguru.java3.core.domain.gallery_cluster.gallery.Gallery;
 import static lv.javaguru.java3.core.domain.gallery_cluster.gallery.GalleryBuilder.aGallery;
+
+import lv.javaguru.java3.core.dto.gallery_cluster.GalleryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -12,6 +15,7 @@ public class GalleryFactoryImpl implements GalleryFactory{
 
     @Autowired private GalleryValidator galleryValidator;
     @Autowired private GalleryDAO galleryDAO;
+    @Autowired private GalleryConverter galleryConverter;
 
     @Override
     public Gallery create(String label,
@@ -34,5 +38,13 @@ public class GalleryFactoryImpl implements GalleryFactory{
                 .build();
         galleryDAO.create(gallery);
         return gallery;
+    }
+
+    @Override
+    public GalleryDTO create(GalleryDTO galleryDTO) {
+
+        galleryValidator.validate(galleryDTO);
+        galleryDAO.create(galleryConverter.convert(galleryDTO));
+        return galleryDTO;
     }
 }

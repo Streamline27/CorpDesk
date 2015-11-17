@@ -1,7 +1,6 @@
 package lv.javaguru.java3.core.domain.user;
 
 import lv.javaguru.java3.core.domain.Generic;
-import lv.javaguru.java3.core.domain.State;
 
 import javax.persistence.*;
 import java.util.*;
@@ -11,8 +10,7 @@ import java.util.*;
 public class User extends Generic {
 
     @Id
-    @GeneratedValue(generator = "users_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private long id;
 
@@ -22,7 +20,7 @@ public class User extends Generic {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne (fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne (fetch=FetchType.EAGER)
     @JoinColumn(name = "user_role_id")
     private Role userRole;
 
@@ -38,7 +36,7 @@ public class User extends Generic {
     @Column(name = "last_modified")
     private Date lastModified;
 
-    @ManyToOne (fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne (fetch=FetchType.EAGER)
     @JoinColumn(name = "state_id")
     private State state;
 
@@ -50,12 +48,10 @@ public class User extends Generic {
     )
     private List<Group> groups = new ArrayList<>();
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

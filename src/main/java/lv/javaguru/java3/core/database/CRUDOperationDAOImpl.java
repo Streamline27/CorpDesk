@@ -2,8 +2,10 @@ package lv.javaguru.java3.core.database;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -52,7 +54,9 @@ public abstract class CRUDOperationDAOImpl<E, K extends Serializable> implements
 
     @Override
     public void delete(E entity) {
+        //Transaction tx = getCurrentSession().beginTransaction();
         getCurrentSession().delete(entity);
+        //tx.commit();
     }
 
     @Override

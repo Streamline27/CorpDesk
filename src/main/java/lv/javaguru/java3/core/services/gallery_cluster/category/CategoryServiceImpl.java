@@ -1,7 +1,9 @@
 package lv.javaguru.java3.core.services.gallery_cluster.category;
 
+import lv.javaguru.java3.core.commands.gallery_cluster.converter.CategoryConverter;
 import lv.javaguru.java3.core.database.gallery_cluster.category.CategoryDAO;
 import lv.javaguru.java3.core.domain.gallery_cluster.category.Category;
+import lv.javaguru.java3.core.dto.gallery_cluster.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
@@ -13,6 +15,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired private CategoryValidator categoryValidator;
     @Autowired private CategoryDAO categoryDAO;
+    @Autowired private CategoryConverter categoryConverter;
 
     @Override
     public Category update(Long id,
@@ -45,5 +48,26 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category get(Long id) {
         return categoryDAO.getRequired(id);
+    }
+
+    @Override
+    public Category update(Category category) {
+        categoryValidator.validate(categoryConverter.convert(category));
+        categoryDAO.update(category);
+        return category;
+    }
+
+    @Override
+    public CategoryDTO update(CategoryDTO categoryDTO) {
+        categoryValidator.validate(categoryDTO);
+        categoryDAO.update(categoryConverter.convert(categoryDTO));
+        return categoryDTO;
+    }
+
+    @Override
+    public void delete(long id) {
+        Category category = categoryDAO.getRequired(id);
+        categoryDAO.delete(category);
+
     }
 }

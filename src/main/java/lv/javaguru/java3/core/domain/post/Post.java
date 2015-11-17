@@ -11,8 +11,7 @@ import java.sql.Date;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_seq")
-    @SequenceGenerator(name = "posts_seq", sequenceName = "posts_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 

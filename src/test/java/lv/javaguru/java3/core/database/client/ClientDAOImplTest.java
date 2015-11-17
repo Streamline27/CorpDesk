@@ -57,4 +57,18 @@ public class ClientDAOImplTest extends DatabaseHibernateTest {
         }
     }
 
+    @Test
+    @Transactional
+    public void testDeleteClient() {
+        Client client = createClient()
+                .withLogin("login")
+                .withPassword("password").build();
+        clientDAO.create(client);
+        Client clientFromDb = clientDAO.getById(client.getId());
+        assertThat(clientFromDb, is(notNullValue()));
+        clientDAO.delete(clientFromDb);
+        clientFromDb = clientDAO.getById(client.getId());
+        assertThat(clientFromDb, is(nullValue()));
+
+    }
 }

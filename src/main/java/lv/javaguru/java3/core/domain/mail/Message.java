@@ -47,12 +47,10 @@ public class Message extends Generic {
     public Message() {
     }
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
