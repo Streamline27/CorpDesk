@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.services.gallery_cluster.gallery;
 
 import lv.javaguru.java3.core.domain.gallery_cluster.gallery.Gallery;
+import lv.javaguru.java3.core.dto.gallery_cluster.GalleryDTO;
 
 import java.sql.Date;
 
@@ -13,4 +14,5 @@ public interface GalleryFactory {
                     boolean isActive,
                     boolean allowRate,
                     boolean allowRateIcons);
+    GalleryDTO create(GalleryDTO galleryDTO);
 }

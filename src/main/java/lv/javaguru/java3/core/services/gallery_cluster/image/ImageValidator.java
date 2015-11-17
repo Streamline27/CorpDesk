@@ -1,5 +1,7 @@
 package lv.javaguru.java3.core.services.gallery_cluster.image;
 
+import lv.javaguru.java3.core.dto.gallery_cluster.ImageDTO;
+
 import java.sql.Date;
 
 /**
@@ -16,4 +18,5 @@ public interface ImageValidator {
                   boolean allowRate,
                   boolean allowRateIcons,
                   Date modified);
+    void validate(ImageDTO imageDTO);
 }

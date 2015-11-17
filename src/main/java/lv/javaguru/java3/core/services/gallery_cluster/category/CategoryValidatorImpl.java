@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.services.gallery_cluster.category;
 
+import lv.javaguru.java3.core.dto.gallery_cluster.CategoryDTO;
 import lv.javaguru.java3.core.services.gallery_cluster.Validator;
 
 import java.sql.Date;
@@ -73,6 +74,26 @@ public class CategoryValidatorImpl extends Validator implements CategoryValidato
 
 
     }
+
+    @Override
+    public void validate(CategoryDTO categoryDTO) {
+        validateDecimal(categoryDTO.getImgId(), BASE + "image id");
+        validateText(categoryDTO.getLabel(), BASE + "label");
+        validateText(categoryDTO.getDescription(), BASE + "description");
+        validateState(categoryDTO.isActive(), BASE + "active state");
+        validateState(categoryDTO.getAllowRate(), BASE + "allowRate");
+        validateState(categoryDTO.getAllowRateIcons(), BASE + "allowRateIcons");
+        validateDate(categoryDTO.getModifed(), BASE + "modified");
+
+        validateImageId(categoryDTO.getImgId());
+        validateLabel(categoryDTO.getLabel());
+        validateDescription(categoryDTO.getDescription());
+        validateIsActive(categoryDTO.isActive());
+        validateAllowRate(categoryDTO.getAllowRate());
+        validateAllowRateIcons(categoryDTO.getAllowRateIcons());
+        validateModified(categoryDTO.getModifed());
+    }
+
     private void validateGalleryId(long galleryId) {
 
     }

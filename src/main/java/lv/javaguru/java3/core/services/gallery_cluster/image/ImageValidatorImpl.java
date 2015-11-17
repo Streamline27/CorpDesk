@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.services.gallery_cluster.image;
 
+import lv.javaguru.java3.core.dto.gallery_cluster.ImageDTO;
 import lv.javaguru.java3.core.services.gallery_cluster.Validator;
 
 import java.sql.Date;
@@ -37,5 +38,19 @@ public class ImageValidatorImpl extends Validator implements ImageValidator{
 
     private void validateLabel(String label) {
 
+    }
+
+    @Override
+    public void validate(ImageDTO imageDTO) {
+        validateDecimal(imageDTO.getRate(),BASE + "rate");
+        validateText(imageDTO.getLabel(), BASE + "label");
+        validateText(imageDTO.getThumb(), BASE + "thumb");
+        validateText(imageDTO.getMiddle(), BASE + "middle");
+        validateText(imageDTO.getOrig(), BASE + "orig");
+        validateText(imageDTO.getDescription(), BASE + "description");
+        validateState(imageDTO.isActive(), BASE + "active state");
+        validateState(imageDTO.getAllowRate(), BASE + "allowRate");
+        validateState(imageDTO.getAllowRateIcons(), BASE + "allowRateIcons");
+        validateDate(imageDTO.getModifed(), BASE + "modified");
     }
 }

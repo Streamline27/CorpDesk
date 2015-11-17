@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.services.gallery_cluster.category;
 
 import lv.javaguru.java3.core.domain.gallery_cluster.category.Category;
+import lv.javaguru.java3.core.dto.gallery_cluster.CategoryDTO;
 
 import java.sql.Date;
 
@@ -17,4 +18,6 @@ public interface CategoryFactory {
                     boolean allowRate,
                     boolean allowRateIcons,
                     Date modified);
+
+    CategoryDTO create(CategoryDTO categoryDTO);
 }

@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.services.gallery_cluster.reward;
 
+import lv.javaguru.java3.core.dto.gallery_cluster.RewardDTO;
 import lv.javaguru.java3.core.services.gallery_cluster.Validator;
 
 /**
@@ -21,5 +22,13 @@ public class RewardValidatorImpl extends Validator implements RewardValidator{
 
     private void validateLabel(String label) {
 
+    }
+
+    @Override
+    public void validate(RewardDTO rewardDTO) {
+        validateText(rewardDTO.getName(), BASE + "name");
+        validateText(rewardDTO.getLabel(), BASE + "label");
+        validateText(rewardDTO.getDescription(), BASE + "description");
+        validateState(rewardDTO.isActive(), BASE + "active state");
     }
 }

@@ -1,5 +1,7 @@
 package lv.javaguru.java3.core.services.gallery_cluster.category;
 
+import lv.javaguru.java3.core.dto.gallery_cluster.CategoryDTO;
+
 import java.sql.Date;
 
 /**
@@ -22,4 +24,5 @@ public interface CategoryValidator {
                   boolean allowRate,
                   boolean allowRateIcons,
                   Date modified);
+    void validate(CategoryDTO categoryDTO);
 }

@@ -1,8 +1,11 @@
 package lv.javaguru.java3.core.services.gallery_cluster.category;
 
+import lv.javaguru.java3.core.commands.gallery_cluster.converter.CategoryConverter;
 import lv.javaguru.java3.core.database.gallery_cluster.category.CategoryDAO;
 import lv.javaguru.java3.core.domain.gallery_cluster.category.Category;
 import static lv.javaguru.java3.core.domain.gallery_cluster.category.CategoryBuilder.aCategory;
+
+import lv.javaguru.java3.core.dto.gallery_cluster.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
@@ -15,6 +18,7 @@ public class CategoryFactoryImpl implements CategoryFactory {
 
     @Autowired private CategoryValidator categoryValidator;
     @Autowired private CategoryDAO categoryDAO;
+    @Autowired private CategoryConverter categoryConverter;
 
     @Override
     public Category create(long galleryId,
@@ -47,5 +51,12 @@ public class CategoryFactoryImpl implements CategoryFactory {
                 .build();
         categoryDAO.create(category);
         return category;
+    }
+
+    @Override
+    public CategoryDTO create(CategoryDTO categoryDTO) {
+        categoryValidator.validate(categoryDTO);
+        categoryDAO.create(categoryConverter.convert(categoryDTO));
+        return categoryDTO;
     }
 }
