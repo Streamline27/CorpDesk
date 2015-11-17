@@ -8,10 +8,10 @@ import lv.javaguru.java3.core.domain.user.User;
 import java.util.List;
 
 /**
- * Created by Andrew on 10.11.2015.
+ * Created by Andrew on 13.11.2015.
  */
-public interface MessageDAO extends CRUDOperationDAO<Message, Long>{
+public interface RecipientDAO extends CRUDOperationDAO<Recipient, Long>{
 
-    List getByUserId(long userId);
+    List<Recipient> getByUserId(long userId);
 
 }

@@ -1,6 +1,5 @@
 package lv.javaguru.java3.core.domain.mail;
 
-import lv.javaguru.java3.core.domain.user.User;
 
 /**
  * Created by Andrew on 08.11.2015.
@@ -8,7 +7,7 @@ import lv.javaguru.java3.core.domain.user.User;
 public class FolderBuilder {
 
     private long id;
-    private User user;
+    private long userId;
     private String name;
     private FolderCategory category;
 
@@ -24,15 +23,15 @@ public class FolderBuilder {
         Folder folder = new Folder();
 
         folder.setId(id);
-        folder.setUser(user);
+        folder.setUserId(userId);
         folder.setName(name);
         folder.setCategory(category);
 
         return folder;
     }
 
-    public FolderBuilder withUser(User user) {
-        this.user = user;
+    public FolderBuilder withUserId(long userId) {
+        this.userId = userId;
         return this;
     }
 

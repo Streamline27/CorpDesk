@@ -2,7 +2,10 @@ package lv.javaguru.java3.core.database;
 
 import lv.javaguru.java3.config.AppCoreConfig;
 import lv.javaguru.java3.core.database.client.ClientDAO;
+import lv.javaguru.java3.core.database.mail.FolderCategoryDAO;
+import lv.javaguru.java3.core.database.mail.FolderDAO;
 import lv.javaguru.java3.core.database.mail.MessageDAO;
+import lv.javaguru.java3.core.database.mail.RecipientDAO;
 import lv.javaguru.java3.core.database.post.CommentDAO;
 import lv.javaguru.java3.core.database.post.PostDAO;
 import lv.javaguru.java3.core.database.user.GroupDAO;
@@ -41,4 +44,14 @@ public abstract class DatabaseHibernateTest {
 
 	@Autowired
 	protected MessageDAO messageDAO;
+
+	@Autowired
+	protected RecipientDAO recipientDAO;
+
+	@Autowired
+	protected FolderDAO folderDAO;
+
+	@Autowired
+	protected FolderCategoryDAO folderCategoryDAO;
+
 }

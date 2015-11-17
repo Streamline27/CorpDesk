@@ -6,19 +6,19 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Andrew on 08.11.2015.
  */
 public class MessageBuilder {
-    private long id;
     private User sender;
     private String title;
     private String body;
     private boolean isImportant;
     private boolean isActive;
     private Date created;
-    private List<Recipient> recipients = new ArrayList<>();
+    private List<Recipient> recipients;
 
     public MessageBuilder() {
     }
@@ -31,7 +31,6 @@ public class MessageBuilder {
 
         Message message = new Message();
 
-        message.setId(id);
         message.setSender(sender);
         message.setTitle(title);
         message.setBody(body);

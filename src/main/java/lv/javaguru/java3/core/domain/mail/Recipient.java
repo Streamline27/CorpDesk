@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Created by Andrew on 08.11.2015.
  */
 @Entity
-@Table(name = "messages_users")
+@Table(name = "recipients")
 public class Recipient extends Generic{
 
     @Id
@@ -17,12 +17,15 @@ public class Recipient extends Generic{
     @Column(name = "id", nullable = false)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "message_id", nullable = false)
+    private Message message;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "folder_id")
+    @Column(name = "user_id")
+    private long userId;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "folder_id", nullable = false)
     private Folder folder;
 
     @Column(name = "is_unread")
@@ -44,12 +47,20 @@ public class Recipient extends Generic{
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
     }
 
     public Folder getFolder() {

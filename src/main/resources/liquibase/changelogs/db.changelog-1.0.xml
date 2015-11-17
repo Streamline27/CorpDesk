@@ -407,7 +407,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="16" author="svetlana" context="main" dbms="hsqldb">
+    <changeSet id="16" author="svetlana" context="main">
         <createSequence sequenceName="comments_seq"/>
     </changeSet>
 
@@ -428,7 +428,7 @@
         </createTable>
     </changeSet>
     
-    <changeSet id="19" author="Andrew" context="main" dbms="hsqldb">
+    <changeSet id="19" author="Andrew" context="main">
 
         <createTable tableName="messages">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -447,18 +447,15 @@
             <column name="modified" type="DATETIME"/>
         </createTable>
         
-        <createTable tableName="messages_users">
+        <createTable tableName="recipients">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="BIGINT">
-                <constraints nullable="false"/>
             </column>
             <column name="message_id" type="BIGINT">
-                <constraints nullable="false"/>
             </column>
             <column name="folder_id" type="BIGINT">
-                <constraints nullable="false"/>
             </column>
             <column name="is_unread" type="BOOLEAN" defaultValue="true"/>
             <column name="is_active" type="BOOLEAN" defaultValue="true"/>
@@ -488,12 +485,25 @@
 
     </changeSet>
 
-    <changeSet id="20" author="andrew">
+    <changeSet id="20" author="andrew" context="main">
         <insert tableName="message_folder_categories">
+            <column name="id" value="1"/>
             <column name="name" value="Inbox"/>
+        </insert>
+        <insert tableName="message_folder_categories">
+            <column name="id" value="2"/>
             <column name="name" value="Sent"/>
+        </insert>
+        <insert tableName="message_folder_categories">
+            <column name="id" value="3"/>
             <column name="name" value="Draft"/>
+        </insert>
+        <insert tableName="message_folder_categories">
+            <column name="id" value="4"/>
             <column name="name" value="Deleted"/>
+        </insert>
+        <insert tableName="message_folder_categories">
+            <column name="id" value="5"/>
             <column name="name" value="Custom"/>
         </insert>
 

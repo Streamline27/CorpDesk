@@ -30,4 +30,34 @@ public class FolderCategoryBuilder {
         return this;
     }
 
+    public FolderCategoryBuilder inbox() {
+        this.id = 1;
+        this.name = "Inbox";
+        return this;
+    }
+
+    public FolderCategoryBuilder sent() {
+        this.id = 2;
+        this.name = "Sent";
+        return this;
+    }
+
+    public FolderCategoryBuilder draft() {
+        this.id = 3;
+        this.name = "Draft";
+        return this;
+    }
+
+    public FolderCategoryBuilder deleted() {
+        this.id = 4;
+        this.name = "Deleted";
+        return this;
+    }
+
+    public FolderCategoryBuilder custom() {
+        this.id = 5;
+        this.name = "Custom";
+        return this;
+    }
+
 }

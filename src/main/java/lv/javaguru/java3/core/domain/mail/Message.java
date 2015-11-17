@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Andrew on 08.11.2015.
@@ -18,10 +19,10 @@ public class Message extends Generic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", columnDefinition = "bigint", nullable = false)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "sender_id")
     private User sender;
 
@@ -40,13 +41,8 @@ public class Message extends Generic {
     @Column(name = "created", nullable = false)
     private Date created;
 
-    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "messages_users",
-            joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="message_id", referencedColumnName="id")}
-    )
-    private List<Recipient> recipients = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "message")
+    private List<Recipient> recipients;
 
     public Message() {
     }
