@@ -69,12 +69,22 @@ public class MessageServiceImpl implements MessageService {
     public void delete(User user, Message message) {
         try {
             Recipient recipient = getRecipient(user, message);
-            recipient.setIsActive(false);
+            if (recipient.getFolder().getCategory().equals(createFolderCategory().deleted().build())) {
+                recipient.setIsActive(false);
+            } else {
+                recipient.setFolder(getDeletedFolder(user));
+            }
             recipientDAO.update(recipient);
         } catch (MessageRecipientNotFoundException e) {
             e.printStackTrace();
         }
 
+
+    }
+
+    private Folder getDeletedFolder(User user) {
+        // maybe create static getters? (If not exists - create, otherwise - return existing folder)
+        return null;
     }
 
     @Override
