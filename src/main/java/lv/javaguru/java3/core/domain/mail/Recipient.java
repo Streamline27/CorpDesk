@@ -17,7 +17,7 @@ public class Recipient extends Generic{
     @Column(name = "id", nullable = false)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "message_id", nullable = false)
     private Message message;
 

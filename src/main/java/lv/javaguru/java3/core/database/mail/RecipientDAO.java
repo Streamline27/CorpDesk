@@ -14,4 +14,5 @@ public interface RecipientDAO extends CRUDOperationDAO<Recipient, Long>{
 
     List<Recipient> getByUserId(long userId);
 
+    int getUnreadMessageCount(long userId);
 }
