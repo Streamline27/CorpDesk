@@ -31,6 +31,7 @@ public class UserConverter {
                 .withFirstName(user.getFirstName())
                 .withLastName(user.getLastName())
                 .withEmail(user.getEmail())
+                .withLastModified(user.getLastModified())
                 .withState(stateConverter.convert(user.getState()))
                 .withGroups(groupConverter.convert(user.getGroups()))
                 .build();
@@ -47,13 +48,14 @@ public class UserConverter {
     public User convertDTO(UserDTO userDTO) {
         if (userDTO==null) return null;
         return createUser()
-                .withId(userDTO.getId() == null? 0 : userDTO.getId())
+                .withId(userDTO.getId() == null ? 0 : userDTO.getId())
                 .withLogin(userDTO.getLogin())
                 .withPassword(userDTO.getPassword())
                 .withUserRole(roleConverter.convert(userDTO.getUserRole()))
                 .withFirstName(userDTO.getFirstName())
                 .withLastName(userDTO.getLastName())
                 .withEmail(userDTO.getEmail())
+                .withLastModified(userDTO.getLastModified())
                 .withState(stateConverter.convert(userDTO.getState()))
                 .withGroups(groupConverter.convertDTO(userDTO.getGroups()))
                 .build();
