@@ -17,4 +17,6 @@ public interface PostService {
                 Date modifiedDate);
 
     Post get(Long postId);
+
+    void delete(Long postId);
 }

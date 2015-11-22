@@ -1,20 +1,20 @@
 package lv.javaguru.java3.core.commands.post;
 
 import lv.javaguru.java3.core.commands.DomainCommandResult;
-import lv.javaguru.java3.core.domain.post.Post;
+import lv.javaguru.java3.core.dto.post.PostDTO;
 
 /**
  * Created by svetlana on 07/11/15.
  */
 public class GetPostResult implements DomainCommandResult {
 
-    private Post post;
+    private PostDTO postDTO;
 
-    public GetPostResult(Post post) {
-        this.post = post;
+    public GetPostResult(PostDTO postDTO) {
+        this.postDTO = postDTO;
     }
 
-    public Post getPost() {
-        return post;
+    public PostDTO getPost() {
+        return postDTO;
     }
 }

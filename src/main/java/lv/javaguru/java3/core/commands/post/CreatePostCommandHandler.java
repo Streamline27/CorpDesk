@@ -1,8 +1,7 @@
-package lv.javaguru.java3.core.services.post.handlers;
+package lv.javaguru.java3.core.commands.post;
 
-import lv.javaguru.java3.core.commands.post.CreatePostCommand;
-import lv.javaguru.java3.core.commands.post.CreatePostResult;
 import lv.javaguru.java3.core.domain.post.Post;
+import lv.javaguru.java3.core.dto.post.PostDTO;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.post.PostFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,8 @@ public class CreatePostCommandHandler implements DomainCommandHandler<CreatePost
 
     @Autowired
     private PostFactory postFactory;
+    @Autowired
+    private PostConverter postConverter;
 
     @Override
     public CreatePostResult execute(CreatePostCommand command) throws Exception {
@@ -26,7 +27,8 @@ public class CreatePostCommandHandler implements DomainCommandHandler<CreatePost
                 command.getBody(),
                 command.getCreatedDate()
         );
-        return new CreatePostResult(post);
+        PostDTO postDTO = postConverter.convert(post);
+        return new CreatePostResult(postDTO);
     }
 
     @Override
