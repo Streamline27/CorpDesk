@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
+        register(CORSResponseFilter.class);
+
         register(HealthController.class);
         register(ClientResourceImpl.class);
         register(UserResourceImpl.class);
