@@ -1,8 +1,8 @@
 package lv.javaguru.java3.core.services.user;
 
-import lv.javaguru.java3.core.commands.user.command.GetUserCommand;
-import lv.javaguru.java3.core.commands.user.command.GetUserResult;
-import lv.javaguru.java3.core.commands.user.convertor.UserConverter;
+import lv.javaguru.java3.core.commands.user.GetUserCommand;
+import lv.javaguru.java3.core.commands.user.GetUserResult;
+import lv.javaguru.java3.core.convertor.UserConverter;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -105,7 +105,7 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
     @Transactional
     public void testGetUserById() {
         userDAO.create(user);
-        User userFromDb = userDAO.getById(user.getId());
+        User userFromDb = userDAO.getById((long)1);
         assertThat(userFromDb, is(notNullValue()));
     }
 

@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.commands.user.convertor;
+package lv.javaguru.java3.core.convertor;
 
 import lv.javaguru.java3.core.domain.user.State;
 import lv.javaguru.java3.core.dto.user.StateDTO;

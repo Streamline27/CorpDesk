@@ -20,6 +20,8 @@
 
     <div class="row edit-content">
 
+        <div class="col-xs-9">
+            <span>Users</span>
         <table>
             <tr>
                 <th>Id</th>
@@ -43,6 +45,26 @@
                 </td>
             </tr>
         </table>
+        </div>
+
+        <div class="col-xs-3">
+            <span>Groups</span>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                <tr ng-repeat="group in UserListCtrl.groups">
+                    <td>{{ group.id }}</td>
+                    <td>{{ group.name }}</td>
+                    <td>
+                        <a class="glyphicon glyphicon-pencil" ng-click="UserListCtrl.editGroup(group)"></a>
+                        <a class="glyphicon glyphicon-remove" ng-click="UserListCtrl.deleteGroup(group)"></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
     </div>
     <!-- /.row -->

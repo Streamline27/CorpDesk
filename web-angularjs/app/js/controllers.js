@@ -20,6 +20,13 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
             ctrl.users = data;
         });
 
+        $http({
+            method: 'GET',
+            url: apiHost + '/group'
+        }).success(function (data) {
+            ctrl.groups = data;
+        });
+
 
         ctrl.editUser=function(user){
             $location.path("/user/"+user.id)
@@ -34,6 +41,23 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
                 var index = ctrl.users.indexOf(user);
                 if (index > -1) {
                     ctrl.users.splice(index, 1);
+                }
+            });
+        };
+
+        ctrl.editGroup=function(group){
+            $location.path("/group/"+group.id)
+        };
+
+        ctrl.deleteGroup=function(group){
+            $http({
+                method: 'DELETE',
+                url: apiHost + '/group',
+                params: {groupId: group.id}
+            }).success(function (data) {
+                var index = ctrl.groups.indexOf(group);
+                if (index > -1) {
+                    ctrl.groups.splice(index, 1);
                 }
             });
         };

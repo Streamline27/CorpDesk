@@ -1,8 +1,8 @@
 package lv.javaguru.java3.core.services.user;
 
-import lv.javaguru.java3.core.commands.user.command.DeleteUserCommand;
-import lv.javaguru.java3.core.commands.user.command.DeleteUserResult;
-import lv.javaguru.java3.core.commands.user.convertor.UserConverter;
+import lv.javaguru.java3.core.commands.user.DeleteUserCommand;
+import lv.javaguru.java3.core.commands.user.DeleteUserResult;
+import lv.javaguru.java3.core.convertor.UserConverter;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.user.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
