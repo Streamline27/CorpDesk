@@ -14,7 +14,7 @@ public class GetPostResult implements DomainCommandResult {
         this.postDTO = postDTO;
     }
 
-    public PostDTO getPost() {
+    public PostDTO getPostDTO() {
         return postDTO;
     }
 }
