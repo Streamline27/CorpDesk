@@ -19,7 +19,12 @@ public class PostServiceImpl implements PostService {
     private PostValidator postValidator;
 
     @Override
-    public Post update(Long postId, Long newUserId, Long newGroupId, String newTitle, String newBody, Date modifiedDate) {
+    public Post update(Long postId,
+                       Long newUserId,
+                       Long newGroupId,
+                       String newTitle,
+                       String newBody,
+                       Date modifiedDate) {
         postValidator.validate(newUserId, newGroupId, newTitle, newBody);
         Post post = postDAO.getById(postId);
         post.setUserId(newUserId);
@@ -37,7 +42,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void delete(Long postId) {
-        Post post = postDAO.getById(postId);
+        Post post = postDAO.getRequired(postId);
         postDAO.delete(post);
     }
 }

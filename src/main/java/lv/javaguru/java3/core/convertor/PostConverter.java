@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.commands.post;
+package lv.javaguru.java3.core.convertor;
 
 import lv.javaguru.java3.core.domain.post.Post;
 import lv.javaguru.java3.core.dto.post.PostDTO;
