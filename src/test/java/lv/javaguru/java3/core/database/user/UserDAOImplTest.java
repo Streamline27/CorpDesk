@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.database.user;
 
+import lv.javaguru.java3.core.database.DatabaseCleaner;
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.domain.user.Group;
@@ -23,9 +24,11 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
     private User user2;
     private Group group;
     private Group group2;
+    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
 
     @Before
-    public void init()  {
+    public void init() throws Exception {
+        databaseCleaner.cleanDatabase();
         group = createGroup()
                 .withName("All")
                 .build();
@@ -105,7 +108,7 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
     @Transactional
     public void testGetUserById() {
         userDAO.create(user);
-        User userFromDb = userDAO.getById((long)1);
+        User userFromDb = userDAO.getById(user.getId());
         assertThat(userFromDb, is(notNullValue()));
     }
 

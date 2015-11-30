@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.database.user;
 
+import lv.javaguru.java3.core.database.DatabaseCleaner;
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.UserLog;
 import org.junit.Before;
@@ -19,9 +20,11 @@ public class UserLogDAOImplTest extends DatabaseHibernateTest {
     private UserLog userLog;
     private UserLog userLog2;
     private UserLog userLog3;
+    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
 
     @Before
-    public void init()  {
+    public void init() throws Exception {
+        databaseCleaner.cleanDatabase();
         userLog = createUserLog()
                 .withUserId(1).withSuccess(true).withAccessTime(new Date())
                 .build();

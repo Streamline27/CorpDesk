@@ -63,6 +63,20 @@
                 </label>
             </div>
         </div>
+
+        <div class="row custom-row" style="margin-top: 50px">
+            <span>User's groups</span>
+            <table>
+                <tr ng-repeat="group in UserEditCtrl.groups">
+                     <td>{{ group.name }}</td>
+                    <td>
+                        <input type="checkbox" ng-model="group.isChecked"  id="id{{UserEditCtrl.group.id}}">
+                        <label for="id{{UserEditCtrl.group.id}}"></label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <div class="row custom-row" style="margin-top: 50px">
             <button ng-click="saveUser()" class="btn btn-primary">Save</button>
             <button onclick="history.back()" class="btn btn-default">Back</button>

@@ -25,7 +25,12 @@ public class Group {
     @JoinColumn(name = "state_id")
     private State state;
 
-    @ManyToMany(mappedBy="groups") //, fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany()  // ALL gives us inserting not existing groups  fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_groups",
+            joinColumns={@JoinColumn(name="group_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id", unique=true)}
+    )
     private List<User> users = new ArrayList<>();
 
     public long getId() {

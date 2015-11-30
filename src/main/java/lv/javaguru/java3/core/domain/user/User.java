@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.domain.user;
 
 import lv.javaguru.java3.core.domain.Generic;
+import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
 import java.util.*;
@@ -40,11 +41,11 @@ public class User extends Generic {
     @JoinColumn(name = "state_id")
     private State state;
 
-    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)  // ALL gives us inserting not existing groups
+    @OneToMany()  // ALL gives us inserting not existing groups  fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_groups",
             joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="group_id", referencedColumnName="id")}
+            inverseJoinColumns={@JoinColumn(name="group_id", referencedColumnName="id", unique=true)}
     )
     private List<Group> groups = new ArrayList<>();
 

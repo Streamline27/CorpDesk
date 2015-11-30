@@ -69,16 +69,44 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
         ctrl.userId=$routeParams.id
 
 
+        $http({
+            method: 'GET',
+            url: apiHost + '/user',
+            params: {userId: ctrl.userId}
+        }).success(function (data) {
+            $scope.user = data[0];
+
             $http({
                 method: 'GET',
-                url: apiHost + '/user',
-                params: {userId: ctrl.userId}
+                url: apiHost + '/group'
             }).success(function (data) {
-                $scope.user = data[0];
+                ctrl.groups = data;
+                ctrl.groups.forEach(function(elem) {
+                    for (var i = 0; i < $scope.user.groups.length; i++) {
+                        if(elem.id===$scope.user.groups[i].id){
+                            elem.isChecked=true;
+                        }
+                    }
+                });
             });
+
+        });
+
+
+
 
 
         $scope.saveUser=function(){
+
+            $scope.user.groups=[];
+            ctrl.groups.forEach(function(elem) {
+                if(elem.isChecked){
+                    var group={};
+                    group.id = elem.id;
+                    group.name=elem.name;
+                    $scope.user.groups.push(group);
+                }
+            });
 
             $http({
                 method: 'PUT',

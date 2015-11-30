@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.database.user;
 
+import lv.javaguru.java3.core.database.DatabaseCleaner;
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.Group;
 import org.junit.Before;
@@ -18,9 +19,11 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
 
     private Group group;
     private Group group2;
+    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
 
     @Before
-    public void init()  {
+    public void init() throws Exception {
+        databaseCleaner.cleanDatabase();
         group = createGroup()
                 .withName("All")
                 .build();
@@ -44,29 +47,6 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
         assertEquals(group.getName(), groupFromDB.getName());
         assertEquals(group.getLastModified(), groupFromDB.getLastModified());
     }
-
-    /*@Test
-    @Transactional
-    public void testCreateUserWithGroup() {
-
-        groupDAO.create(group);
-        List<Group> groups = Collections.singletonList(group);
-        User user = createUser()
-                .withLogin("userrrrr")
-                .withPassword("encryptedPassword")
-                .withUserRole(createRole().admin().build())
-                .withFirstName("dima")
-                .withLastName("pavlov")
-                .withGroups(groups)
-                .build();
-        userDAO.create(user);
-
-        Group groupFromDB = groupDAO.getById(group.getId());
-        User userFromDB = userDAO.getById(user.getId());
-        assertEquals(1, groupFromDB.getUsers().size());
-        assertEquals(user.getId(), groupFromDB.getUsers().get(0).getId());
-        assertTrue(user.getLogin().equals(groupFromDB.getUsers().get(0).getLogin()));
-    }*/
 
     @Test
     @Transactional
