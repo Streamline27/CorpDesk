@@ -15,14 +15,34 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostDAO postDAO;
+    @Autowired
+    private PostValidator postValidator;
 
     @Override
-    public Post update(Long postId, Long newUserId, Long newGroupId, String newTitle, String newBody, Date modifiedDate) {
-        return null;
+    public Post update(Long postId,
+                       Long newUserId,
+                       Long newGroupId,
+                       String newTitle,
+                       String newBody,
+                       Date modifiedDate) {
+        postValidator.validate(newUserId, newGroupId, newTitle, newBody);
+        Post post = postDAO.getById(postId);
+        post.setUserId(newUserId);
+        post.setGroupId(newGroupId);
+        post.setTitle(newTitle);
+        post.setBody(newBody);
+        post.setModifiedDate(modifiedDate);
+        return post;
     }
 
     @Override
     public Post get(Long postId) {
         return postDAO.getRequired(postId);
+    }
+
+    @Override
+    public void delete(Long postId) {
+        Post post = postDAO.getRequired(postId);
+        postDAO.delete(post);
     }
 }

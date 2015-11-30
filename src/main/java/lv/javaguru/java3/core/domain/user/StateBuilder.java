@@ -30,21 +30,25 @@ public class StateBuilder {
 
     public StateBuilder created() {
         this.id = 1;
+        this.stateName = "Created";
         return this;
     }
 
     public StateBuilder modified() {
         this.id = 2;
+        this.stateName = "Modified";
         return this;
     }
 
     public StateBuilder deleted() {
         this.id = 3;
+        this.stateName = "Deleted";
         return this;
     }
 
     public StateBuilder blocked() {
         this.id = 4;
+        this.stateName = "Blocked";
         return this;
     }
 

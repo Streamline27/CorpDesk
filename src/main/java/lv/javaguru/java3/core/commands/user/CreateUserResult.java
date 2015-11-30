@@ -1,18 +1,18 @@
 package lv.javaguru.java3.core.commands.user;
 
 import lv.javaguru.java3.core.commands.DomainCommandResult;
-import lv.javaguru.java3.core.domain.user.User;
+import lv.javaguru.java3.core.dto.user.UserDTO;
 
 public class CreateUserResult implements DomainCommandResult {
 
-	private final User user;
+	private final UserDTO userDTO;
 
-	public CreateUserResult(User user1) {
-		this.user = user1;
+	public CreateUserResult(UserDTO userDTO) {
+		this.userDTO = userDTO;
 	}
 
-	public User getUser() {
-		return user;
+	public UserDTO getUserDTO() {
+		return userDTO;
 	}
 
 }

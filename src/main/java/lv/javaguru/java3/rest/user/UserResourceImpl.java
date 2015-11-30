@@ -1,6 +1,6 @@
 package lv.javaguru.java3.rest.user;
 
-import lv.javaguru.java3.core.commands.user.command.*;
+import lv.javaguru.java3.core.commands.user.*;
 import lv.javaguru.java3.core.dto.user.UserDTO;
 import lv.javaguru.java3.core.services.CommandExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
