@@ -5,7 +5,7 @@ package lv.javaguru.java3.core.domain.mail;
  */
 public class RecipientBuilder {
     private long userId;
-    private Message message;
+    private long messageId;
     private Folder folder;
     private boolean isUnread;
     private boolean isActive;
@@ -22,7 +22,7 @@ public class RecipientBuilder {
         Recipient recipient = new Recipient();
 
         recipient.setUserId(userId);
-        recipient.setMessage(message);
+        recipient.setMessageId(messageId);
         recipient.setFolder(folder);
         recipient.setIsUnread(isUnread);
         recipient.setIsActive(isActive);
@@ -35,8 +35,8 @@ public class RecipientBuilder {
         return this;
     }
 
-    public RecipientBuilder withMessage(Message message) {
-        this.message = message;
+    public RecipientBuilder withMessageId(long messageId) {
+        this.messageId = messageId;
         return this;
     }
 

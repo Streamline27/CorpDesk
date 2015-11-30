@@ -17,7 +17,7 @@ public class CommentDTOBuilder {
 
     }
 
-    public CommentDTOBuilder createCommentDTO() {
+    public static CommentDTOBuilder createCommentDTO() {
         return new CommentDTOBuilder();
     }
 

@@ -25,6 +25,11 @@ public class FolderCategoryBuilder {
 
     }
 
+    public FolderCategoryBuilder withId(long id) {
+        this.id = id;
+        return this;
+    }
+
     public FolderCategoryBuilder withName(String name) {
         this.name = name;
         return this;
