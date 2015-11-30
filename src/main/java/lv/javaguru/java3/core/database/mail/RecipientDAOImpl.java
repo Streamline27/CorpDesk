@@ -5,6 +5,7 @@ import lv.javaguru.java3.core.domain.mail.Recipient;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -15,22 +16,26 @@ import java.util.List;
 public class RecipientDAOImpl extends CRUDOperationDAOImpl<Recipient, Long> implements RecipientDAO {
 
     @Override
-    public List<Recipient> getByUserId(long userId) {
+    public List<Recipient> getByFolderId(long folderId) {
         return getCurrentSession().createCriteria(Recipient.class)
                 .add(Restrictions.and(
-                        Restrictions.eq("userId", userId),
+                        Restrictions.eq("folder.id", folderId),
                         Restrictions.eq("isActive", true)
-                )).list();
+                ))
+                .list();
     }
 
     @Override
-    public int getUnreadMessageCount(long userId) {
-        return getCurrentSession().createCriteria(Recipient.class)
-                .add(Restrictions.and(
-                        Restrictions.eq("userId", userId),
-                        Restrictions.eq("isUnread", true),
-                        Restrictions.eq("isActive", true)))
-                .list().size();
+    public int getMessagesCount(long folderId) {
+        return ( (BigInteger) getCurrentSession().createSQLQuery("SELECT COUNT(*) FROM recipients " +
+                "WHERE folder_id = '" + folderId + "' AND is_active = '1'").list().get(0)).intValue();
+    }
+
+    @Override
+    public int getUnreadMessageCount(long folderId) {
+        return ( (BigInteger) getCurrentSession()
+                .createSQLQuery("SELECT COUNT(*) FROM recipients WHERE folder_id = '" + folderId +
+                        "' AND is_active = '1' AND is_unread = '1'").list().get(0)).intValue();
     }
 
 }

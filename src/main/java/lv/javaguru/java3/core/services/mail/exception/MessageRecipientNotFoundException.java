@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.services.mail.message.exception;
+package lv.javaguru.java3.core.services.mail.exception;
 
 /**
  * Created by Andrew on 20.11.2015.

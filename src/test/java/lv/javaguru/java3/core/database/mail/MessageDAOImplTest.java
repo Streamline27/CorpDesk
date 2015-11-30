@@ -7,7 +7,6 @@ import lv.javaguru.java3.core.domain.mail.Message;
 import lv.javaguru.java3.core.domain.mail.Recipient;
 import lv.javaguru.java3.core.domain.user.User;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
@@ -54,8 +53,6 @@ public class MessageDAOImplTest extends DatabaseHibernateTest {
                 .withLastName("Two")
                 .withEmail("two@test.user")
                 .build();
-        userDAO.create(user1);
-        userDAO.create(user2);
 
         folder1 = createFolder()
                 .withCategory(createFolderCategory().custom().build())
@@ -67,8 +64,6 @@ public class MessageDAOImplTest extends DatabaseHibernateTest {
                 .withName("User 2 Folder")
                 .withUserId(user2.getId())
                 .build();
-        folderDAO.create(folder1);
-        folderDAO.create(folder2);
 
         recipient1 = createRecipient()
                 .withUserId(user2.getId())
@@ -101,6 +96,11 @@ public class MessageDAOImplTest extends DatabaseHibernateTest {
     @Transactional
     public void testMessageCreateAndGetById() {
 
+        userDAO.create(user1);
+        userDAO.create(user2);
+
+        folder1.setUserId(user1.getId());
+        folder2.setUserId(user2.getId());
         folderDAO.create(folder1);
         folderDAO.create(folder2);
 
@@ -114,8 +114,19 @@ public class MessageDAOImplTest extends DatabaseHibernateTest {
     @Test
     @Transactional
     public void testListRecipients() {
-        messageDAO.create(message2);
+
+        userDAO.create(user1);
+        userDAO.create(user2);
+
+        folder1.setUserId(user1.getId());
+        folder2.setUserId(user2.getId());
+        folderDAO.create(folder1);
+        folderDAO.create(folder2);
+
+        recipient1.setUserId(user1.getId());
+        recipient2.setUserId(user2.getId());
         messageDAO.create(message1);
+        messageDAO.create(message2);
 
         List<Recipient> recipientList = messageDAO.getById(message1.getId()).getRecipients();
 
@@ -130,40 +141,25 @@ public class MessageDAOImplTest extends DatabaseHibernateTest {
 
     @Test
     @Transactional
-    public void testGetByRecipient() {
+    public void testUpdate() {
+
+        userDAO.create(user1);
+        userDAO.create(user2);
+
+        folder1.setUserId(user1.getId());
+        folder2.setUserId(user2.getId());
+        folderDAO.create(folder1);
+        folderDAO.create(folder2);
+
+        recipient1.setUserId(user1.getId());
+        recipient2.setUserId(user2.getId());
 
         messageDAO.create(message1);
-        messageDAO.create(message2);
 
-        Recipient recipientFromDB = recipientDAO.getById(message1.getRecipients().get(0).getId());
-        assertTrue(recipientFromDB.getMessage().equals(message1));
+        message1.setTitle("Updated title");
 
-        recipientFromDB = recipientDAO.getById(message2.getRecipients().get(0).getId());
-        assertTrue(recipientFromDB.getMessage().equals(message2));
+        messageDAO.update(message1);
 
+        assertTrue(messageDAO.getById(message1.getId()).getTitle().equals("Updated title"));
     }
-
-    @Test
-    @Transactional
-    @Ignore
-    public void testGetByUser() {
-
-        messageDAO.create(message1);
-        messageDAO.create(message2);
-
-        recipientDAO.create(recipient1);
-        recipientDAO.create(recipient2);
-
-        List<Recipient> recipientList;
-        recipientList = recipientDAO.getByUserId(user1.getId());
-
-        assertEquals(1, recipientList.size());
-        assertTrue(recipientList.contains(recipient2));
-
-        recipientList = recipientDAO.getByUserId(user2.getId());
-
-        assertEquals(1, recipientList.size());
-        assertTrue(recipientList.contains(recipient1));
-    }
-
 }

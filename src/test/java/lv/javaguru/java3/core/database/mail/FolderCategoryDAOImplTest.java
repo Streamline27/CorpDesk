@@ -20,13 +20,14 @@ import static org.junit.Assert.*;
  */
 public class FolderCategoryDAOImplTest extends DatabaseHibernateTest{
 
-    private FolderCategory category1;
-    private FolderCategory category2;
+    @Test
+    @Transactional
+    public void testGetAll() {
 
-    @Before
-    public void init() {
-        category1 = createFolderCategory().withName("TestCat1").build();
-        category2 = createFolderCategory().withName("TestCat2").build();
+        List<FolderCategory> list = folderCategoryDAO.getAll();
+
+        assertEquals(5, list.size());
+
     }
 
     @Test
@@ -44,79 +45,6 @@ public class FolderCategoryDAOImplTest extends DatabaseHibernateTest{
         assertTrue(catDraft.getName().equals(folderCategoryDAO.getById(catDraft.getId()).getName()));
         assertTrue(catDeleted.getName().equals(folderCategoryDAO.getById(catDeleted.getId()).getName()));
         assertTrue(catCustom.getName().equals(folderCategoryDAO.getById(catCustom.getId()).getName()));
-    }
-
-    @Test
-    @Transactional
-    public void testCreateFolderCategory() {
-        assertEquals(0, category1.getId());
-        folderCategoryDAO.create(category1);
-
-        assertTrue(category1.getId() > 0);
-
-        assertThat(category1.getId(), is(notNullValue()));
-        assertThat(category1.getName(), is(notNullValue()));
-
-        FolderCategory groupFromDB = folderCategoryDAO.getById(category1.getId());
-        assertEquals(category1.getName(), groupFromDB.getName());
-    }
-
-    @Test
-    @Transactional
-    public void testGetById() {
-        folderCategoryDAO.create(category1);
-        FolderCategory catFromDb = folderCategoryDAO.getById(category1.getId());
-        assertThat(catFromDb, is(notNullValue()));
-    }
-
-    @Test
-    @Transactional
-    public void testMultipleCatCreation() {
-        List<FolderCategory> cats = folderCategoryDAO.getAll();
-        int catsCount = cats == null ? 0 : cats.size();
-
-        folderCategoryDAO.create(category1);
-        folderCategoryDAO.create(category2);
-        cats = folderCategoryDAO.getAll();
-        assertEquals(2, cats.size() - catsCount);
-    }
-
-    @Test
-    @Transactional
-    @Ignore
-    public void testDelete()  {
-        List<FolderCategory> cats = folderCategoryDAO.getAll();
-        int catsCount = cats == null ? 0 : cats.size();
-
-        folderCategoryDAO.create(category1);
-        folderCategoryDAO.create(category2);
-        cats = folderCategoryDAO.getAll();
-        assertEquals(2, cats.size() - catsCount);
-
-        folderCategoryDAO.delete(category1);
-        cats = folderCategoryDAO.getAll();
-        assertEquals(1, cats.size() - catsCount); // Fails to delete
-
-        folderCategoryDAO.delete(category2);
-        cats = folderCategoryDAO.getAll();
-        assertEquals(0, cats.size() - catsCount);
-    }
-
-    @Test
-    @Transactional
-    public void testUpdate()  {
-        folderCategoryDAO.create(category1);
-
-        category1 = folderCategoryDAO.getById(category1.getId());
-
-        category1.setName(category2.getName());
-
-        folderCategoryDAO.update(category1);
-
-        FolderCategory catFromDB = folderCategoryDAO.getById(category1.getId());
-
-        assertNotNull(catFromDB);
-        assertEquals(category2.getName(), catFromDB.getName());
     }
 
 }

@@ -12,7 +12,8 @@ import java.util.List;
  */
 public interface RecipientDAO extends CRUDOperationDAO<Recipient, Long>{
 
-    List<Recipient> getByUserId(long userId);
+    List getByFolderId(long folderId);
+    int getMessagesCount(long folderId);
+    int getUnreadMessageCount(long folderId);
 
-    int getUnreadMessageCount(long userId);
 }

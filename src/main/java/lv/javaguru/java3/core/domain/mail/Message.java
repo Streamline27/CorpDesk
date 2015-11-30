@@ -22,7 +22,7 @@ public class Message extends Generic {
     @Column(name = "id", columnDefinition = "bigint", nullable = false)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "sender_id")
     private User sender;
 
@@ -41,7 +41,8 @@ public class Message extends Generic {
     @Column(name = "created", nullable = false)
     private Date created;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "message")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "message_id")
     private List<Recipient> recipients;
 
     public Message() {

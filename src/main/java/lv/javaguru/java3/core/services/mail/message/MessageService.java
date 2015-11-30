@@ -2,6 +2,7 @@ package lv.javaguru.java3.core.services.mail.message;
 
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.domain.mail.Message;
+import lv.javaguru.java3.core.domain.mail.Recipient;
 import lv.javaguru.java3.core.domain.user.User;
 
 import java.util.List;
@@ -17,7 +18,9 @@ public interface MessageService {
                  List<User> recipients,
                  boolean isImportant);
 
-    Message get(Long messageId);
+    Message getById(Long messageId);
+
+    List<Recipient> list(long folderId);
 
     void moveToFolder(Message message, User user, Folder newFolder);
 

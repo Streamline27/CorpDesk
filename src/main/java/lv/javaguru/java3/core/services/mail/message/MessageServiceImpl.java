@@ -4,8 +4,11 @@ import lv.javaguru.java3.core.database.mail.MessageDAO;
 import lv.javaguru.java3.core.database.mail.RecipientDAO;
 import lv.javaguru.java3.core.domain.mail.*;
 import lv.javaguru.java3.core.domain.user.User;
-import lv.javaguru.java3.core.services.mail.message.exception.MessageRecipientNotFoundException;
+import lv.javaguru.java3.core.services.mail.folder.FolderService;
+import lv.javaguru.java3.core.services.mail.folder.FolderValidator;
+import lv.javaguru.java3.core.services.mail.exception.MessageRecipientNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +20,14 @@ import static lv.javaguru.java3.core.domain.mail.MessageBuilder.createMessage;
 /**
  * Created by Andrew on 17.11.2015.
  */
+@Component
 public class MessageServiceImpl implements MessageService {
 
     @Autowired private MessageDAO messageDAO;
     @Autowired private MessageValidator validator;
     @Autowired private RecipientDAO recipientDAO;
+    @Autowired private FolderService folderService;
+    @Autowired private FolderValidator folderValidator;
 
     @Override
     public Message send(User sender,
@@ -48,13 +54,18 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message get(Long messageId) {
+    public Message getById(Long messageId) {
         return messageDAO.getById(messageId);
     }
 
     @Override
+    public List<Recipient> list(long folderId) {
+        return recipientDAO.getByFolderId(folderId);
+    }
+
+    @Override
     public void moveToFolder(Message message, User user, Folder newFolder) {
-        // TODO Validate if newFolder exists and belongs to user
+        folderValidator.validate(newFolder);
 
         try {
             Recipient recipient = getRecipient(user, message);
@@ -69,22 +80,16 @@ public class MessageServiceImpl implements MessageService {
     public void delete(User user, Message message) {
         try {
             Recipient recipient = getRecipient(user, message);
-            if (recipient.getFolder().getCategory().equals(createFolderCategory().deleted().build())) {
+            if (folderService.isDeleted(recipient.getFolder())) {
                 recipient.setIsActive(false);
             } else {
-                recipient.setFolder(getDeletedFolder(user));
+                recipient.setFolder(folderService.getDeleted(user));
             }
             recipientDAO.update(recipient);
         } catch (MessageRecipientNotFoundException e) {
             e.printStackTrace();
         }
 
-
-    }
-
-    private Folder getDeletedFolder(User user) {
-        // maybe create static getters? (If not exists - create, otherwise - return existing folder)
-        return null;
     }
 
     @Override

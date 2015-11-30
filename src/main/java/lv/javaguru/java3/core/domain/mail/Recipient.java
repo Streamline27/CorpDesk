@@ -17,14 +17,13 @@ public class Recipient extends Generic{
     @Column(name = "id", nullable = false)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "message_id", nullable = false)
-    private Message message;
+    @Column(name = "message_id")
+    private long messageId;
 
     @Column(name = "user_id")
     private long userId;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "folder_id", nullable = false)
     private Folder folder;
 
@@ -53,12 +52,12 @@ public class Recipient extends Generic{
         this.userId = userId;
     }
 
-    public Message getMessage() {
-        return message;
+    public long getMessageId() {
+        return messageId;
     }
 
-    public void setMessage(Message message) {
-        this.message = message;
+    public void setMessageId(long messageId) {
+        this.messageId = this.messageId;
     }
 
     public Folder getFolder() {
