@@ -1,7 +1,10 @@
 package lv.javaguru.java3.core.domain.user;
 
 
+import lv.javaguru.java3.core.dto.user.UserDTO;
+
 import java.util.Date;
+import java.util.List;
 
 public class GroupBuilder {
 
@@ -9,6 +12,7 @@ public class GroupBuilder {
     private String name;
     private State state;
     private Date lastModified;
+    private List<User> users;
 
     private GroupBuilder() {}
 
@@ -21,6 +25,7 @@ public class GroupBuilder {
         group.setName(name);
         group.setState(state);
         group.setLastModified(lastModified);
+        group.setUsers(users);
 
         return group;
 
@@ -43,6 +48,11 @@ public class GroupBuilder {
 
     public GroupBuilder withLastModified(Date lastModified) {
         this.lastModified = lastModified;
+        return this;
+    }
+
+    public GroupBuilder withUsers(List<User> users) {
+        this.users = users;
         return this;
     }
 

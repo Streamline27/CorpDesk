@@ -27,6 +27,10 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
             ctrl.groups = data;
         });
 
+        ctrl.addUser=function(group){
+            $location.path("/user/")
+        };
+
 
         ctrl.editUser=function(user){
             $location.path("/user/"+user.id)
@@ -43,6 +47,10 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
                     ctrl.users.splice(index, 1);
                 }
             });
+        };
+
+        ctrl.addGroup=function(group){
+            $location.path("/group/")
         };
 
         ctrl.editGroup=function(group){
@@ -63,57 +71,96 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
         };
   }]);
 
-corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams',
-    function($scope, $http, $routeParams) {
+corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams', '$location',
+    function($scope, $http, $routeParams, $location) {
         var ctrl = this;
         ctrl.userId=$routeParams.id
 
 
-        $http({
-            method: 'GET',
-            url: apiHost + '/user',
-            params: {userId: ctrl.userId}
-        }).success(function (data) {
-            $scope.user = data[0];
-
+        if (ctrl.userId) {
             $http({
                 method: 'GET',
-                url: apiHost + '/group'
+                url: apiHost + '/user',
+                params: {userId: ctrl.userId}
             }).success(function (data) {
-                ctrl.groups = data;
-                ctrl.groups.forEach(function(elem) {
-                    for (var i = 0; i < $scope.user.groups.length; i++) {
-                        if(elem.id===$scope.user.groups[i].id){
-                            elem.isChecked=true;
+                $scope.user = data[0];
+
+                $http({
+                    method: 'GET',
+                    url: apiHost + '/group'
+                }).success(function (data) {
+                    ctrl.groups = data;
+                    ctrl.groups.forEach(function (elem) {
+                        for (var i = 0; i < $scope.user.groups.length; i++) {
+                            if (elem.id === $scope.user.groups[i].id) {
+                                elem.isChecked = true;
+                            }
                         }
+                    });
+                });
+
+            });
+        }
+
+
+        $scope.saveUser=function() {
+
+            $scope.user.groups = [];
+            if (ctrl.groups) {
+
+                ctrl.groups.forEach(function (elem) {
+                    if (elem.isChecked) {
+                        var group = {};
+                        group.id = elem.id;
+                        group.name = elem.name;
+                        $scope.user.groups.push(group);
                     }
                 });
-            });
+            }
 
-        });
-
-
-
-
-
-        $scope.saveUser=function(){
-
-            $scope.user.groups=[];
-            ctrl.groups.forEach(function(elem) {
-                if(elem.isChecked){
-                    var group={};
-                    group.id = elem.id;
-                    group.name=elem.name;
-                    $scope.user.groups.push(group);
-                }
-            });
+            var methodName=ctrl.userId? 'PUT':'POST';
 
             $http({
-                method: 'PUT',
+                method: methodName,
                 url: apiHost + '/user',
                 data: $scope.user
             }).success(function (data) {
                 $scope.user = data;
+                if (!ctrl.userId){
+                    $location.path("/users")
+                }
+            });
+        };
+    }]);
+
+
+corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParams', '$location',
+    function($scope, $http, $routeParams, $location) {
+        var ctrl = this;
+        ctrl.groupId=$routeParams.id
+
+
+        if (ctrl.groupId) {
+            $http({
+                method: 'GET',
+                url: apiHost + '/group',
+                params: {groupId: ctrl.groupId}
+            }).success(function (data) {
+                $scope.group = data[0];
+            });
+        }
+
+
+        $scope.saveGroup=function() {
+            $http({
+                method: 'POST',
+                url: apiHost + '/group',
+                data: $scope.group
+            }).success(function (data) {
+                $scope.group = data;
+                if (!ctrl.groupId){
+                    $location.path("/users")
+                }
             });
         };
     }]);

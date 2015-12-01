@@ -28,6 +28,21 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: "UserEditCtrl",
           controllerAs: "UserEditCtrl"
       })
+      .when("/user/", {
+          templateUrl: "partials/user.html",
+          controller: "UserEditCtrl",
+          controllerAs: "UserEditCtrl"
+      })
+      .when("/group/", {
+          templateUrl: "partials/group.html",
+          controller: "GroupEditCtrl",
+          controllerAs: "GroupEditCtrl"
+      })
+      .when("/group/:id?", {
+          templateUrl: "partials/group.html",
+          controller: "GroupEditCtrl",
+          controllerAs: "GroupEditCtrl"
+      })
 
     // Home
     .when("/", {templateUrl: "partials/home.html", controller: "PageCtrl"})
