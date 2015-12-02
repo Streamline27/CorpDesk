@@ -5,8 +5,11 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <h1 class="page-header">User {{user.login}} ({{user.id}})
+            <h1 class="page-header" ng-show="UserEditCtrl.userId">User {{user.login}} ({{user.id}})
                 <small>edit</small>
+            </h1>
+            <h1 class="page-header" ng-show="!UserEditCtrl.userId">User
+                <small>create</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="./index.html">Home</a>
@@ -19,6 +22,14 @@
     <!-- /.row -->
 
     <div class="edit-content">
+        <div class="row custom-row" ng-show="!UserEditCtrl.userId">
+            <div class="col-xs-4 radio-group">
+                <label>
+                    Login<br>
+                    <input ng-model="user.login">
+                </label>
+            </div>
+        </div>
         <div class="row custom-row">
             <div class="col-xs-4 radio-group">
                 <label>
@@ -64,7 +75,7 @@
             </div>
         </div>
 
-        <div class="row custom-row" style="margin-top: 50px">
+        <div class="row custom-row" style="margin-top: 50px" ng-show="UserEditCtrl.userId">
             <span>User's groups</span>
             <table>
                 <tr ng-repeat="group in UserEditCtrl.groups">

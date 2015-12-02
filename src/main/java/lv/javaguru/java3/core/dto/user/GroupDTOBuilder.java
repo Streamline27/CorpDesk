@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.dto.user;
 
 import java.util.Date;
+import java.util.List;
 
 public class GroupDTOBuilder {
 
@@ -8,6 +9,7 @@ public class GroupDTOBuilder {
     private String name;
     private StateDTO state;
     private Date lastModified;
+    private List<UserDTO> users;
 
     private GroupDTOBuilder() {}
 
@@ -20,6 +22,7 @@ public class GroupDTOBuilder {
         groupDTO.setName(name);
         groupDTO.setState(state);
         groupDTO.setLastModified(lastModified);
+        groupDTO.setUsers(users);
 
         return groupDTO;
 
@@ -42,6 +45,11 @@ public class GroupDTOBuilder {
 
     public GroupDTOBuilder withLastModified(Date lastModified) {
         this.lastModified = lastModified;
+        return this;
+    }
+
+    public GroupDTOBuilder withUsers(List<UserDTO> users) {
+        this.users = users;
         return this;
     }
 

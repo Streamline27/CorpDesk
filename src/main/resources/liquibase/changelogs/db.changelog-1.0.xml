@@ -511,4 +511,13 @@
     </changeSet>
 
 
+    <changeSet id="21" author="nastasjab" >
+        <dropNotNullConstraint  tableName="users" columnName="password"
+                              columnDataType="varchar(50)"
+                              />
+    </changeSet>
+
+
+
+
 </databaseChangeLog>

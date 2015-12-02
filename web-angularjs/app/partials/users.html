@@ -45,7 +45,11 @@
                 </td>
             </tr>
         </table>
+            <div>
+                <a class="glyphicon glyphicon-plus" ng-click="UserListCtrl.addUser()"></a>
+            </div>
         </div>
+
 
         <div class="col-xs-3">
             <span>Groups</span>
@@ -59,11 +63,13 @@
                     <td>{{ group.id }}</td>
                     <td>{{ group.name }}</td>
                     <td>
-                        <a class="glyphicon glyphicon-pencil" ng-click="UserListCtrl.editGroup(group)"></a>
                         <a class="glyphicon glyphicon-remove" ng-click="UserListCtrl.deleteGroup(group)"></a>
                     </td>
                 </tr>
             </table>
+            <div>
+                <a class="glyphicon glyphicon-plus" ng-click="UserListCtrl.addGroup()"></a>
+            </div>
         </div>
 
     </div>

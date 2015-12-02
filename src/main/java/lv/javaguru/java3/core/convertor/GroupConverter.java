@@ -15,6 +15,8 @@ import static lv.javaguru.java3.core.domain.user.GroupBuilder.createGroup;
 public class GroupConverter {
     @Autowired
     private StateConverter stateConverter;
+    @Autowired
+    private UserConverter userConverter;
 
     public GroupDTO convert(Group group) {
         if (group==null) return null;

@@ -15,7 +15,7 @@ class UserValidatorImpl implements UserValidator {
     @Override
     public void validate(User user) throws Exception {
         validateLogin(user.getLogin());
-        validatePassword(user.getPassword());
+        //validatePassword(user.getPassword());
         validateRole(user.getUserRole());
         validateFirstName(user.getFirstName());
         validateLastName(user.getLastName());
