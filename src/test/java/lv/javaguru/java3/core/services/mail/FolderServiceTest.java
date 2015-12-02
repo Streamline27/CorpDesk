@@ -4,6 +4,7 @@ import lv.javaguru.java3.config.AppCoreConfig;
 import lv.javaguru.java3.core.database.mail.FolderDAO;
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.services.mail.exception.FolderNotEmptyException;
+import lv.javaguru.java3.core.services.mail.exception.InvalidFolderOperationException;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
 import lv.javaguru.java3.core.services.mail.folder.FolderServiceImpl;
 import lv.javaguru.java3.core.services.mail.folder.FolderValidator;
@@ -108,6 +109,8 @@ public class FolderServiceTest {
         try {
             folderService.delete(folder);
         } catch (FolderNotEmptyException e) {
+            e.printStackTrace();
+        } catch (InvalidFolderOperationException e) {
             e.printStackTrace();
         }
 

@@ -3,6 +3,7 @@ package lv.javaguru.java3.core.services.mail.folder;
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.mail.exception.FolderNotEmptyException;
+import lv.javaguru.java3.core.services.mail.exception.InvalidFolderOperationException;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -14,11 +15,11 @@ public interface FolderService {
 
     void create(Folder folder);
 
-    void delete(Folder folder) throws FolderNotEmptyException;
+    Folder get(long folderId);
+
+    void delete(Folder folder) throws FolderNotEmptyException, InvalidFolderOperationException;
 
     List<Folder> list(User user);
-
-    int getMessagesCount(Folder folder);
 
 
     Folder getInbox(User user);

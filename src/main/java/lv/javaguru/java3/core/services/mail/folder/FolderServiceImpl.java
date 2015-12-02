@@ -5,6 +5,7 @@ import lv.javaguru.java3.core.database.mail.RecipientDAO;
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.mail.exception.FolderNotEmptyException;
+import lv.javaguru.java3.core.services.mail.exception.InvalidFolderOperationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,9 +31,17 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public void delete(Folder folder) throws FolderNotEmptyException {
-        if (getMessagesCount(folder) > 0)
+    public Folder get(long folderId) {
+        return folderDAO.getById(folderId);
+    }
+
+    @Override
+    public void delete(Folder folder) throws FolderNotEmptyException, InvalidFolderOperationException {
+        if (recipientDAO.getMessagesCount(folder.getId()) > 0)
             throw new FolderNotEmptyException();
+
+        if (!isCustom(folder))
+            throw new InvalidFolderOperationException();
 
         folderDAO.delete(folder);
     }
@@ -40,11 +49,6 @@ public class FolderServiceImpl implements FolderService {
     @Override
     public List<Folder> list(User user) {
         return folderDAO.listByUserId(user.getId());
-    }
-
-    @Override
-    public int getMessagesCount(Folder folder) {
-        return recipientDAO.getMessagesCount(folder.getId());
     }
 
     @Override

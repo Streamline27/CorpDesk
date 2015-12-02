@@ -2,6 +2,7 @@ package lv.javaguru.java3.core.services.mail.message;
 
 import lv.javaguru.java3.core.database.mail.MessageDAO;
 import lv.javaguru.java3.core.database.mail.RecipientDAO;
+import lv.javaguru.java3.core.database.user.UserDAO;
 import lv.javaguru.java3.core.domain.mail.*;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
@@ -27,7 +28,7 @@ public class MessageServiceImpl implements MessageService {
     @Autowired private MessageValidator validator;
     @Autowired private RecipientDAO recipientDAO;
     @Autowired private FolderService folderService;
-    @Autowired private FolderValidator folderValidator;
+    @Autowired private UserDAO userDAO;
 
     @Override
     public Message send(User sender,
@@ -54,7 +55,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message getById(Long messageId) {
+    public Message get(Long messageId) {
         return messageDAO.getById(messageId);
     }
 
@@ -64,12 +65,12 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void moveToFolder(Message message, User user, Folder newFolder) {
-        folderValidator.validate(newFolder);
+    public void moveToFolder(long messageId, long userId, long newFolderId) {
+        Folder folder = folderService.get(newFolderId);
 
         try {
-            Recipient recipient = getRecipient(user, message);
-            recipient.setFolder(newFolder);
+            Recipient recipient = getRecipient(userId, messageId);
+            recipient.setFolder(folder);
             recipientDAO.update(recipient);
         } catch (MessageRecipientNotFoundException e) {
             e.printStackTrace();
@@ -77,13 +78,13 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void delete(User user, Message message) {
+    public void delete(long messageId, long userId) {
         try {
-            Recipient recipient = getRecipient(user, message);
+            Recipient recipient = getRecipient(userId, messageId);
             if (folderService.isDeleted(recipient.getFolder())) {
                 recipient.setIsActive(false);
             } else {
-                recipient.setFolder(folderService.getDeleted(user));
+                recipient.setFolder(folderService.getDeleted(userDAO.getById(userId)));
             }
             recipientDAO.update(recipient);
         } catch (MessageRecipientNotFoundException e) {
@@ -92,9 +93,15 @@ public class MessageServiceImpl implements MessageService {
 
     }
 
+
     @Override
-    public int getUnreadMessageCount(User user) {
-        return recipientDAO.getUnreadMessageCount(user.getId());
+    public int getMessagesCount(Folder folder) {
+        return recipientDAO.getMessagesCount(folder.getId());
+    }
+
+    @Override
+    public int getUnreadMessageCount(long folderId) {
+        return recipientDAO.getUnreadMessageCount(folderId);
     }
 
 
@@ -122,11 +129,11 @@ public class MessageServiceImpl implements MessageService {
                 .build();
     }
 
-    private Recipient getRecipient(User user, Message message)
+    private Recipient getRecipient(long userId, long messageId)
             throws MessageRecipientNotFoundException {
 
-        for (Recipient r : message.getRecipients())
-            if (r.getUserId() == user.getId())
+        for (Recipient r : messageDAO.getById(messageId).getRecipients())
+            if (r.getUserId() == userId)
                 return r;
 
         throw new MessageRecipientNotFoundException();
