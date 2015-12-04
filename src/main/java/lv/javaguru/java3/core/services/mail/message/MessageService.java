@@ -18,14 +18,16 @@ public interface MessageService {
                  List<User> recipients,
                  boolean isImportant);
 
-    Message getById(Long messageId);
+    Message get(Long messageId);
 
     List<Recipient> list(long folderId);
 
-    void moveToFolder(Message message, User user, Folder newFolder);
+    void moveToFolder(long messageId, long userId, long newFolderId);
 
-    void delete(User user, Message message);
+    void delete(long userId, long messageId);
 
-    int getUnreadMessageCount(User user);
+    int getMessagesCount(Folder folder);
+
+    int getUnreadMessageCount(long folderId);
 
 }

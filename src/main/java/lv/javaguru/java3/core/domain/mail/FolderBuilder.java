@@ -30,6 +30,11 @@ public class FolderBuilder {
         return folder;
     }
 
+    public FolderBuilder withId(long id) {
+        this.id = id;
+        return this;
+    }
+
     public FolderBuilder withUserId(long userId) {
         this.userId = userId;
         return this;
