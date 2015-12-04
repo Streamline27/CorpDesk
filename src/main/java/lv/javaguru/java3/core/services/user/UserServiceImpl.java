@@ -2,9 +2,9 @@ package lv.javaguru.java3.core.services.user;
 
 import lv.javaguru.java3.core.database.user.UserDAO;
 import lv.javaguru.java3.core.domain.user.User;
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import lv.javaguru.java3.core.services.user.exception.InvalidPasswordException;
+import lv.javaguru.java3.core.services.user.exception.UserNotFoundException;
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,15 +29,29 @@ class UserServiceImpl implements UserService {
 
     @Override
     public void create(User user) throws Exception {
-        userValidator.validate(user);
+        userValidator.validate(user, false);
+
         user.setPassword(encrypt(user.getPassword()));
         userDAO.create(user);
     }
 
     @Override
     public void update(User user) throws Exception {
-        userValidator.validate(user);
-        userDAO.update(user);
+        userValidator.validate(user, true);
+
+        User userFromDb = userDAO.getByLogin(user.getLogin());
+        if (userFromDb == null) {
+            throw new UserNotFoundException();
+        }
+
+        userFromDb.setFirstName(user.getFirstName());
+        userFromDb.setLastName(user.getLastName());
+        userFromDb.setEmail(user.getEmail());
+        userFromDb.setUserRole(user.getUserRole());
+        userFromDb.setGroups(user.getGroups());
+
+        // leave old password
+        userDAO.update(userFromDb);
     }
 
     @Override
@@ -63,17 +77,17 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int changePassword(String login, String oldPassword, String newPassword) {
+    public void changePassword(String login, String oldPassword, String newPassword) throws Exception {
+        userValidator.validateChangePassword(login, oldPassword, newPassword);
         User user = userDAO.getByLogin(login);
-        if(user==null)
-            return 1;
 
-        if (!getEncryptor().checkPassword(oldPassword, user.getPassword()))
-            return 2;
+        // hack to allow change null password
+        if (user.getPassword()!=null)
+            if (!getEncryptor().checkPassword(oldPassword, user.getPassword()))
+                throw new InvalidPasswordException();
 
         user.setPassword(encrypt(newPassword));
         userDAO.update(user);
-        return 0;
     }
 
     private String encrypt(String password) {

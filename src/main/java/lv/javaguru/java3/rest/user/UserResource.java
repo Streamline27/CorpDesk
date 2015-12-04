@@ -4,6 +4,7 @@ import lv.javaguru.java3.core.dto.user.ChangePasswordDTO;
 import lv.javaguru.java3.core.dto.user.UserDTO;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface UserResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/user")
-    UserDTO create(UserDTO userDTO) throws Exception;
+    Response create(UserDTO userDTO) throws Exception;
 
     @GET
     @Consumes(APPLICATION_JSON)
@@ -39,7 +40,7 @@ public interface UserResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/user/changepassword")
-    int changePassword(ChangePasswordDTO changePasswordDTO) throws Exception;
+    Response changePassword(ChangePasswordDTO changePasswordDTO) throws Exception;
 
     @POST
     @Consumes(APPLICATION_JSON)

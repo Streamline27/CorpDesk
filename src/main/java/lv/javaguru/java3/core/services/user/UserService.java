@@ -1,6 +1,8 @@
 package lv.javaguru.java3.core.services.user;
 
 import lv.javaguru.java3.core.domain.user.User;
+import lv.javaguru.java3.core.services.user.exception.InvalidPasswordException;
+import lv.javaguru.java3.core.services.user.exception.UserNotFoundException;
 
 import java.util.List;
 
@@ -19,5 +21,5 @@ public interface UserService {
 
     int validate(String login, String password);
 
-    int changePassword(String login, String oldPassword, String newPassword);
+    void changePassword(String login, String oldPassword, String newPassword) throws Exception;
 }

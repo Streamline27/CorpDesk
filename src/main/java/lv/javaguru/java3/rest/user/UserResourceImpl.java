@@ -1,5 +1,6 @@
 package lv.javaguru.java3.rest.user;
 
+import com.google.gson.Gson;
 import lv.javaguru.java3.core.commands.user.*;
 import lv.javaguru.java3.core.dto.user.ChangePasswordDTO;
 import lv.javaguru.java3.core.dto.user.UserDTO;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 public class UserResourceImpl implements UserResource {
 
     private CommandExecutor commandExecutor;
+    private Gson gson = new Gson();
 
     @Autowired
     public UserResourceImpl(CommandExecutor commandExecutor) {
@@ -29,10 +32,14 @@ public class UserResourceImpl implements UserResource {
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public UserDTO create(UserDTO userDTO) throws Exception {
-        CreateUserCommand command = new CreateUserCommand(userDTO);
-        CreateUserResult result = commandExecutor.execute(command);
-        return result.getUserDTO();
+    public Response create(UserDTO userDTO) throws Exception {
+        try {
+            CreateUserCommand command = new CreateUserCommand(userDTO);
+            CreateUserResult result = commandExecutor.execute(command);
+            return Response.ok().entity(gson.toJson(result.getUserDTO())).build();
+        } catch (Exception e){
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
     }
 
     @Override
@@ -69,10 +76,14 @@ public class UserResourceImpl implements UserResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/changepassword")
-    public int changePassword(ChangePasswordDTO changePasswordDTO) throws Exception {
-        ChangePasswordCommand command = new ChangePasswordCommand(changePasswordDTO);
-        ChangePasswordResult result = commandExecutor.execute(command);
-        return result.getResponse();
+    public Response changePassword(ChangePasswordDTO changePasswordDTO) throws Exception {
+        try {
+            ChangePasswordCommand command = new ChangePasswordCommand(changePasswordDTO);
+            commandExecutor.execute(command);
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
     }
 
     @Override

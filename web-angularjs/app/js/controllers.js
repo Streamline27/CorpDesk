@@ -18,6 +18,8 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
             url: apiHost + '/user'
         }).success(function (data) {
             ctrl.users = data;
+        }).catch(function(err){
+            alert(err.data);
         });
 
         $http({
@@ -25,6 +27,8 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
             url: apiHost + '/group'
         }).success(function (data) {
             ctrl.groups = data;
+        }).catch(function(err){
+            alert(err.data);
         });
 
         ctrl.addUser=function(group){
@@ -46,6 +50,8 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
                 if (index > -1) {
                     ctrl.users.splice(index, 1);
                 }
+            }).catch(function(err){
+                alert(err.data);
             });
         };
 
@@ -67,6 +73,8 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
                 if (index > -1) {
                     ctrl.groups.splice(index, 1);
                 }
+            }).catch(function(err){
+                alert(err.data);
             });
         };
   }]);
@@ -97,8 +105,12 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
                             }
                         }
                     });
+                }).catch(function(err){
+                    alert(err.data);
                 });
 
+            }).catch(function(err){
+                alert(err.data);
             });
         }
 
@@ -137,6 +149,8 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
                 if (!ctrl.userId){
                     $location.path("/users")
                 }
+            }).catch(function(err){
+                alert(err.data);
             });
         };
     }]);
@@ -155,6 +169,8 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
                 params: {groupId: ctrl.groupId}
             }).success(function (data) {
                 $scope.group = data[0];
+            }).catch(function(err){
+                alert(err.data);
             });
         }
 
@@ -169,13 +185,15 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
                 if (!ctrl.groupId){
                     $location.path("/users")
                 }
+            }).catch(function(err){
+                alert(err.data);
             });
         };
     }]);
 
 
-corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
-    function($scope, $http, $rootScope) {
+corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope', '$location',
+    function($scope, $http, $rootScope, $location) {
         var ctrl = this;
         ctrl.data={};
 
@@ -191,8 +209,11 @@ corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
                 method: 'POST',
                 url: apiHost + '/user/changepassword',
                 data: ctrl.data
-            }).success(function (data) {
-                return;
+            }).success(function (response) {
+                alert("Password was changed!");
+                $location.path("/")
+            }).catch(function(err){
+                alert(err.data);
             });
         };
     }]);
