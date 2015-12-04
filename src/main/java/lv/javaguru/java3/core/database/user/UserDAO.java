@@ -5,5 +5,6 @@ import lv.javaguru.java3.core.domain.user.User;
 
 public interface UserDAO extends CRUDOperationDAO<User, Long> {
 
+    User getByLogin(String login);
 
 }

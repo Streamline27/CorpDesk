@@ -1,5 +1,6 @@
 package lv.javaguru.java3.rest.user;
 
+import lv.javaguru.java3.core.dto.user.ChangePasswordDTO;
 import lv.javaguru.java3.core.dto.user.UserDTO;
 
 import javax.ws.rs.*;
@@ -34,13 +35,19 @@ public interface UserResource {
     @Path("/user")
     void delete(@QueryParam("userId") Long userId) throws Exception;
 
-    /*
-    @GET
+    @POST
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/user/changepassword")
+    int changePassword(ChangePasswordDTO changePasswordDTO) throws Exception;
+
+    @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/user/validate")
-    String authorize(UserDTO userDTO) throws Exception;
+    int authorize(UserDTO userDTO) throws Exception;
 
+    /*
     @PUT
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)

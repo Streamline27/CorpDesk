@@ -75,7 +75,7 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
     function($scope, $http, $routeParams, $location) {
         var ctrl = this;
         ctrl.userId=$routeParams.id
-
+        $scope.user={};
 
         if (ctrl.userId) {
             $http({
@@ -105,20 +105,28 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
 
         $scope.saveUser=function() {
 
-            $scope.user.groups = [];
-            if (ctrl.groups) {
+            if (ctrl.userId) {
+                $scope.user.groups = [];
+                if (ctrl.groups) {
 
-                ctrl.groups.forEach(function (elem) {
-                    if (elem.isChecked) {
-                        var group = {};
-                        group.id = elem.id;
-                        group.name = elem.name;
-                        $scope.user.groups.push(group);
-                    }
-                });
+                    ctrl.groups.forEach(function (elem) {
+                        if (elem.isChecked) {
+                            var group = {};
+                            group.id = elem.id;
+                            group.name = elem.name;
+                            $scope.user.groups.push(group);
+                        }
+                    });
+                }
             }
 
             var methodName=ctrl.userId? 'PUT':'POST';
+
+            if (!ctrl.userId && ctrl.initPassword!=ctrl.confirmPassword){
+                alert("Passwords not identical!");
+                return;
+            }
+            $scope.user.password=ctrl.initPassword;
 
             $http({
                 method: methodName,
@@ -164,6 +172,33 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
             });
         };
     }]);
+
+
+corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
+    function($scope, $http, $rootScope) {
+        var ctrl = this;
+        ctrl.data={};
+
+        $scope.changePassword=function() {
+            if (ctrl.initPassword!=ctrl.confirmPassword){
+                alert("Passwords not identical!");
+                return;
+            }
+
+            ctrl.data.newPassword=ctrl.initPassword;
+            ctrl.data.login = $rootScope.loginContext.user;
+            $http({
+                method: 'POST',
+                url: apiHost + '/user/changepassword',
+                data: ctrl.data
+            }).success(function (data) {
+                return;
+            });
+        };
+    }]);
+
+
+
 
 
 

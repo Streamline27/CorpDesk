@@ -12,6 +12,15 @@ var app = angular.module('tutorialWebApp', [
   'corpdeskControllers'
 ]);
 
+app.run(
+    function($rootScope) {
+        $rootScope.loginContext = {
+            //loggedin: false
+            loggedin: true,
+            user: "aaa"
+        };
+    });
+
 /**
  * Configure the Routes
  */
@@ -42,6 +51,11 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: "partials/group.html",
           controller: "GroupEditCtrl",
           controllerAs: "GroupEditCtrl"
+      })
+      .when("/changepassword", {
+          templateUrl: "partials/change_password.html",
+          controller: "PasswordCtrl",
+          controllerAs: "PasswordCtrl"
       })
 
     // Home

@@ -1,6 +1,7 @@
 package lv.javaguru.java3.rest.user;
 
 import lv.javaguru.java3.core.commands.user.*;
+import lv.javaguru.java3.core.dto.user.ChangePasswordDTO;
 import lv.javaguru.java3.core.dto.user.UserDTO;
 import lv.javaguru.java3.core.services.CommandExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,21 +63,27 @@ public class UserResourceImpl implements UserResource {
         DeleteUserCommand command = new DeleteUserCommand(userId==null? 0 : userId);
         commandExecutor.execute(command);
     }
-/*
+
     @Override
-    @GET
+    @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public String authorize(UserDTO userDTO) throws Exception {
-        return null;
+    @Path("/changepassword")
+    public int changePassword(ChangePasswordDTO changePasswordDTO) throws Exception {
+        ChangePasswordCommand command = new ChangePasswordCommand(changePasswordDTO);
+        ChangePasswordResult result = commandExecutor.execute(command);
+        return result.getResponse();
     }
 
     @Override
-    @PUT
+    @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public String update(Long userId, GroupDTO groupDTO) throws Exception {
-        return null;
+    @Path("/validate")
+    public int  authorize(UserDTO userDTO) throws Exception {
+        AuthorizeUserCommand command = new AuthorizeUserCommand(userDTO);
+        AuthorizeUserResult result = commandExecutor.execute(command);
+        return result.getResponse();
     }
-    */
+
 }

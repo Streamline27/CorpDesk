@@ -16,4 +16,8 @@ public interface UserService {
     User get(long userId);
 
     void delete(long userId);
+
+    int validate(String login, String password);
+
+    int changePassword(String login, String oldPassword, String newPassword);
 }
