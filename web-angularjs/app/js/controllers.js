@@ -238,15 +238,12 @@ corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
  * Controls the Blog
  */
 app.controller('BlogCtrl', function (/* $scope, $location, $http */) {
-    console.log("Blog Controller reporting for duty.");
 });
 
 /**
  * Controls all other Pages
  */
 app.controller('PageCtrl', function (/* $scope, $location, $http */) {
-    console.log("Page Controller reporting for duty.");
-
     // Activates the Carousel
     $('.carousel').carousel({
         interval: 5000

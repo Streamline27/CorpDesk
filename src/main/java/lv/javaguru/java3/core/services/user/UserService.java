@@ -19,7 +19,7 @@ public interface UserService {
 
     void delete(long userId);
 
-    int authorize(String login, String password);
+    void authorize(String login, String password) throws Exception;
 
     void changePassword(String login, String oldPassword, String newPassword) throws Exception;
 }

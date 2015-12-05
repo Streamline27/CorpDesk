@@ -47,6 +47,17 @@ class UserValidatorImpl implements UserValidator {
         }
     }
 
+    @Override
+    public void validateLoginData(String login, String password) throws Exception {
+        validateLogin(login);
+        validatePassword(password);
+
+        if (userDAO.getByLogin(login)==null){
+            throw new UserNotFoundException();
+        }
+    }
+
+
     private void validateUser(User user) {
         checkNotNull(user, String.format("User fields must be not empty"));
     }

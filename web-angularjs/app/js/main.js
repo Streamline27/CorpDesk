@@ -11,9 +11,7 @@ var app = angular.module('corpDeskApp', [
 app.run(
     function($rootScope) {
         $rootScope.loginContext = {
-            //loggedin: false
-            loggedin: true,
-            user: "aaa"
+            autheniticated: false
         };
     });
 
@@ -29,8 +27,8 @@ app.config(['$routeProvider', function ($routeProvider) {
       })
     .when("/login", {
           templateUrl: "partials/login.html",
-          controller: "LoginCtrl",
-          controllerAs: "LoginCtrl"
+          controller: "LoginController",
+          controllerAs: "LoginController"
       })
       .when("/users", {
           templateUrl: "partials/users.html",
@@ -87,12 +85,58 @@ app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
 }]);
 
-app.controller('MainController', function($scope, $rootScope) {
-    $scope.userName=$rootScope.loginContext.user;
-
+app.controller('MainController', function($scope, $rootScope, $window) {
+    $scope.reload = function() {
+        $window.location.reload();
+    }
 })
 
-app.controller('LoginController', function($scope, $rootScope) {
+// https://spring.io/blog/2015/01/12/the-login-page-angular-js-and-spring-security-part-ii
+app.controller('LoginController', function($scope, $rootScope, $http, $location) {
+    var authenticate = function(credentials, callback) {
+        if (credentials) {
+            var user = {};
+            user.login = credentials.username;
+            user.password = credentials.password;
 
+            $http({
+                method: 'POST',
+                url: apiHost + '/user/authorize',
+                data: user
+            }).success(function (data) {
+                $rootScope.loginContext.authenticated = true;
+                $rootScope.loginContext.user = credentials.username;
+                callback && callback();
+            }).catch(function (err) {
+                if (err && err.status===-1){
+                    alert("Server not active!");
+                }
+                $rootScope.loginContext.authenticated = false;
+                $scope.errorText = err.data;
+                callback && callback();
+            });
+        }
+    }
 
+    authenticate();
+
+    $scope.credentials = {};
+    $scope.login = function() {
+        authenticate($scope.credentials, function() {
+            if ($rootScope.loginContext.authenticated) {
+               // $location.path("/");
+                $scope.error = false;
+            } else {
+               // $location.path("/login");
+                $scope.error = true;
+            }
+        });
+    };
+
+    $scope.logout = function() {
+        $scope.credentials = {};
+        $rootScope.loginContext.authenticated = false;
+        $rootScope.loginContext.user = undefined;
+        $location.path("/login");
+    }
 })

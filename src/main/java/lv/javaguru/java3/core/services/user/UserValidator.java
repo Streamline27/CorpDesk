@@ -7,4 +7,6 @@ public interface UserValidator {
     void validate(User user, Boolean mustExist) throws Exception;
 
     void validateChangePassword(String login, String oldPassword, String newPassword) throws Exception;
+
+    void validateLoginData(String login, String password) throws Exception;
 }

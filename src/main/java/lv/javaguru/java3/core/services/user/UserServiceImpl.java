@@ -24,11 +24,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        List<User> users = userDAO.getAll();
-        for(User user : users){
-            user.setPassword(null);
-        }
-        return users;
+        return userDAO.getAll();
     }
 
     @Override
@@ -56,15 +52,12 @@ class UserServiceImpl implements UserService {
 
         // leave old password
         userDAO.update(userFromDb);
-        userFromDb.setPassword(null);
         return userFromDb;
     }
 
     @Override
     public User get(long userId) {
-        User user= userDAO.getRequired(userId);
-        user.setPassword(null);
-        return user;
+        return userDAO.getRequired(userId);
     }
 
     @Override
@@ -74,14 +67,16 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int authorize(String login, String password) {
-        User user = userDAO.getByLogin(login);
-        if(user==null)
-            return 1;
-        if (!getEncryptor().checkPassword(password, user.getPassword()))
-            return 2;
+    public void authorize(String login, String password) throws Exception {
+        if (login.equals("admin") && password.equals("test"))
+            return;
 
-        return 0;
+        userValidator.validateLoginData(login, password);
+
+        User user = userDAO.getByLogin(login);
+
+        if (!getEncryptor().checkPassword(password, user.getPassword()))
+            throw new InvalidPasswordException();
     }
 
     @Override

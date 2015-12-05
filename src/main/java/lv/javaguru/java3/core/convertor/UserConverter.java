@@ -26,7 +26,7 @@ public class UserConverter {
         return createUserDTO()
                 .withId(user.getId())
                 .withLogin(user.getLogin())
-                .withPassword(user.getPassword())
+                //.withPassword(user.getPassword())
                 .withUserRole(roleConverter.convert(user.getUserRole()))
                 .withFirstName(user.getFirstName())
                 .withLastName(user.getLastName())

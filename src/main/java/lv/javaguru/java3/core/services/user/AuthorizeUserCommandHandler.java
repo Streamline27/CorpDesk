@@ -19,8 +19,8 @@ class AuthorizeUserCommandHandler
 	@Override
 	public AuthorizeUserResult execute(AuthorizeUserCommand command) throws Exception {
 		UserDTO userDTO = command.getUserDTO();
-		int code=userService.authorize(userDTO.getLogin(), userDTO.getPassword());
-		return new AuthorizeUserResult(code);
+		userService.authorize(userDTO.getLogin(), userDTO.getPassword());
+		return new AuthorizeUserResult();
 	}
 
 	@Override
