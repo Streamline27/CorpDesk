@@ -6,8 +6,6 @@ import lv.javaguru.java3.core.dto.user.UserDTO;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-import java.util.List;
-
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public interface UserResource {
@@ -22,19 +20,19 @@ public interface UserResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/user")
-    List<UserDTO> get(@QueryParam("userId") Long userId) throws Exception;
+    Response get(@QueryParam("userId") Long userId) throws Exception;
 
     @PUT
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/user")
-    UserDTO update(UserDTO userDTO) throws Exception;
+    Response update(UserDTO userDTO) throws Exception;
 
     @DELETE
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/user")
-    void delete(@QueryParam("userId") Long userId) throws Exception;
+    Response delete(@QueryParam("userId") Long userId) throws Exception;
 
     @POST
     @Consumes(APPLICATION_JSON)
@@ -45,14 +43,6 @@ public interface UserResource {
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/user/validate")
-    int authorize(UserDTO userDTO) throws Exception;
-
-    /*
-    @PUT
-    @Consumes(APPLICATION_JSON)
-    @Produces(APPLICATION_JSON)
-    @Path("/user/group/{userId}")
-    String update(@PathParam("userId") Long userId,GroupDTO groupDTO) throws Exception;
-    */
+    @Path("/user/authorize")
+    Response authorize(UserDTO userDTO) throws Exception;
 }

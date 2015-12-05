@@ -111,6 +111,7 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
 
             }).catch(function(err){
                 alert(err.data);
+                $location.path("/users")
             });
         }
 
@@ -139,6 +140,8 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
                 return;
             }
             $scope.user.password=ctrl.initPassword;
+            var lastModified = $scope.user.lastModified;
+            $scope.user.lastModified = null;
 
             $http({
                 method: methodName,
@@ -150,6 +153,7 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
                     $location.path("/users")
                 }
             }).catch(function(err){
+                $scope.user.lastModified = lastModified;
                 alert(err.data);
             });
         };
@@ -171,6 +175,7 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
                 $scope.group = data[0];
             }).catch(function(err){
                 alert(err.data);
+                $location.path("/users")
             });
         }
 
@@ -228,7 +233,7 @@ corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
 
 
 
-
+// todo should be removed, for example only
 /**
  * Controls the Blog
  */

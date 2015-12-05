@@ -24,7 +24,11 @@ class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        return userDAO.getAll();
+        List<User> users = userDAO.getAll();
+        for(User user : users){
+            user.setPassword(null);
+        }
+        return users;
     }
 
     @Override
@@ -36,7 +40,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user) throws Exception {
+    public User update(User user) throws Exception {
         userValidator.validate(user, true);
 
         User userFromDb = userDAO.getByLogin(user.getLogin());
@@ -52,11 +56,15 @@ class UserServiceImpl implements UserService {
 
         // leave old password
         userDAO.update(userFromDb);
+        userFromDb.setPassword(null);
+        return userFromDb;
     }
 
     @Override
     public User get(long userId) {
-        return userDAO.getById(userId);
+        User user= userDAO.getRequired(userId);
+        user.setPassword(null);
+        return user;
     }
 
     @Override
@@ -66,7 +74,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int validate(String login, String password) {
+    public int authorize(String login, String password) {
         User user = userDAO.getByLogin(login);
         if(user==null)
             return 1;

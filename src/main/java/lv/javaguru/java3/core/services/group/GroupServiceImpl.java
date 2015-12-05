@@ -26,14 +26,8 @@ class GroupServiceImpl implements GroupService {
 
     @Override
     public void create(Group group) throws Exception {
-        groupValidator.validate(group);
+        groupValidator.validate(group, false);
         groupDAO.create(group);
-    }
-
-    @Override
-    public void update(Group group) throws Exception {
-        groupValidator.validate(group);
-        groupDAO.update(group);
     }
 
     @Override

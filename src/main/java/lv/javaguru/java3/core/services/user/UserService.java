@@ -13,13 +13,13 @@ public interface UserService {
 
     void create(User user) throws Exception;
 
-    void update(User user) throws Exception;
+    User update(User user) throws Exception;
 
     User get(long userId);
 
     void delete(long userId);
 
-    int validate(String login, String password);
+    int authorize(String login, String password);
 
     void changePassword(String login, String oldPassword, String newPassword) throws Exception;
 }

@@ -22,6 +22,7 @@ class UserValidatorImpl implements UserValidator {
 
     @Override
     public void validate(User user, Boolean mustExist) throws Exception {
+        validateUser(user);
         validateLogin(user.getLogin());
         if (!mustExist)
             validatePassword(user.getPassword());
@@ -44,6 +45,10 @@ class UserValidatorImpl implements UserValidator {
         if (userDAO.getByLogin(login)==null){
             throw new UserNotFoundException();
         }
+    }
+
+    private void validateUser(User user) {
+        checkNotNull(user, String.format("User fields must be not empty"));
     }
 
     private void validateLogin(String login) {

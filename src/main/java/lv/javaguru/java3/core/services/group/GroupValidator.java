@@ -4,5 +4,5 @@ import lv.javaguru.java3.core.domain.user.Group;
 
 public interface GroupValidator {
 
-    void validate(Group group) throws Exception;
+    void validate(Group group, Boolean mustExist) throws Exception;
 }

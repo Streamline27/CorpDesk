@@ -1,13 +1,9 @@
 'use strict';
-/**
- * AngularJS Tutorial 1
- * @author Nick Kaye <nick.c.kaye@gmail.com>
- */
 
 /**
  * Main AngularJS Web Application
  */
-var app = angular.module('tutorialWebApp', [
+var app = angular.module('corpDeskApp', [
   'ngRoute',
   'corpdeskControllers'
 ]);
@@ -27,7 +23,16 @@ app.run(
 app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
       // Pages
-    .when("/users", {
+      .when("/",{
+          templateUrl: "partials/home.html",
+          controller: "PageCtrl"
+      })
+    .when("/login", {
+          templateUrl: "partials/login.html",
+          controller: "LoginCtrl",
+          controllerAs: "LoginCtrl"
+      })
+      .when("/users", {
           templateUrl: "partials/users.html",
           controller: "UserListCtrl",
           controllerAs: "UserListCtrl"
@@ -58,8 +63,8 @@ app.config(['$routeProvider', function ($routeProvider) {
           controllerAs: "PasswordCtrl"
       })
 
-    // Home
-    .when("/", {templateUrl: "partials/home.html", controller: "PageCtrl"})
+
+      // todo must be removed, for example only
     // templates
     .when("/about", {templateUrl: "partials/about.html", controller: "PageCtrl"})
     .when("/faq", {templateUrl: "partials/faq.html", controller: "PageCtrl"})
@@ -74,23 +79,20 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 
-
-/*
-app.config(['$sceDelegateProvider', function($sceDelegateProvider) {
-  $sceDelegateProvider.resourceUrlWhitelist(['self', 'http://localhost/**', 'http://localhost:8080/**']);
-}])
-*/
-
 app.config(['$httpProvider', function($httpProvider) {
   //Reset headers to avoid OPTIONS request (aka preflight)
- /* $httpProvider.defaults.headers.common = {};
-  $httpProvider.defaults.headers.post = {};
-  $httpProvider.defaults.headers.put = {};
-  $httpProvider.defaults.headers.patch = {};
-*/
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
     $httpProvider.defaults.useXDomain = true;
-}
-]);
+}]);
+
+app.controller('MainController', function($scope, $rootScope) {
+    $scope.userName=$rootScope.loginContext.user;
+
+})
+
+app.controller('LoginController', function($scope, $rootScope) {
+
+
+})

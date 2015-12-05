@@ -5,5 +5,5 @@ import lv.javaguru.java3.core.domain.user.Group;
 
 public interface GroupDAO extends CRUDOperationDAO<Group, Long> {
 
-
+    Group getByName(String name);
 }

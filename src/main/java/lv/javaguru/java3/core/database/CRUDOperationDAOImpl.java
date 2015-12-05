@@ -42,7 +42,7 @@ public abstract class CRUDOperationDAOImpl<E, K extends Serializable> implements
     public E getRequired(K key) {
         E entity = (E) getCurrentSession().get(daoType, key);
         if(entity == null) {
-            throw new IllegalArgumentException("Entity with id = " + key + " not exist!");
+            throw new IllegalArgumentException("Object with id " + key + " doesn't exist!");
         }
         return entity;
     }
@@ -54,9 +54,7 @@ public abstract class CRUDOperationDAOImpl<E, K extends Serializable> implements
 
     @Override
     public void delete(E entity) {
-        //Transaction tx = getCurrentSession().beginTransaction();
         getCurrentSession().delete(entity);
-        //tx.commit();
     }
 
     @Override

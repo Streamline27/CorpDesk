@@ -21,8 +21,7 @@ class UpdateUserCommandHandler
 	@Override
 	public UpdateUserResult execute(UpdateUserCommand command) throws Exception {
 		User user = userConverter.convertDTO(command.getUserDTO());
-		userService.update(user);
-		return new UpdateUserResult(userConverter.convert(user));
+		return new UpdateUserResult(userConverter.convert(userService.update(user)));
 	}
 
 	@Override
