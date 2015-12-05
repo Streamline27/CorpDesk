@@ -97,7 +97,7 @@ public class UserValidatorImplTest {
                     .withLastName(lastName)
                     .withEmail(email)
                     .build();
-            validator.validate(user);
+            validator.validate(user, true);
             fail();
         } catch (Exception e) {
             if (errorMessage!=null)

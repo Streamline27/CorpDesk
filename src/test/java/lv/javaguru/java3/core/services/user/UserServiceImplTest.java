@@ -55,6 +55,6 @@ public class UserServiceImplTest {
                 .build();
         userService.create(user);
         verify(userDAO).create(user);
-        verify(userValidator).validate(user);
+        verify(userValidator).validate(user, false);
     }
 }

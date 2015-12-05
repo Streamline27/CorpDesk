@@ -28,7 +28,7 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
 
     @Before
     public void init() throws Exception {
-        databaseCleaner.cleanDatabase();
+  //      databaseCleaner.cleanDatabase();
         group = createGroup()
                 .withName("All")
                 .build();
@@ -75,6 +75,8 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
         assertEquals(user.getState().getId(), userFromDB.getState().getId());
         //assertTrue(userFromDB.getState().getState().equals("Created"));
         assertEquals(user.getLastModified(), userFromDB.getLastModified());
+
+        userDAO.delete(user);
     }
 
     @Test
@@ -102,6 +104,8 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
         assertEquals(group.getId(), userFromDB.getGroups().get(0).getId());
         assertEquals(group2.getId(), userFromDB.getGroups().get(1).getId());
         assertTrue(group.getName().equals(userFromDB.getGroups().get(0).getName()));
+
+        userDAO.delete(user);
     }
 
     @Test
@@ -110,6 +114,8 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
         userDAO.create(user);
         User userFromDb = userDAO.getById(user.getId());
         assertThat(userFromDb, is(notNullValue()));
+
+        userDAO.delete(user);
     }
 
     @Test
@@ -122,6 +128,9 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
         userDAO.create(user2);
         users = userDAO.getAll();
         assertEquals(2, users.size() - usersCount);
+
+        userDAO.delete(user);
+        userDAO.delete(user2);
     }
 
     /*
@@ -171,6 +180,8 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
         assertEquals(user2.getFirstName(), userFromDB.getFirstName());
         assertEquals(user2.getLastName(), userFromDB.getLastName());
         assertEquals(user2.getEmail(), userFromDB.getEmail());
+
+        userDAO.delete(user);
     }
 
 
