@@ -14,6 +14,7 @@ import static org.junit.Assert.assertThat;
 public class ClientResourceImplTest extends RESTResourceTest {
 
     @Test
+    @Ignore
     public void createClientTest() throws Exception {
         ClientDTO client = clientResource.create(
                 createClientDTO()

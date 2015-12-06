@@ -1,8 +1,13 @@
 package lv.javaguru.java3.core.services.user;
 
+import lv.javaguru.java3.core.database.user.UserDAO;
 import lv.javaguru.java3.core.domain.user.Role;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.user.exception.InvalidEmailException;
+import lv.javaguru.java3.core.services.user.exception.RoleNotDefinedException;
+import lv.javaguru.java3.core.services.user.exception.UserAlreadyExistException;
+import lv.javaguru.java3.core.services.user.exception.UserNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -12,14 +17,49 @@ import static org.apache.commons.lang.StringUtils.isBlank;
 @Component
 class UserValidatorImpl implements UserValidator {
 
+    @Autowired
+    private UserDAO userDAO;
+
     @Override
-    public void validate(User user) throws Exception {
+    public void validate(User user, Boolean mustExist) throws Exception {
+        validateUser(user);
         validateLogin(user.getLogin());
-        //validatePassword(user.getPassword());
+        if (!mustExist)
+            validatePassword(user.getPassword());
         validateRole(user.getUserRole());
         validateFirstName(user.getFirstName());
         validateLastName(user.getLastName());
         validateEmail(user.getEmail());
+
+        if (!mustExist && userDAO.getByLogin(user.getLogin())!=null){
+                throw new UserAlreadyExistException();
+        }
+    }
+
+    @Override
+    public void validateChangePassword(String login, String oldPassword, String newPassword) throws Exception {
+        validateLogin(login);
+        validatePassword(oldPassword);
+        validatePassword(newPassword);
+
+        if (userDAO.getByLogin(login)==null){
+            throw new UserNotFoundException();
+        }
+    }
+
+    @Override
+    public void validateLoginData(String login, String password) throws Exception {
+        validateLogin(login);
+        validatePassword(password);
+
+        if (userDAO.getByLogin(login)==null){
+            throw new UserNotFoundException();
+        }
+    }
+
+
+    private void validateUser(User user) {
+        checkNotNull(user, String.format("User fields must be not empty"));
     }
 
     private void validateLogin(String login) {
@@ -32,7 +72,7 @@ class UserValidatorImpl implements UserValidator {
 
     private void validateRole(Role role) throws Exception {
         if (role == null || role.getId() < 1)
-            throw new Exception();
+            throw new RoleNotDefinedException();
     }
 
     private void validateFirstName(String firstName) {

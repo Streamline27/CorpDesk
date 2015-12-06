@@ -23,7 +23,7 @@ public class GroupDAOImplTest extends DatabaseHibernateTest {
 
     @Before
     public void init() throws Exception {
-        databaseCleaner.cleanDatabase();
+  //      databaseCleaner.cleanDatabase();
         group = createGroup()
                 .withName("All")
                 .build();

@@ -18,6 +18,8 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
             url: apiHost + '/user'
         }).success(function (data) {
             ctrl.users = data;
+        }).catch(function(err){
+            alert(err.data);
         });
 
         $http({
@@ -25,6 +27,8 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
             url: apiHost + '/group'
         }).success(function (data) {
             ctrl.groups = data;
+        }).catch(function(err){
+            alert(err.data);
         });
 
         ctrl.addUser=function(group){
@@ -46,6 +50,8 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
                 if (index > -1) {
                     ctrl.users.splice(index, 1);
                 }
+            }).catch(function(err){
+                alert(err.data);
             });
         };
 
@@ -67,6 +73,8 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
                 if (index > -1) {
                     ctrl.groups.splice(index, 1);
                 }
+            }).catch(function(err){
+                alert(err.data);
             });
         };
   }]);
@@ -75,7 +83,7 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
     function($scope, $http, $routeParams, $location) {
         var ctrl = this;
         ctrl.userId=$routeParams.id
-
+        $scope.user={};
 
         if (ctrl.userId) {
             $http({
@@ -97,28 +105,43 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
                             }
                         }
                     });
+                }).catch(function(err){
+                    alert(err.data);
                 });
 
+            }).catch(function(err){
+                alert(err.data);
+                $location.path("/users")
             });
         }
 
 
         $scope.saveUser=function() {
 
-            $scope.user.groups = [];
-            if (ctrl.groups) {
+            if (ctrl.userId) {
+                $scope.user.groups = [];
+                if (ctrl.groups) {
 
-                ctrl.groups.forEach(function (elem) {
-                    if (elem.isChecked) {
-                        var group = {};
-                        group.id = elem.id;
-                        group.name = elem.name;
-                        $scope.user.groups.push(group);
-                    }
-                });
+                    ctrl.groups.forEach(function (elem) {
+                        if (elem.isChecked) {
+                            var group = {};
+                            group.id = elem.id;
+                            group.name = elem.name;
+                            $scope.user.groups.push(group);
+                        }
+                    });
+                }
             }
 
             var methodName=ctrl.userId? 'PUT':'POST';
+
+            if (!ctrl.userId && ctrl.initPassword!=ctrl.confirmPassword){
+                alert("Passwords not identical!");
+                return;
+            }
+            $scope.user.password=ctrl.initPassword;
+            var lastModified = $scope.user.lastModified;
+            $scope.user.lastModified = null;
 
             $http({
                 method: methodName,
@@ -129,6 +152,9 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
                 if (!ctrl.userId){
                     $location.path("/users")
                 }
+            }).catch(function(err){
+                $scope.user.lastModified = lastModified;
+                alert(err.data);
             });
         };
     }]);
@@ -147,6 +173,9 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
                 params: {groupId: ctrl.groupId}
             }).success(function (data) {
                 $scope.group = data[0];
+            }).catch(function(err){
+                alert(err.data);
+                $location.path("/users")
             });
         }
 
@@ -161,6 +190,35 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
                 if (!ctrl.groupId){
                     $location.path("/users")
                 }
+            }).catch(function(err){
+                alert(err.data);
+            });
+        };
+    }]);
+
+
+corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope', '$location',
+    function($scope, $http, $rootScope, $location) {
+        var ctrl = this;
+        ctrl.data={};
+
+        $scope.changePassword=function() {
+            if (ctrl.initPassword!=ctrl.confirmPassword){
+                alert("Passwords not identical!");
+                return;
+            }
+
+            ctrl.data.newPassword=ctrl.initPassword;
+            ctrl.data.login = $rootScope.loginContext.user;
+            $http({
+                method: 'POST',
+                url: apiHost + '/user/changepassword',
+                data: ctrl.data
+            }).success(function (response) {
+                alert("Password was changed!");
+                $location.path("/")
+            }).catch(function(err){
+                alert(err.data);
             });
         };
     }]);
@@ -173,19 +231,19 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
 
 
 
+
+
+// todo should be removed, for example only
 /**
  * Controls the Blog
  */
 app.controller('BlogCtrl', function (/* $scope, $location, $http */) {
-    console.log("Blog Controller reporting for duty.");
 });
 
 /**
  * Controls all other Pages
  */
 app.controller('PageCtrl', function (/* $scope, $location, $http */) {
-    console.log("Page Controller reporting for duty.");
-
     // Activates the Carousel
     $('.carousel').carousel({
         interval: 5000

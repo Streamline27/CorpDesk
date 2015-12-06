@@ -1,16 +1,19 @@
 'use strict';
-/**
- * AngularJS Tutorial 1
- * @author Nick Kaye <nick.c.kaye@gmail.com>
- */
 
 /**
  * Main AngularJS Web Application
  */
-var app = angular.module('tutorialWebApp', [
+var app = angular.module('corpDeskApp', [
   'ngRoute',
   'corpdeskControllers'
 ]);
+
+app.run(
+    function($rootScope) {
+        $rootScope.loginContext = {
+            autheniticated: false
+        };
+    });
 
 /**
  * Configure the Routes
@@ -18,7 +21,16 @@ var app = angular.module('tutorialWebApp', [
 app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
       // Pages
-    .when("/users", {
+      .when("/",{
+          templateUrl: "partials/home.html",
+          controller: "PageCtrl"
+      })
+    .when("/login", {
+          templateUrl: "partials/login.html",
+          controller: "LoginController",
+          controllerAs: "LoginController"
+      })
+      .when("/users", {
           templateUrl: "partials/users.html",
           controller: "UserListCtrl",
           controllerAs: "UserListCtrl"
@@ -43,9 +55,14 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: "GroupEditCtrl",
           controllerAs: "GroupEditCtrl"
       })
+      .when("/changepassword", {
+          templateUrl: "partials/change_password.html",
+          controller: "PasswordCtrl",
+          controllerAs: "PasswordCtrl"
+      })
 
-    // Home
-    .when("/", {templateUrl: "partials/home.html", controller: "PageCtrl"})
+
+      // todo must be removed, for example only
     // templates
     .when("/about", {templateUrl: "partials/about.html", controller: "PageCtrl"})
     .when("/faq", {templateUrl: "partials/faq.html", controller: "PageCtrl"})
@@ -60,23 +77,66 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 
-
-/*
-app.config(['$sceDelegateProvider', function($sceDelegateProvider) {
-  $sceDelegateProvider.resourceUrlWhitelist(['self', 'http://localhost/**', 'http://localhost:8080/**']);
-}])
-*/
-
 app.config(['$httpProvider', function($httpProvider) {
   //Reset headers to avoid OPTIONS request (aka preflight)
- /* $httpProvider.defaults.headers.common = {};
-  $httpProvider.defaults.headers.post = {};
-  $httpProvider.defaults.headers.put = {};
-  $httpProvider.defaults.headers.patch = {};
-*/
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
     $httpProvider.defaults.useXDomain = true;
-}
-]);
+}]);
+
+app.controller('MainController', function($scope, $rootScope, $window) {
+    $scope.reload = function() {
+        $window.location.reload();
+    }
+})
+
+// https://spring.io/blog/2015/01/12/the-login-page-angular-js-and-spring-security-part-ii
+app.controller('LoginController', function($scope, $rootScope, $http, $location) {
+    var authenticate = function(credentials, callback) {
+        if (credentials) {
+            var user = {};
+            user.login = credentials.username;
+            user.password = credentials.password;
+
+            $http({
+                method: 'POST',
+                url: apiHost + '/user/authorize',
+                data: user
+            }).success(function (data) {
+                $rootScope.loginContext.authenticated = true;
+                $rootScope.loginContext.user = credentials.username;
+                callback && callback();
+            }).catch(function (err) {
+                if (err && err.status===-1){
+                    alert("Server not active!");
+                }
+                $rootScope.loginContext.authenticated = false;
+                $scope.errorText = err.data;
+                callback && callback();
+            });
+        }
+    }
+
+    authenticate();
+
+    $scope.credentials = {};
+    $scope.login = function() {
+        authenticate($scope.credentials, function() {
+            if ($rootScope.loginContext.authenticated) {
+               // $location.path("/");
+                $scope.error = false;
+            } else {
+               // $location.path("/login");
+                $scope.error = true;
+            }
+        });
+    };
+
+    $scope.logout = function() {
+        $scope.credentials = {};
+        $rootScope.loginContext.authenticated = false;
+        $rootScope.loginContext.user = undefined;
+        $location.path("/login");
+    }
+})

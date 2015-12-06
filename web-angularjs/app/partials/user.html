@@ -75,6 +75,23 @@
             </div>
         </div>
 
+        <div class="row custom-row" ng-show="!UserEditCtrl.userId"`>
+            <div class="col-xs-4">
+                <label>
+                    Initial password<br>
+                    <input type="password" ng-model="UserEditCtrl.initPassword">
+                </label>
+            </div>
+        </div>
+        <div class="row custom-row" ng-show="!UserEditCtrl.userId"`>
+            <div class="col-xs-4">
+                <label>
+                    Confirm password<br>
+                    <input type="password" ng-model="UserEditCtrl.confirmPassword">
+                </label>
+            </div>
+        </div>
+
         <div class="row custom-row" style="margin-top: 50px" ng-show="UserEditCtrl.userId">
             <span>User's groups</span>
             <table>
