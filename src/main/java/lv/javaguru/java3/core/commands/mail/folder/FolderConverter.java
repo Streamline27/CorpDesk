@@ -2,6 +2,7 @@ package lv.javaguru.java3.core.commands.mail.folder;
 
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.dto.mail.folder.FolderDTO;
+import org.springframework.stereotype.Component;
 
 import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
 import static lv.javaguru.java3.core.dto.mail.folder.FolderDTOBuilder.createFolderDTO;
@@ -9,6 +10,7 @@ import static lv.javaguru.java3.core.dto.mail.folder.FolderDTOBuilder.createFold
 /**
  * Created by Andrew on 02.12.2015.
  */
+@Component
 public class FolderConverter {
 
     public FolderDTO convert(Folder folder) {

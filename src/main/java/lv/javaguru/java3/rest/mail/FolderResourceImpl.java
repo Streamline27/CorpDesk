@@ -5,6 +5,7 @@ import lv.javaguru.java3.core.commands.mail.folder.GetFolderResult;
 import lv.javaguru.java3.core.dto.mail.folder.FolderDTO;
 import lv.javaguru.java3.core.services.CommandExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 
@@ -13,6 +14,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 /**
  * Created by Andrew on 02.12.2015.
  */
+@Path("/mail_folder")
+@Component
 public class FolderResourceImpl implements FolderResource {
 
     private CommandExecutor commandExecutor;

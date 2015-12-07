@@ -3,10 +3,12 @@ package lv.javaguru.java3.core.commands.mail.folder;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Andrew on 02.12.2015.
  */
+@Component
 public class GetFolderCommandHandler implements DomainCommandHandler<GetFolderCommand, GetFolderResult>{
 
     @Autowired private FolderService folderService;

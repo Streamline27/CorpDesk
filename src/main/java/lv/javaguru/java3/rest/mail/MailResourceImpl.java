@@ -4,9 +4,11 @@ import lv.javaguru.java3.core.commands.mail.message.SendMessageCommand;
 import lv.javaguru.java3.core.dto.mail.message.MessageDTO;
 import lv.javaguru.java3.core.services.CommandExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -14,6 +16,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 /**
  * Created by Andrew on 02.12.2015.
  */
+@Component
+@Path("/mail")
 public class MailResourceImpl implements MailResource {
 
     private CommandExecutor commandExecutor;
@@ -24,6 +28,7 @@ public class MailResourceImpl implements MailResource {
     }
 
     @Override
+    @Path("/send")
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)

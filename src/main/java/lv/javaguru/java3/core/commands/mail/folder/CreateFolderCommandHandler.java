@@ -4,6 +4,7 @@ import lv.javaguru.java3.core.commands.VoidResult;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
 import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
@@ -11,6 +12,7 @@ import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFol
 /**
  * Created by Andrew on 02.12.2015.
  */
+@Component
 public class CreateFolderCommandHandler implements DomainCommandHandler<CreateFolderCommand, VoidResult>{
 
     @Autowired private FolderService folderService;
