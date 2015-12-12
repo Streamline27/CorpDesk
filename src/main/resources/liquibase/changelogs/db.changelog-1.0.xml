@@ -28,7 +28,7 @@
 
     <changeSet id="gallery_1" author="aleksej" context="main">
         <createTable tableName="galleries">
-            <column name="user_id" type="BIGINT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
@@ -62,7 +62,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="img_id" type="BIGINT">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="label" type="varchar(250)">
                 <constraints nullable="false"/>
@@ -96,8 +96,8 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="cat_id" type="BIGINT">
-                <constraints nullable="false"/>
+            <column name="category_id" type="BIGINT">
+                <constraints nullable="true"/>
             </column>
             <column name="label" type="varchar(250)">
                 <constraints nullable="false"/>
@@ -162,13 +162,10 @@
 
     <changeSet id="gallery_5" author="aleksej" context="main">
         <createTable tableName="rewards_images">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
             <column name="reward_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="img_id" type="BIGINT">
+            <column name="image_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -184,16 +181,9 @@
                                  constraintName="fk_galleries_categories"
                                  onDelete="CASCADE"
                                  onUpdate="CASCADE"
-                                 referencedColumnNames="user_id"
-                                 referencedTableName="galleries"/>
-        <addForeignKeyConstraint baseColumnNames="img_id"
-                                 baseTableName="categories"
-                                 constraintName="fk_images_categories"
-                                 onDelete="CASCADE"
-                                 onUpdate="CASCADE"
                                  referencedColumnNames="id"
-                                 referencedTableName="images"/>
-        <addForeignKeyConstraint baseColumnNames="cat_id"
+                                 referencedTableName="galleries"/>
+        <addForeignKeyConstraint baseColumnNames="category_id"
                                  baseTableName="images"
                                  constraintName="fk_categories_images"
                                  onDelete="CASCADE"
@@ -207,7 +197,7 @@
                                  onUpdate="CASCADE"
                                  referencedColumnNames="id"
                                  referencedTableName="rewards"/>
-        <addForeignKeyConstraint baseColumnNames="img_id"
+        <addForeignKeyConstraint baseColumnNames="image_id"
                                  baseTableName="rewards_images"
                                  constraintName="fk_images_rewards_images"
                                  onDelete="CASCADE"
@@ -516,6 +506,7 @@
                               columnDataType="varchar(50)"
                               />
     </changeSet>
+
 
 
 
