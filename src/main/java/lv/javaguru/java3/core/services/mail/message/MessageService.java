@@ -16,18 +16,18 @@ public interface MessageService {
                  String title,
                  String body,
                  List<User> recipients,
-                 boolean isImportant);
+                 boolean isImportant) throws Exception;
 
-    Message get(Long messageId);
+    Message get(Long messageId) throws Exception;
 
-    List<Recipient> list(long folderId);
+    List<Recipient> list(long folderId) throws Exception;
 
-    void moveToFolder(long messageId, long userId, long newFolderId);
+    void moveToFolder(long messageId, long userId, long newFolderId) throws Exception;
 
-    void delete(long userId, long messageId);
+    void delete(long userId, long messageId) throws Exception;
 
-    int getMessagesCount(Folder folder);
+    int getMessagesCount(Folder folder) throws Exception;
 
-    int getUnreadMessageCount(long folderId);
+    int getUnreadMessageCount(long folderId) throws Exception;
 
 }

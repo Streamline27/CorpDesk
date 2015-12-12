@@ -35,7 +35,7 @@ public class MessageServiceImpl implements MessageService {
                         String title,
                         String body,
                         List<User> usersRecipients,
-                        boolean isImportant) {
+                        boolean isImportant) throws Exception{
 
         validator.validate(sender, title, body, usersRecipients, isImportant);
 
@@ -55,17 +55,17 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message get(Long messageId) {
+    public Message get(Long messageId) throws Exception {
         return messageDAO.getById(messageId);
     }
 
     @Override
-    public List<Recipient> list(long folderId) {
+    public List<Recipient> list(long folderId) throws Exception {
         return recipientDAO.getByFolderId(folderId);
     }
 
     @Override
-    public void moveToFolder(long messageId, long userId, long newFolderId) {
+    public void moveToFolder(long messageId, long userId, long newFolderId) throws Exception {
         Folder folder = folderService.get(newFolderId);
 
         try {
@@ -78,7 +78,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void delete(long messageId, long userId) {
+    public void delete(long messageId, long userId) throws Exception {
         try {
             Recipient recipient = getRecipient(userId, messageId);
             if (folderService.isDeleted(recipient.getFolder())) {
@@ -95,12 +95,12 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public int getMessagesCount(Folder folder) {
+    public int getMessagesCount(Folder folder) throws Exception {
         return recipientDAO.getMessagesCount(folder.getId());
     }
 
     @Override
-    public int getUnreadMessageCount(long folderId) {
+    public int getUnreadMessageCount(long folderId) throws Exception {
         return recipientDAO.getUnreadMessageCount(folderId);
     }
 
@@ -116,7 +116,7 @@ public class MessageServiceImpl implements MessageService {
     private Recipient createInboxRecipient(User user) {
         return RecipientBuilder.createRecipient()
                 .withUserId(user.getId())
-                .withFolder(createFolder().withCategory(createFolderCategory().inbox().build()).build())
+                .withFolder(folderService.getInbox(user))
                 .isUnread(true)
                 .build();
     }
@@ -124,7 +124,7 @@ public class MessageServiceImpl implements MessageService {
     private Recipient createSentRecipient(User user) {
         return RecipientBuilder.createRecipient()
                 .withUserId(user.getId())
-                .withFolder(createFolder().withCategory(createFolderCategory().sent().build()).build())
+                .withFolder(folderService.getSent(user))
                 .isUnread(false)
                 .build();
     }

@@ -15,7 +15,7 @@ public interface FolderService {
 
     void create(Folder folder);
 
-    Folder get(long folderId);
+    Folder get(long folderId) throws Exception;
 
     void delete(Folder folder) throws FolderNotEmptyException, InvalidFolderOperationException;
 

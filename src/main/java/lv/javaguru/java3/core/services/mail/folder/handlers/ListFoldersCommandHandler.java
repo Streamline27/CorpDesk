@@ -1,5 +1,8 @@
-package lv.javaguru.java3.core.commands.mail.folder;
+package lv.javaguru.java3.core.services.mail.folder.handlers;
 
+import lv.javaguru.java3.core.commands.mail.folder.FolderConverter;
+import lv.javaguru.java3.core.commands.mail.folder.ListFoldersCommand;
+import lv.javaguru.java3.core.commands.mail.folder.ListFoldersResult;
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.dto.mail.folder.FolderDTO;
 import lv.javaguru.java3.core.services.DomainCommandHandler;

@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.commands.mail.message.list;
 
 import lv.javaguru.java3.core.commands.DomainCommandResult;
 import lv.javaguru.java3.core.dto.mail.message.MessageHeaderDTO;
@@ -16,7 +16,7 @@ public class ListMessagesResult implements DomainCommandResult {
         this.messageHeaderDTOs = messageHeaderDTOs;
     }
 
-    public List<MessageHeaderDTO> getMessageHeaderDTOs() {
+    public List<MessageHeaderDTO> getMessageHeadersDTO() {
         return messageHeaderDTOs;
     }
 

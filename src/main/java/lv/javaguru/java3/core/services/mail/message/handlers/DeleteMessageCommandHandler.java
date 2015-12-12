@@ -1,6 +1,7 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.services.mail.message.handlers;
 
 import lv.javaguru.java3.core.commands.VoidResult;
+import lv.javaguru.java3.core.commands.mail.message.delete.DeleteMessageCommand;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.mail.message.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.commands.mail.message.count_unread;
 
 import lv.javaguru.java3.core.commands.DomainCommand;
 

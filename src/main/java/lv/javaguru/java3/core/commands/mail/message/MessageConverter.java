@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lv.javaguru.java3.core.domain.mail.MessageBuilder.createMessage;
 import static lv.javaguru.java3.core.dto.mail.message.MessageDTOBuilder.createMessageDTO;
 import static lv.javaguru.java3.core.dto.mail.message.MessageHeaderDTOBuilder.createMessageHeaderDTO;
 
@@ -36,7 +37,17 @@ public class MessageConverter {
                 .build();
     }
 
-    public List<MessageHeaderDTO> convert(List<Recipient> recipientList) {
+    public Message convert(MessageDTO messageDTO) throws Exception {
+        return createMessage()
+                .withSender(messageDTO.getSender())
+                .withTitle(messageDTO.getTitle())
+                .withBody(messageDTO.getBody())
+                .withRecipients(getRecipients(messageDTO.getId()))
+                .isImportant(messageDTO.isImportant())
+                .build();
+    }
+
+    public List<MessageHeaderDTO> convert(List<Recipient> recipientList) throws Exception {
 
         List<MessageHeaderDTO> headerDTOList = new ArrayList<>();
 
@@ -60,6 +71,10 @@ public class MessageConverter {
         for (Recipient recipient : recipients)
             users.add(userService.get(recipient.getUserId()));
         return users;
+    }
+
+    private List<Recipient> getRecipients(Long id) throws Exception {
+        return messageService.get(id).getRecipients();
     }
 
 }

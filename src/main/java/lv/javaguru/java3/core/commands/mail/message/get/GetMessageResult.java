@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.commands.mail.message.get;
 
 import lv.javaguru.java3.core.commands.DomainCommandResult;
 import lv.javaguru.java3.core.dto.mail.message.MessageDTO;

@@ -1,5 +1,8 @@
-package lv.javaguru.java3.core.commands.mail.folder;
+package lv.javaguru.java3.core.services.mail.folder.handlers;
 
+import lv.javaguru.java3.core.commands.mail.folder.FolderConverter;
+import lv.javaguru.java3.core.commands.mail.folder.GetFolderCommand;
+import lv.javaguru.java3.core.commands.mail.folder.GetFolderResult;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;

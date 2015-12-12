@@ -18,7 +18,7 @@ public class FolderConverter {
                 .withId(folder.getId())
                 .withName(folder.getName())
                 .withUserId(folder.getUserId())
-                .isRemovable(folder.getCategory() == createFolderCategory().custom().build())
+                .isRemovable(folder.getCategory().getId() == createFolderCategory().custom().build().getId())
                 .build();
     }
 

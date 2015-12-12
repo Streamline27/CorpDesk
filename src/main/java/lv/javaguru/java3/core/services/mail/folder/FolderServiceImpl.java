@@ -31,7 +31,7 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public Folder get(long folderId) {
+    public Folder get(long folderId) throws Exception{
         return folderDAO.getById(folderId);
     }
 

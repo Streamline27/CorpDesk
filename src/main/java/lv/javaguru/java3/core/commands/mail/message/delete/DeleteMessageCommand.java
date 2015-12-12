@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.commands.mail.message.delete;
 
 import lv.javaguru.java3.core.commands.DomainCommand;
 import lv.javaguru.java3.core.commands.VoidResult;

@@ -1,16 +1,16 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.commands.mail.message.count_unread;
 
 import lv.javaguru.java3.core.commands.DomainCommandResult;
 import lv.javaguru.java3.core.dto.mail.message.MessageCountDTO;
 
 /**
- * Created by Andrew on 02.12.2015.
+ * Created by Andrew on 01.12.2015.
  */
-public class GetMessageCountResult implements DomainCommandResult {
+public class GetUnreadMessageCountResult implements DomainCommandResult{
 
     private MessageCountDTO messageCountDTO;
 
-    public GetMessageCountResult(MessageCountDTO messageCountDTO) {
+    public GetUnreadMessageCountResult(MessageCountDTO messageCountDTO) {
         this.messageCountDTO = messageCountDTO;
     }
 

@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.commands.mail.message.get;
 
 import lv.javaguru.java3.core.commands.DomainCommand;
 import lv.javaguru.java3.core.commands.DomainCommandResult;
@@ -6,7 +6,7 @@ import lv.javaguru.java3.core.commands.DomainCommandResult;
 /**
  * Created by Andrew on 01.12.2015.
  */
-public class GetMessageCommand implements DomainCommand<DomainCommandResult> {
+public class GetMessageCommand implements DomainCommand<GetMessageResult> {
 
     private long messageId;
 

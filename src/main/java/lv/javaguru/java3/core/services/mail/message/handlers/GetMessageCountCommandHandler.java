@@ -1,5 +1,8 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.services.mail.message.handlers;
 
+import lv.javaguru.java3.core.commands.mail.message.MessageCountConverter;
+import lv.javaguru.java3.core.commands.mail.message.count.GetMessageCountCommand;
+import lv.javaguru.java3.core.commands.mail.message.count.GetMessageCountResult;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
 import lv.javaguru.java3.core.services.mail.message.MessageService;

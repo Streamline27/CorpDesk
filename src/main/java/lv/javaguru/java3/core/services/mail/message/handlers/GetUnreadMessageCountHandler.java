@@ -1,5 +1,8 @@
-package lv.javaguru.java3.core.commands.mail.message;
+package lv.javaguru.java3.core.services.mail.message.handlers;
 
+import lv.javaguru.java3.core.commands.mail.message.MessageCountConverter;
+import lv.javaguru.java3.core.commands.mail.message.count_unread.GetUnreadMessageCountCommand;
+import lv.javaguru.java3.core.commands.mail.message.count_unread.GetUnreadMessageCountResult;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.mail.message.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
