@@ -25,7 +25,7 @@ public class CommentServiceImpl implements CommentService {
                           String newText,
                           Date newPostedDate) {
         commentValidator.validate(newPostId, newUserId, newText, newPostedDate);
-        Comment comment = commentDAO.getById(commentId);
+        Comment comment = get(commentId);
         comment.setPostId(newPostId);
         comment.setUserId(newUserId);
         comment.setText(newText);
@@ -40,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void delete(Long commentId) {
-        Comment comment = commentDAO.getRequired(commentId);
+        Comment comment = get(commentId);
         commentDAO.delete(comment);
     }
 }
