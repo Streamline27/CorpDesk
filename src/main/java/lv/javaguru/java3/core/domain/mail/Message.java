@@ -22,7 +22,7 @@ public class Message extends Generic {
     @Column(name = "id", columnDefinition = "bigint", nullable = false)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")
     private User sender;
 

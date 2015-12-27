@@ -119,6 +119,7 @@ public class MessageServiceImpl implements MessageService {
                 .withUserId(user.getId())
                 .withFolder(folderService.getInbox(user))
                 .isUnread(true)
+                .isActive(true)
                 .build();
     }
 
@@ -127,6 +128,7 @@ public class MessageServiceImpl implements MessageService {
                 .withUserId(user.getId())
                 .withFolder(folderService.getSent(user))
                 .isUnread(false)
+                .isActive(true)
                 .build();
     }
 
