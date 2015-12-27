@@ -8,9 +8,9 @@ import lv.javaguru.java3.core.commands.VoidResult;
  */
 public class MoveToFolderCommand implements DomainCommand<VoidResult>{
 
-    private long messageId;
-    private long userId;
-    private long newFolderId;
+    private final long messageId;
+    private final long userId;
+    private final long newFolderId;
 
     public MoveToFolderCommand(long messageId, long userId, long newFolderId) {
         this.messageId = messageId;

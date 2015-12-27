@@ -7,7 +7,7 @@ import lv.javaguru.java3.core.commands.DomainCommand;
  */
 public class GetFolderCommand implements DomainCommand<GetFolderResult>{
 
-    private long folderId;
+    private final long folderId;
 
     public GetFolderCommand(long folderId) {
         this.folderId = folderId;

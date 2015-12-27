@@ -34,7 +34,7 @@ public interface FolderResource {
     @GET
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/mail/folder")
+    @Path("/mail/folder/list")
     Response list() throws Exception;
 
 }

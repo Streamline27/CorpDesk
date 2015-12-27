@@ -8,7 +8,7 @@ import lv.javaguru.java3.core.dto.mail.message.MessageDTO;
  */
 public class GetMessageResult implements DomainCommandResult{
 
-    private MessageDTO messageDTO;
+    private final MessageDTO messageDTO;
 
     public GetMessageResult(MessageDTO messageDTO) {
         this.messageDTO = messageDTO;

@@ -8,7 +8,7 @@ import lv.javaguru.java3.core.commands.VoidResult;
  */
 public class DeleteFolderCommand implements DomainCommand<VoidResult> {
 
-    private long folderId;
+    private final long folderId;
 
     public DeleteFolderCommand(long folderId) {
         this.folderId = folderId;

@@ -11,11 +11,11 @@ import java.util.List;
  */
 public class SendMessageCommand implements DomainCommand<VoidResult>{
 
-    private User sender;
-    private String title;
-    private String body;
-    private boolean isImportant;
-    private List<User> recipients;
+    private final User sender;
+    private final String title;
+    private final String body;
+    private final boolean isImportant;
+    private final List<User> recipients;
 
     public SendMessageCommand(User sender,
                               String title,

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ListFoldersResult implements DomainCommandResult {
 
-    private List<FolderDTO> folderDTOList;
+    private final List<FolderDTO> folderDTOList;
 
     public ListFoldersResult(List<FolderDTO> folderDTOList) {
         this.folderDTOList = folderDTOList;

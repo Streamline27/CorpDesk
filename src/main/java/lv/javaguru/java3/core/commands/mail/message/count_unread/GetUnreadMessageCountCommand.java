@@ -7,7 +7,7 @@ import lv.javaguru.java3.core.commands.DomainCommand;
  */
 public class GetUnreadMessageCountCommand implements DomainCommand<GetUnreadMessageCountResult>{
 
-    private long folderId;
+    private final long folderId;
 
     public GetUnreadMessageCountCommand(long folderId) {
         this.folderId = folderId;

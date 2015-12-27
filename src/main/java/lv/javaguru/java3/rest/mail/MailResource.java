@@ -15,13 +15,13 @@ public interface MailResource {
     @GET
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/mail/count")
+    @Path("/mail/message/count")
     Response count(@QueryParam("folderId") long folderId) throws Exception;
 
     @GET
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/mail/count/unread")
+    @Path("/mail/message/count/unread")
     Response countUnread(@QueryParam("folderId") long folderId) throws Exception;
 
     @DELETE
@@ -52,7 +52,7 @@ public interface MailResource {
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/mail/send")
+    @Path("/mail/message/send")
     Response send(MessageDTO messageDTO) throws Exception;
 
 }

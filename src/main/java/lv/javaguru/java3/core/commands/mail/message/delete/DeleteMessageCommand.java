@@ -8,8 +8,8 @@ import lv.javaguru.java3.core.commands.VoidResult;
  */
 public class DeleteMessageCommand implements DomainCommand<VoidResult>{
 
-    private long userId;
-    private long messageId;
+    private final long userId;
+    private final long messageId;
 
     public DeleteMessageCommand(long userId, long messageId) {
         this.userId = userId;

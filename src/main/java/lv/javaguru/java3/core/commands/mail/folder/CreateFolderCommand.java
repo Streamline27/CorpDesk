@@ -9,7 +9,7 @@ import lv.javaguru.java3.core.dto.mail.folder.FolderDTO;
  */
 public class CreateFolderCommand implements DomainCommand<VoidResult>{
 
-    private FolderDTO folderDTO;
+    private final FolderDTO folderDTO;
 
     public CreateFolderCommand(FolderDTO folderDTO) {
         this.folderDTO = folderDTO;

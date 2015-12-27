@@ -7,7 +7,7 @@ import lv.javaguru.java3.core.commands.DomainCommand;
  */
 public class GetMessageCountCommand implements DomainCommand<GetMessageCountResult> {
 
-    private long folderId;
+    private final long folderId;
 
     public GetMessageCountCommand(long folderId) {
         this.folderId = folderId;

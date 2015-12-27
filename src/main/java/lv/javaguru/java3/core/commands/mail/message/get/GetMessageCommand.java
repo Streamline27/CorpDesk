@@ -8,7 +8,7 @@ import lv.javaguru.java3.core.commands.DomainCommandResult;
  */
 public class GetMessageCommand implements DomainCommand<GetMessageResult> {
 
-    private long messageId;
+    private final long messageId;
 
     public GetMessageCommand(long messageId) {
         this.messageId = messageId;

@@ -8,7 +8,7 @@ import lv.javaguru.java3.core.dto.mail.folder.FolderDTO;
  */
 public class GetFolderResult implements DomainCommandResult{
 
-    private FolderDTO folderDTO;
+    private final FolderDTO folderDTO;
 
     public GetFolderResult(FolderDTO folderDTO) {
         this.folderDTO = folderDTO;

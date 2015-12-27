@@ -61,7 +61,8 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Recipient> list(long folderId) throws Exception {
-        return recipientDAO.getByFolderId(folderId);
+        List<Recipient> recipientList = recipientDAO.getByFolderId(folderId);
+        return recipientList;
     }
 
     @Override

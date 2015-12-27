@@ -26,7 +26,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
  * Created by Andrew on 02.12.2015.
  */
 @Component
-@Path("/mail")
+@Path("/mail/message")
 public class MailResourceImpl implements MailResource {
 
     private CommandExecutor commandExecutor;
@@ -70,12 +70,12 @@ public class MailResourceImpl implements MailResource {
 
     @Override
     @DELETE
-    @Path("/message")
+    //@Path("/")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response deleteMessage(@QueryParam("messageId") long messageId) throws Exception {
         try {
-            DeleteMessageCommand command = new DeleteMessageCommand(1L, messageId); // TODO get logged in user
+            DeleteMessageCommand command = new DeleteMessageCommand(getLoggedInUserId(), messageId);
             commandExecutor.execute(command);
             return Response.ok().build();
         } catch (Exception e) {
@@ -85,7 +85,7 @@ public class MailResourceImpl implements MailResource {
 
     @Override
     @GET
-    @Path("/message")
+    //@Path("/")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response getMessage(@QueryParam("messageId") long messageId) throws Exception {
@@ -100,7 +100,7 @@ public class MailResourceImpl implements MailResource {
 
     @Override
     @GET
-    @Path("/message/list")
+    @Path("/list")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response listMessages(@QueryParam("folderId") long folderId) throws Exception {
@@ -109,19 +109,20 @@ public class MailResourceImpl implements MailResource {
             ListMessagesResult result = commandExecutor.execute(command);
             return Response.ok().entity(gson.toJson(result.getMessageHeadersDTO())).build();
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
         }
     }
 
     @Override
     @GET
-    @Path("/message/move")
+    @Path("/move")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response moveMessage(@QueryParam("messageId") long messageId,
                                 @QueryParam("folderId") long folderId) throws Exception {
         try {
-            MoveToFolderCommand command = new MoveToFolderCommand(messageId, folderId, 1L); // TODO get logged in user
+            MoveToFolderCommand command = new MoveToFolderCommand(messageId, getLoggedInUserId(), folderId);
             commandExecutor.execute(command);
             return Response.ok().build();
         } catch (Exception e) {
@@ -130,7 +131,7 @@ public class MailResourceImpl implements MailResource {
     }
 
     @Override
-    @Path("/message/send")
+    @Path("/send")
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
@@ -149,6 +150,10 @@ public class MailResourceImpl implements MailResource {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
         }
 
+    }
+
+    private long getLoggedInUserId() {
+        return 1L; // TODO getLoggedInUserId
     }
 
 

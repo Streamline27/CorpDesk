@@ -7,7 +7,7 @@ import lv.javaguru.java3.core.commands.DomainCommand;
  */
 public class ListMessagesCommand implements DomainCommand<ListMessagesResult>{
 
-    private long folderId;
+    private final long folderId;
 
     public ListMessagesCommand(long folderId) {
         this.folderId = folderId;

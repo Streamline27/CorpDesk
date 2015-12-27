@@ -7,7 +7,7 @@ import lv.javaguru.java3.core.commands.DomainCommand;
  */
 public class ListFoldersCommand implements DomainCommand<ListFoldersResult>{
 
-    private long userId;
+    private final long userId;
 
     public ListFoldersCommand(long userId) {
         this.userId = userId;

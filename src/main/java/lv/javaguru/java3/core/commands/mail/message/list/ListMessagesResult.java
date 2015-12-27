@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ListMessagesResult implements DomainCommandResult {
 
-    private List<MessageHeaderDTO> messageHeaderDTOs;
+    private final List<MessageHeaderDTO> messageHeaderDTOs;
 
     public ListMessagesResult(List<MessageHeaderDTO> messageHeaderDTOs) {
         this.messageHeaderDTOs = messageHeaderDTOs;

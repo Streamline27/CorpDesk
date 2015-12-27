@@ -8,7 +8,7 @@ import lv.javaguru.java3.core.dto.mail.message.MessageCountDTO;
  */
 public class GetUnreadMessageCountResult implements DomainCommandResult{
 
-    private MessageCountDTO messageCountDTO;
+    private final MessageCountDTO messageCountDTO;
 
     public GetUnreadMessageCountResult(MessageCountDTO messageCountDTO) {
         this.messageCountDTO = messageCountDTO;
