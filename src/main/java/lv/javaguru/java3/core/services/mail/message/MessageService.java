@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface MessageService {
 
-    Message send(User sender,
+    Message send(long senderId,
                  String title,
                  String body,
                  List<User> recipients,
@@ -22,7 +22,7 @@ public interface MessageService {
 
     List<Recipient> list(long folderId) throws Exception;
 
-    void moveToFolder(long messageId, long userId, long newFolderId) throws Exception;
+    void moveToFolder(long messageId, long userId, long destinationFolderId) throws Exception;
 
     void delete(long userId, long messageId) throws Exception;
 

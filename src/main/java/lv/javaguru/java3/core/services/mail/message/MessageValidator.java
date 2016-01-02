@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface MessageValidator {
 
-    void validate(User sender,
+    void validate(long senderId,
                   String title,
                   String body,
                   List<User> recipients,

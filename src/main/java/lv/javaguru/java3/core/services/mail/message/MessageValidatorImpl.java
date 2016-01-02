@@ -21,13 +21,13 @@ public class MessageValidatorImpl implements MessageValidator {
     @Autowired private UserDAO userDAO;
 
     @Override
-    public void validate(User sender,
+    public void validate(long senderId,
                          String title,
                          String body,
                          List<User> recipients,
                          boolean isImportant) {
 
-        validateSender(sender);
+        validateSender(senderId);
         validateTitle(title);
         validateBody(body);
         validateRecipients(recipients);
@@ -35,9 +35,8 @@ public class MessageValidatorImpl implements MessageValidator {
 
     }
 
-    private void validateSender(User sender) {
-        checkNotNull(sender, "Message sender not must be null");
-        checkNotNull(userDAO.getById(sender.getId()), "Message sender must have a valid user");
+    private void validateSender(long senderId) {
+        checkNotNull(userDAO.getById(senderId), "Message sender must be an existing user");
     }
 
     private void validateTitle(String title) {

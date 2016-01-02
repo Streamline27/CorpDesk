@@ -23,7 +23,7 @@ public class Folder extends Generic {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
     private FolderCategory category;
 

@@ -5,17 +5,17 @@ import lv.javaguru.java3.core.database.mail.RecipientDAO;
 import lv.javaguru.java3.core.database.user.UserDAO;
 import lv.javaguru.java3.core.domain.mail.*;
 import lv.javaguru.java3.core.domain.user.User;
+import lv.javaguru.java3.core.services.mail.exception.DestinationFolderNotFoundException;
+import lv.javaguru.java3.core.services.mail.exception.MessageNotFoundException;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
-import lv.javaguru.java3.core.services.mail.folder.FolderValidator;
 import lv.javaguru.java3.core.services.mail.exception.MessageRecipientNotFoundException;
+import lv.javaguru.java3.core.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
-import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
 import static lv.javaguru.java3.core.domain.mail.MessageBuilder.createMessage;
 
 /**
@@ -28,22 +28,22 @@ public class MessageServiceImpl implements MessageService {
     @Autowired private MessageValidator validator;
     @Autowired private RecipientDAO recipientDAO;
     @Autowired private FolderService folderService;
-    @Autowired private UserDAO userDAO;
+    @Autowired private UserService userService;
 
     @Override
-    public Message send(User sender,
+    public Message send(long senderId,
                         String title,
                         String body,
                         List<User> usersRecipients,
                         boolean isImportant) throws Exception{
 
-        validator.validate(sender, title, body, usersRecipients, isImportant);
+        validator.validate(senderId, title, body, usersRecipients, isImportant);
 
         Message message = createMessage()
-                .withSender(sender)
+                .withSenderId(senderId)
                 .withTitle(title)
                 .withBody(body)
-                .withRecipients(toRecipientList(usersRecipients, sender))
+                .withRecipients(toRecipientList(usersRecipients, senderId))
                 .isImportant(isImportant)
                 .isActive(true)
                 .build();
@@ -66,16 +66,21 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void moveToFolder(long messageId, long userId, long newFolderId) throws Exception {
-        Folder folder = folderService.get(newFolderId);
+    public void moveToFolder(long messageId, long userId, long destinationFolderId) throws Exception {
+
+        Folder destinationFolder = folderService.get(destinationFolderId);
+        if (destinationFolder == null) throw new DestinationFolderNotFoundException();
 
         try {
-            Recipient recipient = getRecipient(userId, messageId);
-            recipient.setFolder(folder);
+            Recipient recipient = recipientDAO.getByMessageIdAndUserId(messageId, userId);
+            recipient.setFolder(destinationFolder);
             recipientDAO.update(recipient);
-        } catch (MessageRecipientNotFoundException e) {
+        } catch (IndexOutOfBoundsException e) {
+            throw new MessageNotFoundException();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -85,7 +90,7 @@ public class MessageServiceImpl implements MessageService {
             if (folderService.isDeleted(recipient.getFolder())) {
                 recipient.setIsActive(false);
             } else {
-                recipient.setFolder(folderService.getDeleted(userDAO.getById(userId)));
+                recipient.setFolder(folderService.getDeleted(userService.get(userId)));
             }
             recipientDAO.update(recipient);
         } catch (MessageRecipientNotFoundException e) {
@@ -106,11 +111,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
 
-    private List<Recipient> toRecipientList(List<User> usersRecipients, User sender) {
+    private List<Recipient> toRecipientList(List<User> usersRecipients, long senderId) {
         List<Recipient> recipientList = new ArrayList<>();
         for (User user : usersRecipients)
             recipientList.add(createInboxRecipient(user));
-        recipientList.add(createSentRecipient(sender));
+        recipientList.add(createSentRecipient(userService.get(senderId)));
         return recipientList;
     }
 
@@ -135,7 +140,9 @@ public class MessageServiceImpl implements MessageService {
     private Recipient getRecipient(long userId, long messageId)
             throws MessageRecipientNotFoundException {
 
-        for (Recipient r : messageDAO.getById(messageId).getRecipients())
+        List<Recipient> recipients = messageDAO.getById(messageId).getRecipients();
+
+        for (Recipient r : recipients)
             if (r.getUserId() == userId)
                 return r;
 

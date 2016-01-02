@@ -38,4 +38,14 @@ public class RecipientDAOImpl extends CRUDOperationDAOImpl<Recipient, Long> impl
                         "' AND is_active = '1' AND is_unread = '1'").list().get(0)).intValue();
     }
 
+    @Override
+    public Recipient getByMessageIdAndUserId(long messageId, long userId) throws IndexOutOfBoundsException {
+        return (Recipient) getCurrentSession().createCriteria(Recipient.class)
+                .add(Restrictions.and(
+                        Restrictions.eq("messageId", messageId),
+                        Restrictions.eq("userId", userId)
+                ))
+                .list().get(0);
+    }
+
 }

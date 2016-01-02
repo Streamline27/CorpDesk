@@ -1,18 +1,13 @@
 package lv.javaguru.java3.core.domain.mail;
 
-import lv.javaguru.java3.core.domain.user.User;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Andrew on 08.11.2015.
  */
 public class MessageBuilder {
-    private User sender;
+    private long senderId;
     private String title;
     private String body;
     private boolean isImportant;
@@ -31,7 +26,7 @@ public class MessageBuilder {
 
         Message message = new Message();
 
-        message.setSender(sender);
+        message.setSenderId(senderId);
         message.setTitle(title);
         message.setBody(body);
         message.setIsImportant(isImportant);
@@ -43,8 +38,8 @@ public class MessageBuilder {
 
     }
 
-    public MessageBuilder withSender(User sender) {
-        this.sender = sender;
+    public MessageBuilder withSenderId(long senderId) {
+        this.senderId = senderId;
         return this;
     }
 
