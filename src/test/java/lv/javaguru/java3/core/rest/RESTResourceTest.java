@@ -7,6 +7,7 @@ import feign.jaxrs.JAXRSContract;
 import lv.javaguru.java3.config.AppCoreConfig;
 import lv.javaguru.java3.config.AppCoreConfig;
 import lv.javaguru.java3.rest.clients.ClientResource;
+import lv.javaguru.java3.rest.post.PostResource;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -25,6 +26,7 @@ public class RESTResourceTest {
     private int port;
 
     protected ClientResource clientResource;
+    protected PostResource postResource;
 
 
     @Before
@@ -36,6 +38,12 @@ public class RESTResourceTest {
                 .decoder(new JacksonDecoder())
                 .contract(new JAXRSContract())
                 .target(ClientResource.class, url);
+
+        postResource = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .decoder(new JacksonDecoder())
+                .contract(new JAXRSContract())
+                .target(PostResource.class, url);
     }
 
 }

@@ -223,7 +223,24 @@ corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
         };
     }]);
 
+corpdeskControllers.controller('PostListCtrl', ['$scope', '$http', '$location',
+    function($scope, $http, $location) {
+        var ctrl = this;
 
+        $http({
+            method: 'GET',
+            url: apiHost + '/posts'
+        }).success(function(data) {
+            ctrl.posts = data;
+        }).catch(function(err) {
+            alert(err.data);
+        });
+
+        ctrl.openPost = function(post) {
+            $location.path("/post/" + post.id)
+        };
+
+    }]);
 
 
 

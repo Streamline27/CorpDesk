@@ -4,6 +4,9 @@ import lv.javaguru.java3.core.domain.post.Post;
 import lv.javaguru.java3.core.dto.post.PostDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static lv.javaguru.java3.core.dto.post.PostDTOBuilder.createPostDTO;
 
 /**
@@ -25,4 +28,13 @@ public class PostConverter {
                 .build();
     }
 
+    public List<PostDTO> convert(List<Post> posts) {
+        List<PostDTO> result = new ArrayList<>();
+        if(posts != null) {
+            for (Post post : posts) {
+                result.add(convert(post));
+            }
+        }
+        return result;
+    }
 }

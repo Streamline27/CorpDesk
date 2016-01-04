@@ -25,6 +25,8 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         assertThat(comment.getId(), is(nullValue()));
         commentDAO.create(comment);
         assertThat(comment.getId(), is(notNullValue()));
+
+        commentDAO.delete(comment);
     }
 
     @Test
@@ -34,6 +36,8 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         commentDAO.create(comment);
         Comment commentFromDB = commentDAO.getById(comment.getId());
         assertThat(commentFromDB, is(notNullValue()));
+
+        commentDAO.delete(comment);
     }
 
     @Test
@@ -57,6 +61,8 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         assertEquals(commentFromDB.getUserId(), newUserId);
         assertEquals(commentFromDB.getText(), newText);
         assertEquals(commentFromDB.getPostedDate(), newPostedDate);
+
+        commentDAO.delete(comment);
     }
 
     @Test
