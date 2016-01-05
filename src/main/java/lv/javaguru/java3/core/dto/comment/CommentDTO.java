@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.dto.post;
+package lv.javaguru.java3.core.dto.comment;
 
 import java.io.Serializable;
 import java.sql.Date;

@@ -1,13 +1,13 @@
 package lv.javaguru.java3.core.database.post;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
-import lv.javaguru.java3.core.domain.post.Comment;
+import lv.javaguru.java3.core.domain.comment.Comment;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
 
-import static lv.javaguru.java3.core.domain.post.CommentBuilder.createComment;
+import static lv.javaguru.java3.core.domain.comment.CommentBuilder.createComment;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 

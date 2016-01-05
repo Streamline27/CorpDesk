@@ -1,5 +1,7 @@
 package lv.javaguru.java3.core.domain.post;
 
+import lv.javaguru.java3.core.domain.comment.Comment;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;

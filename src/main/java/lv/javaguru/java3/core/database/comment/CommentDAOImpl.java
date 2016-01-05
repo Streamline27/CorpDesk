@@ -1,7 +1,8 @@
-package lv.javaguru.java3.core.database.post;
+package lv.javaguru.java3.core.database.comment;
 
 import lv.javaguru.java3.core.database.CRUDOperationDAOImpl;
-import lv.javaguru.java3.core.domain.post.Comment;
+import lv.javaguru.java3.core.database.comment.CommentDAO;
+import lv.javaguru.java3.core.domain.comment.Comment;
 import org.springframework.stereotype.Component;
 
 /**

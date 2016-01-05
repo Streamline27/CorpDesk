@@ -1,11 +1,12 @@
 package lv.javaguru.java3.core.services.comment;
 
-import lv.javaguru.java3.core.database.post.CommentDAO;
-import lv.javaguru.java3.core.domain.post.Comment;
+import lv.javaguru.java3.core.database.comment.CommentDAO;
+import lv.javaguru.java3.core.domain.comment.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by svetlana on 28/11/15.
@@ -36,6 +37,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment get(Long commentId) {
         return commentDAO.getRequired(commentId);
+    }
+
+    @Override
+    public List<Comment> getAll() {
+        return commentDAO.getAll();
     }
 
     @Override

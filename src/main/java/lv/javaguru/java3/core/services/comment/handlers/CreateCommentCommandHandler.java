@@ -1,8 +1,10 @@
-package lv.javaguru.java3.core.commands.comment;
+package lv.javaguru.java3.core.services.comment.handlers;
 
+import lv.javaguru.java3.core.commands.comment.CreateCommentCommand;
+import lv.javaguru.java3.core.commands.comment.CreateCommentResult;
 import lv.javaguru.java3.core.convertor.CommentConverter;
-import lv.javaguru.java3.core.domain.post.Comment;
-import lv.javaguru.java3.core.dto.post.CommentDTO;
+import lv.javaguru.java3.core.domain.comment.Comment;
+import lv.javaguru.java3.core.dto.comment.CommentDTO;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.comment.CommentFactory;
 import org.springframework.beans.factory.annotation.Autowired;

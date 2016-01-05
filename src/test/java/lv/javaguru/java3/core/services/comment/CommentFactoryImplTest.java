@@ -1,7 +1,7 @@
 package lv.javaguru.java3.core.services.comment;
 
-import lv.javaguru.java3.core.database.post.CommentDAO;
-import lv.javaguru.java3.core.domain.post.Comment;
+import lv.javaguru.java3.core.database.comment.CommentDAO;
+import lv.javaguru.java3.core.domain.comment.Comment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
