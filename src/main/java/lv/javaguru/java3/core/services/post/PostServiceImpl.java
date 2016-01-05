@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by svetlana on 07/11/15.
@@ -38,6 +39,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post get(Long postId) {
         return postDAO.getRequired(postId);
+    }
+
+    @Override
+    public List<Post> getAll() {
+        return postDAO.getAll();
     }
 
     @Override

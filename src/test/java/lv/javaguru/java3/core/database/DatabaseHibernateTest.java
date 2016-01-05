@@ -10,7 +10,7 @@ import lv.javaguru.java3.core.database.mail.FolderCategoryDAO;
 import lv.javaguru.java3.core.database.mail.FolderDAO;
 import lv.javaguru.java3.core.database.mail.MessageDAO;
 import lv.javaguru.java3.core.database.mail.RecipientDAO;
-import lv.javaguru.java3.core.database.post.CommentDAO;
+import lv.javaguru.java3.core.database.comment.CommentDAO;
 import lv.javaguru.java3.core.database.post.PostDAO;
 import lv.javaguru.java3.core.database.user.GroupDAO;
 import lv.javaguru.java3.core.database.user.UserDAO;

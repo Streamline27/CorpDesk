@@ -1,4 +1,4 @@
-package lv.javaguru.java3.core.domain.post;
+package lv.javaguru.java3.core.domain.comment;
 
 import javax.persistence.*;
 import java.sql.Date;

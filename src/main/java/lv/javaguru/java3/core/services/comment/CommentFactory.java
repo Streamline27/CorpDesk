@@ -1,6 +1,6 @@
 package lv.javaguru.java3.core.services.comment;
 
-import lv.javaguru.java3.core.domain.post.Comment;
+import lv.javaguru.java3.core.domain.comment.Comment;
 
 import java.sql.Date;
 

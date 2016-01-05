@@ -1,13 +1,13 @@
 package lv.javaguru.java3.core.services.comment;
 
-import lv.javaguru.java3.core.database.post.CommentDAO;
-import lv.javaguru.java3.core.domain.post.Comment;
+import lv.javaguru.java3.core.database.comment.CommentDAO;
+import lv.javaguru.java3.core.domain.comment.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 
-import static lv.javaguru.java3.core.domain.post.CommentBuilder.createComment;
+import static lv.javaguru.java3.core.domain.comment.CommentBuilder.createComment;
 
 /**
  * Created by svetlana on 26/11/15.

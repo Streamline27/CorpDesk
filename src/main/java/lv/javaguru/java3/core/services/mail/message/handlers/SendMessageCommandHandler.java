@@ -18,7 +18,7 @@ public class SendMessageCommandHandler implements DomainCommandHandler<SendMessa
     @Override
     public VoidResult execute(SendMessageCommand command) throws Exception {
 
-        messageService.send(command.getSender(), command.getTitle(), command.getBody(), command.getRecipients(), command.isImportant());
+        messageService.send(command.getSender().getId(), command.getTitle(), command.getBody(), command.getRecipients(), command.isImportant());
 
         return VoidResult.INSTANCE;
     }

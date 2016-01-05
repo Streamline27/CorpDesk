@@ -1,6 +1,6 @@
-package lv.javaguru.java3.rest.post;
+package lv.javaguru.java3.rest.comment;
 
-import lv.javaguru.java3.core.dto.post.CommentDTO;
+import lv.javaguru.java3.core.dto.comment.CommentDTO;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

@@ -1,9 +1,10 @@
-package lv.javaguru.java3.rest.post;
+package lv.javaguru.java3.rest.comment;
 
 import lv.javaguru.java3.core.commands.comment.CreateCommentCommand;
 import lv.javaguru.java3.core.commands.comment.CreateCommentResult;
-import lv.javaguru.java3.core.dto.post.CommentDTO;
+import lv.javaguru.java3.core.dto.comment.CommentDTO;
 import lv.javaguru.java3.core.services.CommandExecutor;
+import lv.javaguru.java3.rest.comment.CommentResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -4,11 +4,8 @@ import lv.javaguru.java3.core.domain.Generic;
 import lv.javaguru.java3.core.domain.user.User;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Andrew on 08.11.2015.
@@ -22,9 +19,8 @@ public class Message extends Generic {
     @Column(name = "id", columnDefinition = "bigint", nullable = false)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "sender_id")
-    private User sender;
+    @Column(name = "sender_id")
+    private long senderId;
 
     @Column(name = "title")
     private String title;
@@ -56,12 +52,12 @@ public class Message extends Generic {
         this.id = id;
     }
 
-    public User getSender() {
-        return sender;
+    public long getSenderId() {
+        return senderId;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSenderId(long senderId) {
+        this.senderId = senderId;
     }
 
     public String getTitle() {

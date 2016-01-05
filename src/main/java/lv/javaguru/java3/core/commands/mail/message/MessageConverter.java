@@ -29,7 +29,7 @@ public class MessageConverter {
     public MessageDTO convert(Message message) {
         return createMessageDTO()
                 .withId(message.getId())
-                .withSender(message.getSender())
+                .withSender(userService.get(message.getSenderId()))
                 .withTitle(message.getTitle())
                 .withBody(message.getBody())
                 .withCreated(message.getCreated())
@@ -39,7 +39,7 @@ public class MessageConverter {
 
     public Message convert(MessageDTO messageDTO) throws Exception {
         return createMessage()
-                .withSender(messageDTO.getSender())
+                .withSenderId(messageDTO.getSender().getId())
                 .withTitle(messageDTO.getTitle())
                 .withBody(messageDTO.getBody())
                 .withRecipients(getRecipients(messageDTO.getId()))
@@ -58,7 +58,7 @@ public class MessageConverter {
             headerDTOList.add(createMessageHeaderDTO()
                     .withMessageId(recipient.getMessageId())
                     .withTitle(message.getTitle())
-                    .withSender(message.getSender())
+                    .withSender(userService.get(message.getSenderId()))
                     .withCreated(message.getCreated())
                     .build());
         }

@@ -1,5 +1,7 @@
-package lv.javaguru.java3.core.commands.post;
+package lv.javaguru.java3.core.services.post.handlers;
 
+import lv.javaguru.java3.core.commands.post.UpdatePostCommand;
+import lv.javaguru.java3.core.commands.post.UpdatePostResult;
 import lv.javaguru.java3.core.convertor.PostConverter;
 import lv.javaguru.java3.core.domain.post.Post;
 import lv.javaguru.java3.core.dto.post.PostDTO;

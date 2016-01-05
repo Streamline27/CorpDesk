@@ -20,7 +20,7 @@ public class DeleteFolderCommandHandler implements DomainCommandHandler<DeleteFo
     @Override
     public VoidResult execute(DeleteFolderCommand command) throws Exception {
 
-        folderService.delete(createFolder().withId(command.getFolderId()).build());
+        folderService.delete(folderService.get(command.getFolderId()));
 
         return VoidResult.INSTANCE;
     }
