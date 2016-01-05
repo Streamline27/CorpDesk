@@ -242,6 +242,25 @@ corpdeskControllers.controller('PostListCtrl', ['$scope', '$http', '$location',
 
     }]);
 
+/*
+corpdeskControllers.controller('AllGalleryCtrl', ['$scope', '$http', '$location',
+    function($scope, $http, $location) {
+        var ctrl = this;
+
+        $http({
+            method: 'GET',
+            url: apiHost + '/gallerycluster/galleries'
+        }).success(function (data) {
+          //  ctrl.gallery = data;
+            $scope.galleries = data;
+        }).catch(function(err){
+            alert(err.data);
+        });
+
+    }]);*/
+
+
+
 
 
 
@@ -254,7 +273,8 @@ corpdeskControllers.controller('PostListCtrl', ['$scope', '$http', '$location',
 /**
  * Controls the Blog
  */
-app.controller('BlogCtrl', function (/* $scope, $location, $http */) {
+app.controller('BlogCtrl', function ($location/* $scope, $location, $http */) {
+   // $location.path('/404');
 });
 
 /**

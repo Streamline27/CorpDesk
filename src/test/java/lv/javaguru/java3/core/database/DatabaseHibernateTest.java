@@ -16,6 +16,7 @@ import lv.javaguru.java3.core.database.user.GroupDAO;
 import lv.javaguru.java3.core.database.user.UserDAO;
 import lv.javaguru.java3.core.database.user.UserLogDAO;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -78,10 +79,8 @@ public abstract class DatabaseHibernateTest {
 	@Autowired
 	protected RewardDAO rewardDAO;
 
-	protected void flushSession(){
-		sessionFactory.getCurrentSession().flush();
-	}
+	protected void commitTransaction(){  sessionFactory.getCurrentSession().getTransaction().commit();}
 
-	protected List<Object> stackVals = new ArrayList<>();
+	protected void startTransaction(){ sessionFactory.getCurrentSession().beginTransaction();}
 
 }
