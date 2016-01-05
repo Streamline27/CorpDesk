@@ -20,5 +20,6 @@ public interface ImageFactory {
                     boolean allowRate,
                     boolean allowRateIcons,
                     Date modified);
-    ImageDTO create(ImageDTO imageDTO);
+    ImageDTO createDTO(ImageDTO imageDTO);
+    Image create(ImageDTO imageDTO);
 }

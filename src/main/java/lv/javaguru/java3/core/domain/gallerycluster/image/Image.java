@@ -53,7 +53,7 @@ public class Image extends GalleryModifer {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Category category;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "images")
-    private List<Reward> rewards = new ArrayList<>();
+    private List<Reward> rewards;
 
   //  @ManyToMany(fetch = FetchType.LAZY, mappedBy = "images")
   //  private Set<Reward> rewards;

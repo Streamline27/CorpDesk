@@ -1,6 +1,6 @@
 package lv.javaguru.java3.core.services.gallerycluster.reward;
 
-import lv.javaguru.java3.core.commands.gallerycluster.converter.RewardConverter;
+import lv.javaguru.java3.core.convertor.RewardConverter;
 import lv.javaguru.java3.core.database.gallerycluster.reward.RewardDAO;
 import lv.javaguru.java3.core.domain.gallerycluster.reward.Reward;
 import static lv.javaguru.java3.core.domain.gallerycluster.reward.RewardBuilder.aReward;
@@ -40,9 +40,16 @@ public class RewardFactoryImpl implements RewardFactory{
     }
 
     @Override
-    public RewardDTO create(RewardDTO rewardDTO) {
+    public RewardDTO createDTO(RewardDTO rewardDTO) {
         rewardValidator.validate(rewardDTO);
         rewardDAO.create(rewardConverter.convert(rewardDTO));
         return rewardDTO;
+    }
+    @Override
+    public Reward create(RewardDTO rewardDTO) {
+        rewardValidator.validate(rewardDTO);
+        Reward reward = rewardConverter.convert(rewardDTO);
+        rewardDAO.create(reward);
+        return reward;
     }
 }

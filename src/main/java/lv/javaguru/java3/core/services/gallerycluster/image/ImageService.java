@@ -25,7 +25,9 @@ public interface ImageService {
 
     Image update(Image image);
 
-    ImageDTO update(ImageDTO imageDTO);
+    ImageDTO updateDTO(ImageDTO imageDTO);
+
+    Image update(ImageDTO imageDTO);
 
     void delete(long id);
 }

@@ -64,23 +64,25 @@ public class CategoryDAOImplTest extends DatabaseHibernateTest {
     @Test
     @Transactional
     public void testCreateCategory() {
-
-    /*    galleryDAO.create(gallery);
+        try {
+            startTransaction();
+        galleryDAO.create(gallery);
         category.setGallery(gallery);
         categoryDAO.create(category);
         assertTrue(category.getId() > 0);
 
         Category categoryFromDB = categoryDAO.getById(category.getId());
-        assertThat(categoryFromDB, is(notNullValue()));*/
-    }
+        assertThat(categoryFromDB, is(notNullValue()));
 
-    @Test
-    @Transactional
-    public void testDelete(){
-        //  List<Gallery> galleries = galleryDAO.getAll();
-        // Gallery gallery = galleryDAO.getById(90l);
-        // galleryDAO.delete(gallery);
+            categoryDAO.delete(category);
+            categoryFromDB = categoryDAO.getById(categoryFromDB.getId());
+            assertEquals(null, categoryFromDB);
 
+            galleryDAO.delete(gallery);
+            commitTransaction();
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -88,35 +90,50 @@ public class CategoryDAOImplTest extends DatabaseHibernateTest {
     @Test
     @Transactional
     public void testMultipleGalleryCreation()  {
-/*
+        try {
+            startTransaction();
+
         galleryDAO.create(gallery);
 
         List<Category> categories = categoryDAO.getAll();
         int categoriesCount = categories == null ? 0 : categories.size();
 
-        category.setGalleryId(gallery.getUserId());
-        category2.setGalleryId(gallery.getUserId());
+        category.setGallery(gallery);
+        category2.setGallery(gallery);
 
         categoryDAO.create(category);
         categoryDAO.create(category2);
 
         categories = categoryDAO.getAll();
         assertEquals(2, categories.size() - categoriesCount);
-*/
+
+            categoryDAO.delete(category);
+            categoryDAO.delete(category2);
+
+            categories = categoryDAO.getAll();
+            assertEquals(0, categories.size() - categoriesCount);
+
+            galleryDAO.delete(gallery);
+
+            commitTransaction();
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     @Transactional
     public void testUpdateCategory()  {
-      /*  galleryDAO.create(gallery);
-        category.setGalleryId(gallery.getUserId());
+        try {
+            startTransaction();
+        galleryDAO.create(gallery);
+        category.setGallery(gallery);
 
         categoryDAO.create(category);
         category = categoryDAO.getById(category.getId());
 
         category.setAllowRate(category2.getAllowRate());
         category.setAllowRateIcons(category2.getAllowRateIcons());
-        category.setImgId(category2.getImgId());
         category.setModifed(category2.getModifed());
         category.setDescription(category2.getDescription());
         category.setIsActive(category2.isActive());
@@ -132,10 +149,18 @@ public class CategoryDAOImplTest extends DatabaseHibernateTest {
         assertEquals(category2.isActive(), categoryFromDB.isActive());
         assertEquals(category2.getDescription(), categoryFromDB.getDescription());
         assertEquals(category2.getLabel(), categoryFromDB.getLabel());
-        assertEquals(category2.getImgId(), categoryFromDB.getImgId());
         assertEquals(category2.getModifed(), categoryFromDB.getModifed());
 
-*/
+
+            categoryDAO.delete(category);
+            categoryFromDB = categoryDAO.getById(categoryFromDB.getId());
+            assertEquals(null, categoryFromDB);
+
+            galleryDAO.delete(gallery);
+            commitTransaction();
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
 

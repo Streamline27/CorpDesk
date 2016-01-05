@@ -1,6 +1,6 @@
 package lv.javaguru.java3.core.services.gallerycluster.image;
 
-import lv.javaguru.java3.core.commands.gallerycluster.converter.ImageConverter;
+import lv.javaguru.java3.core.convertor.ImageConverter;
 import lv.javaguru.java3.core.database.gallerycluster.image.ImageDAO;
 import lv.javaguru.java3.core.domain.gallerycluster.image.Image;
 import lv.javaguru.java3.core.dto.gallerycluster.ImageDTO;
@@ -58,9 +58,16 @@ public class ImageFactoryImpl implements ImageFactory {
     }
 
     @Override
-    public ImageDTO create(ImageDTO imageDTO) {
+    public ImageDTO createDTO(ImageDTO imageDTO) {
         imageValidator.validate(imageDTO);
         imageDAO.create(imageConverter.convert(imageDTO));
         return imageDTO;
+    }
+    @Override
+    public Image create(ImageDTO imageDTO) {
+        imageValidator.validate(imageDTO);
+        Image image = imageConverter.convert(imageDTO);
+        imageDAO.create(image);
+        return image;
     }
 }

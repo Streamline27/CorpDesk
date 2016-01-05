@@ -19,7 +19,9 @@ public interface CategoryService {
                     Date newModified);
     Category update(Category category);
 
-    CategoryDTO update(CategoryDTO categoryDTO);
+    CategoryDTO updateDTO(CategoryDTO categoryDTO);
+
+    Category update(CategoryDTO categoryDTO);
 
     Category get(Long id);
 

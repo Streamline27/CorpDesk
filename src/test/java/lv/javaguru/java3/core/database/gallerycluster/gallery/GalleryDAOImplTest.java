@@ -39,10 +39,17 @@ public class GalleryDAOImplTest extends DatabaseHibernateTest{
                 .withIsActive(true)
                 .withLabel("some sort of label1")
                 .build();
-        gallery2 = aGallery()
+       /* gallery2 = aGallery()
                 .withAllowRate(true)
                 .withAllowRateIcons(false)
                 .withDescription("derrhhhhhhhhhhhhh gggg")
+                .withIsActive(true)
+                .withLabel("some sort of label2")
+                .build();*/
+        gallery2 = aGallery()
+                .withAllowRate(true)
+                .withAllowRateIcons(false)
+                .withDescription("hhhhhhhhhhhhh gggg")
                 .withIsActive(true)
                 .withLabel("some sort of label2")
                 .build();
@@ -54,27 +61,46 @@ public class GalleryDAOImplTest extends DatabaseHibernateTest{
     @Test
     @Transactional
     public void testCreateGallery() {
-
+        try {
+            startTransaction();
         galleryDAO.create(gallery);
         assertThat(gallery, is(notNullValue()));
-        assertTrue(gallery.getId() > 0);
 
+            Gallery galleryFromDb = galleryDAO.getById(gallery.getId());
+            assertThat(galleryFromDb, is(notNullValue()));
+
+            galleryDAO.delete(gallery);
+            galleryFromDb = galleryDAO.getById(galleryFromDb.getId());
+            assertEquals(null, galleryFromDb);
+            commitTransaction();
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     @Transactional
     public void testGetGalleryById() {
-
+        try {
+            startTransaction();
         galleryDAO.create(gallery);
-        Gallery galleryFromDB = galleryDAO.getById(gallery.getId() - 1);
+        Gallery galleryFromDB = galleryDAO.getById(gallery.getId());
         assertThat(galleryFromDB, is(notNullValue()));
-        assertEquals(galleryFromDB.getId(), gallery.getId() - 1);
+        assertEquals(galleryFromDB.getId(), gallery.getId());
+            galleryDAO.delete(gallery);
+            galleryFromDB = galleryDAO.getById(galleryFromDB.getId());
+            assertEquals(null, galleryFromDB);
+            commitTransaction();
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     @Transactional
     public void testMultipleGalleryCreation()  {
-
+        try {
+            startTransaction();
         List<Gallery> galleries = galleryDAO.getAll();
         int galleriesCount = galleries == null ? 0 : galleries.size();
 
@@ -85,11 +111,24 @@ public class GalleryDAOImplTest extends DatabaseHibernateTest{
         galleries = galleryDAO.getAll();
         assertEquals(2, galleries.size() - galleriesCount);
 
+            galleryDAO.delete(gallery);
+            galleryDAO.delete(gallery2);
+
+            galleries = galleryDAO.getAll();
+            assertEquals(0, galleries.size() - galleriesCount);
+
+
+            commitTransaction();
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     @Transactional
     public void testUpdate()  {
+        try {
+            startTransaction();
         galleryDAO.create(gallery);
 
         gallery = galleryDAO.getById(gallery.getId());
@@ -110,111 +149,17 @@ public class GalleryDAOImplTest extends DatabaseHibernateTest{
         assertEquals(gallery2.isActive(), galleryFromDB.isActive());
         assertEquals(gallery2.getDescription(), galleryFromDB.getDescription());
         assertEquals(gallery2.getLabel(), galleryFromDB.getLabel());
-        System.out.println("************************************************************\n");
-        System.out.println("LastId: " +galleryFromDB.getId() + "\n");
-        System.out.println("************************************************************\n");
-        deleteRecords();
 
-    }
+         /*   galleryDAO.delete(gallery);
+            galleryFromDB = galleryDAO.getById(galleryFromDB.getId());
+            assertEquals(null, galleryFromDB);*/
 
-   // @Test
-    //@Transactional
-    public void deleteRecords(){
-        List<Gallery> galleries = galleryDAO.getAll();
-        galleries = galleries.subList(galleries.size() - 5,galleries.size());
-
-        for (Gallery ga: galleries){
-            flushSession();
-            galleryDAO.delete(ga);
+            commitTransaction();
+        }catch (RuntimeException e) {
+            e.printStackTrace();
         }
-    }
-
-
-    /*
-
-    @Test
-    @Transactional
-    public void testDelete(){
-      //  List<Gallery> galleries = galleryDAO.getAll();
-       // Gallery gallery = galleryDAO.getById(90l);
-       // galleryDAO.delete(gallery);
 
     }
-
-    @Test
-    @Transactional
-    public void testGetGalleryById() {
-
-        galleryDAO.create(gallery);
-        Gallery galleryFromDB = galleryDAO.getById(gallery.getUserId());
-        assertThat(galleryFromDB, is(notNullValue()));
-    }
-
-    @Test
-    @Transactional
-    public void testMultipleGalleryCreation()  {
-
-        List<Gallery> galleries = galleryDAO.getAll();
-        int galleriesCount = galleries == null ? 0 : galleries.size();
-
-        galleryDAO.create(gallery);
-        galleryDAO.create(gallery2);
-
-
-        galleries = galleryDAO.getAll();
-        assertEquals(2, galleries.size() - galleriesCount);
-
-    }
-
-    @Test
-    @Transactional
-    public void testUpdate()  {
-        galleryDAO.create(gallery);
-
-        gallery = galleryDAO.getById(gallery.getUserId());
-
-        gallery.setAllowRate(gallery2.getAllowRate());
-        gallery.setAllowRateIcons(gallery2.getAllowRateIcons());
-        gallery.setDescription(gallery2.getDescription());
-        gallery.setIsActive(gallery2.isActive());
-        gallery.setLabel(gallery2.getLabel());
-
-        galleryDAO.update(gallery);
-
-        Gallery galleryFromDB = galleryDAO.getById(gallery.getUserId());
-
-        assertNotNull(galleryFromDB);
-        assertEquals(gallery2.getAllowRate(), galleryFromDB.getAllowRate());
-        assertEquals(gallery2.getAllowRateIcons(), galleryFromDB.getAllowRateIcons());
-        assertEquals(gallery2.isActive(), galleryFromDB.isActive());
-        assertEquals(gallery2.getDescription(), galleryFromDB.getDescription());
-        assertEquals(gallery2.getLabel(), galleryFromDB.getLabel());
-
-    }*/
-
-  /*  @After
-    @Transactional
-    public void testDeleteAndClearTestData(){
-
-        List<Gallery> galleries = galleryDAO.getAll();
-          for(Gallery el : stackVals){
-              System.out.println("************************************************************\n");
-              System.out.println("GId: " + el.getUserId() + "\n");
-              System.out.println("************************************************************\n");
-               galleryDAO.delete(el);
-          }
-        stackVals.forEach(
-                e -> galleryDAO.delete(e)
-        );
-        stackVals.clear();
-       // assertEquals(initialSize, galleries.size() - initialSize);
-        System.out.println("************************************************************\n");
-        System.out.println("Size: " + initialSize + "\n");
-        System.out.println("************************************************************\n");
-        initialSize = 0;
-
-
-    }*/
 
 
 

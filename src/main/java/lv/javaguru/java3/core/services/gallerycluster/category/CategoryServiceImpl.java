@@ -1,6 +1,6 @@
 package lv.javaguru.java3.core.services.gallerycluster.category;
 
-import lv.javaguru.java3.core.commands.gallerycluster.converter.CategoryConverter;
+import lv.javaguru.java3.core.convertor.CategoryConverter;
 import lv.javaguru.java3.core.database.gallerycluster.category.CategoryDAO;
 import lv.javaguru.java3.core.domain.gallerycluster.category.Category;
 import lv.javaguru.java3.core.dto.gallerycluster.CategoryDTO;
@@ -58,10 +58,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDTO update(CategoryDTO categoryDTO) {
+    public CategoryDTO updateDTO(CategoryDTO categoryDTO) {
         categoryValidator.validate(categoryDTO);
         categoryDAO.update(categoryConverter.convert(categoryDTO));
         return categoryDTO;
+    }
+    @Override
+    public Category update(CategoryDTO categoryDTO) {
+        categoryValidator.validate(categoryDTO);
+        Category category = categoryConverter.convert(categoryDTO);
+        categoryDAO.update(category);
+        return category;
     }
 
     @Override
