@@ -2,7 +2,6 @@ package lv.javaguru.java3.core.services.mail.message;
 
 import lv.javaguru.java3.core.database.mail.MessageDAO;
 import lv.javaguru.java3.core.database.mail.RecipientDAO;
-import lv.javaguru.java3.core.database.user.UserDAO;
 import lv.javaguru.java3.core.domain.mail.*;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.mail.exception.DestinationFolderNotFoundException;
@@ -84,7 +83,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void delete(long messageId, long userId) throws Exception {
+    public void delete(long userId, long messageId) throws Exception {
         try {
             Recipient recipient = getRecipient(userId, messageId);
             if (folderService.isDeleted(recipient.getFolder())) {
@@ -93,7 +92,7 @@ public class MessageServiceImpl implements MessageService {
                 recipient.setFolder(folderService.getDeleted(userService.get(userId)));
             }
             recipientDAO.update(recipient);
-        } catch (MessageRecipientNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -106,8 +105,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public int getUnreadMessageCount(long folderId) throws Exception {
-        return recipientDAO.getUnreadMessageCount(folderId);
+    public int getUnreadMessageCount(Folder folder) throws Exception {
+        return recipientDAO.getUnreadMessageCount(folder.getId());
     }
 
 

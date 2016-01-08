@@ -72,7 +72,7 @@ public class MessageDAOImplTest extends DatabaseHibernateTest {
         recipients1 = new ArrayList<>();
         recipients1.add(recipient1);
         message1 = createMessage()
-                .withSender(user1)
+                .withSenderId(user1.getId())
                 .withTitle("Test Message 1")
                 .withBody("Hello User Two from User One!")
                 .withRecipients(recipients1)
@@ -84,7 +84,7 @@ public class MessageDAOImplTest extends DatabaseHibernateTest {
         recipients2 = new ArrayList<>();
         recipients2.add(recipient2);
         message2 = createMessage()
-                .withSender(user2)
+                .withSenderId(user2.getId())
                 .withTitle("Test Message 2")
                 .withBody("Hello User One from User Two!")
                 .withRecipients(recipients2)

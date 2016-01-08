@@ -28,6 +28,6 @@ public interface MessageService {
 
     int getMessagesCount(Folder folder) throws Exception;
 
-    int getUnreadMessageCount(long folderId) throws Exception;
+    int getUnreadMessageCount(Folder folderId) throws Exception;
 
 }

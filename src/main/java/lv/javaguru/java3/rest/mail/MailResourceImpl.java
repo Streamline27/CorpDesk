@@ -70,7 +70,6 @@ public class MailResourceImpl implements MailResource {
 
     @Override
     @DELETE
-    //@Path("/")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response deleteMessage(@QueryParam("messageId") long messageId) throws Exception {
@@ -85,7 +84,6 @@ public class MailResourceImpl implements MailResource {
 
     @Override
     @GET
-    //@Path("/")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response getMessage(@QueryParam("messageId") long messageId) throws Exception {
