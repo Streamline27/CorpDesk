@@ -2,10 +2,14 @@ package lv.javaguru.java3.core.services.gallerycluster.gallery;
 
 import lv.javaguru.java3.core.dto.gallerycluster.GalleryDTO;
 import lv.javaguru.java3.core.services.gallerycluster.Validator;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Aleksej_home on 2015.11.09..
  */
+//@Service
+@Component
 public class GalleryValidatorImpl extends Validator implements GalleryValidator{
 
     private final String BASE = "Gallery ";

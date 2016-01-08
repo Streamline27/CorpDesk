@@ -12,5 +12,6 @@ public interface GalleryFactory {
                     boolean isActive,
                     boolean allowRate,
                     boolean allowRateIcons);
-    GalleryDTO create(GalleryDTO galleryDTO);
+    GalleryDTO createDTO(GalleryDTO galleryDTO);
+    Gallery create(GalleryDTO galleryDTO);
 }

@@ -19,5 +19,6 @@ public interface CategoryFactory {
                     boolean allowRateIcons,
                     Date modified);
 
-    CategoryDTO create(CategoryDTO categoryDTO);
+    CategoryDTO createDTO(CategoryDTO categoryDTO);
+    Category create(CategoryDTO categoryDTO);
 }

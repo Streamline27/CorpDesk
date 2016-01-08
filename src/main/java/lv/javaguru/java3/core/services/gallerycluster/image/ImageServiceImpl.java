@@ -1,6 +1,6 @@
 package lv.javaguru.java3.core.services.gallerycluster.image;
 
-import lv.javaguru.java3.core.commands.gallerycluster.converter.ImageConverter;
+import lv.javaguru.java3.core.convertor.ImageConverter;
 import lv.javaguru.java3.core.database.gallerycluster.image.ImageDAO;
 import lv.javaguru.java3.core.domain.gallerycluster.image.Image;
 import lv.javaguru.java3.core.dto.gallerycluster.ImageDTO;
@@ -66,10 +66,17 @@ public class ImageServiceImpl implements ImageService{
     }
 
     @Override
-    public ImageDTO update(ImageDTO imageDTO) {
+    public ImageDTO updateDTO(ImageDTO imageDTO) {
         imageValidator.validate(imageDTO);
         imageDAO.update(imageConverter.convert(imageDTO));
         return imageDTO;
+    }
+    @Override
+    public Image update(ImageDTO imageDTO) {
+        imageValidator.validate(imageDTO);
+        Image image = imageConverter.convert(imageDTO);
+        imageDAO.update(image);
+        return image;
     }
 
     @Override

@@ -1,7 +1,10 @@
 package lv.javaguru.java3.core.domain.post;
 
+import lv.javaguru.java3.core.domain.comment.Comment;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by svetlana on 30/10/15.
@@ -32,6 +35,9 @@ public class Post {
 
     @Column(name = "modified_date")
     private Date modifiedDate;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "postId")
+    private List<Comment> comments;
 
     public Long getId() {
         return id;
@@ -89,4 +95,11 @@ public class Post {
         this.modifiedDate = modifiedDate;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }

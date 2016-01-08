@@ -5,6 +5,7 @@
  */
 var app = angular.module('corpDeskApp', [
   'ngRoute',
+  'galleryConfigApp',
   'corpdeskControllers'
 ]);
 
@@ -59,6 +60,16 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: "partials/change_password.html",
           controller: "PasswordCtrl",
           controllerAs: "PasswordCtrl"
+      })
+      .when("/posts", {
+          templateUrl: "partials/posts.html",
+          controller: "PostListCtrl",
+          controllerAs: "PostListCtrl"
+      })
+      .when("/post/:id?", {
+          templateUrl: "partial/post.html",
+          controller: "PostPageCtrl",
+          controllerAs: "PostPageCtrl"
       })
 
 

@@ -1,6 +1,6 @@
 package lv.javaguru.java3.core.services.gallerycluster.reward;
 
-import lv.javaguru.java3.core.commands.gallerycluster.converter.RewardConverter;
+import lv.javaguru.java3.core.convertor.RewardConverter;
 import lv.javaguru.java3.core.database.gallerycluster.reward.RewardDAO;
 import lv.javaguru.java3.core.domain.gallerycluster.reward.Reward;
 import lv.javaguru.java3.core.dto.gallerycluster.RewardDTO;
@@ -49,10 +49,18 @@ public class RewardServiceImpl implements RewardService{
     }
 
     @Override
-    public RewardDTO update(RewardDTO rewardDTO) {
+    public RewardDTO updateDTO(RewardDTO rewardDTO) {
         rewardValidator.validate(rewardDTO);
-        rewardDAO.update(rewardConverter.convert(rewardDTO));
+        Reward reward = rewardConverter.copyData(get(rewardDTO.getId()), rewardDTO);
+        rewardDAO.update(reward);
         return rewardDTO;
+    }
+    @Override
+    public Reward update(RewardDTO rewardDTO) {
+        rewardValidator.validate(rewardDTO);
+        Reward reward = rewardConverter.copyData(get(rewardDTO.getId()),rewardDTO);
+        rewardDAO.update(reward);
+        return reward;
     }
 
     @Override

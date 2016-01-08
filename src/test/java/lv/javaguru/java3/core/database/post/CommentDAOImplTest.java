@@ -1,13 +1,13 @@
 package lv.javaguru.java3.core.database.post;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
-import lv.javaguru.java3.core.domain.post.Comment;
+import lv.javaguru.java3.core.domain.comment.Comment;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
 
-import static lv.javaguru.java3.core.domain.post.CommentBuilder.createComment;
+import static lv.javaguru.java3.core.domain.comment.CommentBuilder.createComment;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -25,6 +25,8 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         assertThat(comment.getId(), is(nullValue()));
         commentDAO.create(comment);
         assertThat(comment.getId(), is(notNullValue()));
+
+        commentDAO.delete(comment);
     }
 
     @Test
@@ -34,6 +36,8 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         commentDAO.create(comment);
         Comment commentFromDB = commentDAO.getById(comment.getId());
         assertThat(commentFromDB, is(notNullValue()));
+
+        commentDAO.delete(comment);
     }
 
     @Test
@@ -57,6 +61,8 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         assertEquals(commentFromDB.getUserId(), newUserId);
         assertEquals(commentFromDB.getText(), newText);
         assertEquals(commentFromDB.getPostedDate(), newPostedDate);
+
+        commentDAO.delete(comment);
     }
 
     @Test

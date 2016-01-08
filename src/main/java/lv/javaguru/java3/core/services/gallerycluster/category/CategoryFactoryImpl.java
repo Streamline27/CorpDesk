@@ -1,6 +1,6 @@
 package lv.javaguru.java3.core.services.gallerycluster.category;
 
-import lv.javaguru.java3.core.commands.gallerycluster.converter.CategoryConverter;
+import lv.javaguru.java3.core.convertor.CategoryConverter;
 import lv.javaguru.java3.core.database.gallerycluster.category.CategoryDAO;
 import lv.javaguru.java3.core.domain.gallerycluster.category.Category;
 import static lv.javaguru.java3.core.domain.gallerycluster.category.CategoryBuilder.aCategory;
@@ -54,9 +54,16 @@ public class CategoryFactoryImpl implements CategoryFactory {
     }
 
     @Override
-    public CategoryDTO create(CategoryDTO categoryDTO) {
+    public CategoryDTO createDTO(CategoryDTO categoryDTO) {
         categoryValidator.validate(categoryDTO);
         categoryDAO.create(categoryConverter.convert(categoryDTO));
         return categoryDTO;
+    }
+    @Override
+    public Category create(CategoryDTO categoryDTO) {
+        categoryValidator.validate(categoryDTO);
+        Category category = categoryConverter.convert(categoryDTO);
+        categoryDAO.create(category);
+        return category;
     }
 }

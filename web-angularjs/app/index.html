@@ -45,18 +45,27 @@
     <div ng-include='"templates/footer.html"'></div>
 </div>
 <!-- Vendor: Javascripts -->
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- Vendor: Angular, followed by our custom Javascripts -->
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
 
-<!-- Our Website Javascripts -->
+<!-- Our Website main Javascripts -->
+
 <script src="js/main.js"></script>
 <script src="js/controllers.js"></script>
+<script src="js/services.js"></script>
 
+
+<!-- Our Website defined Javascripts -->
+<script src="js/gallery/config.js"></script>
+<script src="js/gallery/controllers.js"></script>
+<script src="js/gallery/services.js"></script>
+<script src="js/gallery/filters.js"></script>
 
 </body>
 </html>

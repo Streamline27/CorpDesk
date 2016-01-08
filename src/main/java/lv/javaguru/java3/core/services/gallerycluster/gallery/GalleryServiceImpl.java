@@ -1,14 +1,18 @@
 package lv.javaguru.java3.core.services.gallerycluster.gallery;
 
-import lv.javaguru.java3.core.commands.gallerycluster.converter.GalleryConverter;
+import lv.javaguru.java3.core.convertor.GalleryConverter;
 import lv.javaguru.java3.core.database.gallerycluster.gallery.GalleryDAO;
 import lv.javaguru.java3.core.domain.gallerycluster.gallery.Gallery;
 import lv.javaguru.java3.core.dto.gallerycluster.GalleryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Aleksej_home on 2015.11.09..
  */
+@Service
 public class GalleryServiceImpl implements GalleryService {
 
     @Autowired private GalleryValidator galleryValidator;
@@ -43,10 +47,23 @@ public class GalleryServiceImpl implements GalleryService {
     }
 
     @Override
-    public GalleryDTO update(GalleryDTO galleryDTO) {
+    public List<Gallery> getAll() {
+        return  galleryDAO.getAll();
+    }
+
+
+    @Override
+    public GalleryDTO updateDTO(GalleryDTO galleryDTO) {
         galleryValidator.validate(galleryDTO);
         galleryDAO.update(galleryConverter.convert(galleryDTO));
         return galleryDTO;
+    }
+    @Override
+    public Gallery update(GalleryDTO galleryDTO) {
+        galleryValidator.validate(galleryDTO);
+        Gallery gallery = galleryConverter.convert(galleryDTO);
+        galleryDAO.update(gallery);
+        return gallery;
     }
 
     @Override

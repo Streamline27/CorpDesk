@@ -2,9 +2,10 @@ package lv.javaguru.java3.config;
 
 import lv.javaguru.java3.rest.HealthController;
 import lv.javaguru.java3.rest.clients.ClientResourceImpl;
+import lv.javaguru.java3.rest.gallery.GalleryResourceImpl;
 import lv.javaguru.java3.rest.mail.FolderResourceImpl;
 import lv.javaguru.java3.rest.mail.MailResourceImpl;
-import lv.javaguru.java3.rest.post.CommentResourceImpl;
+import lv.javaguru.java3.rest.comment.CommentResourceImpl;
 import lv.javaguru.java3.rest.post.PostResourceImpl;
 import lv.javaguru.java3.rest.user.GroupResourceImpl;
 import lv.javaguru.java3.rest.user.UserResourceImpl;
@@ -25,6 +26,7 @@ public class JerseyConfig extends ResourceConfig {
         register(FolderResourceImpl.class);
         register(PostResourceImpl.class);
         register(CommentResourceImpl.class);
+        register(GalleryResourceImpl.class);
     }
 
 }

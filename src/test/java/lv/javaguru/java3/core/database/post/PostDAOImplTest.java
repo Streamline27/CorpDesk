@@ -25,6 +25,8 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
         assertThat(post.getId(), is(nullValue()));
         postDAO.create(post);
         assertThat(post.getId(), is(notNullValue()));
+
+        postDAO.delete(post);
     }
 
     @Test
@@ -34,6 +36,8 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
         postDAO.create(post);
         Post postFromDB = postDAO.getById(post.getId());
         assertThat(postFromDB, is(notNullValue()));
+
+        postDAO.delete(post);
     }
 
     @Test
@@ -63,6 +67,8 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
         assertEquals(postFromDB.getBody(), newBody);
         assertEquals(postFromDB.getCreatedDate(), newCreatedDate);
         assertEquals(postFromDB.getModifiedDate(), newModifiedDate);
+
+        postDAO.delete(post);
     }
 
     @Test
@@ -88,7 +94,7 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
                 .withTitle("Title")
                 .withBody("Body")
                 .withCreatedDate(currentDate)
-                .withModifiedDate(currentDate)
+                .withModifiedDate(null)
                 .build();
     }
 }

@@ -12,5 +12,6 @@ public interface RewardFactory {
                     String description,
                     boolean isActive);
 
-    RewardDTO create(RewardDTO rewardDTO);
+    RewardDTO createDTO(RewardDTO rewardDTO);
+    Reward create(RewardDTO rewardDTO);
 }

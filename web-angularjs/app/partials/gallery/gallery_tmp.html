@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row edit-content">
+        <div class="col-xs-9">
+             <span>Users</span>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Login</th>
+                    <th>User role</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                <tr ng-controller="ShowGalleryCtrl">
+                    <td>{{ gallery.userId }}</td>
+                    <td>{{ gallery.allowRate }}</td>
+                    <td>{{ gallery.allowRateIcons }}</td>
+                    <td>{{ gallery.label }}</td>
+                    <td>{{ gallery.description }}</td>
+                    <td>{{ gallery.isActive }}</td>
+                    <td>
+                        <p>Shit</p>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <a class="glyphicon glyphicon-plus" ></a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

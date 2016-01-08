@@ -1,0 +1,29 @@
+<table class="table gallerytable">
+    <tr>
+        <td><h3>Details for Gallery {{gallery.userId}}</h3></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Gallery rate state</td>
+        <td>{{gallery.allowRate}}</td>
+    </tr>
+    <tr>
+        <td>Gallery rate state 2</td>
+        <td>{{gallery.allowRateIcons}}</td>
+    </tr>
+    <tr>
+        <td>Label</td>
+        <td>{{gallery.label}}</td>
+    </tr>
+    <tr>
+        <td>Gallery Description</td>
+        <td>{{gallery.description}}</td>
+    </tr>
+    <tr>
+        <td>Active</td>
+        <td>{{gallery.isActive}}</td>
+    </tr>
+</table>
+<div>
+    <a class="btn btn-primary" ng-click="GalleryListCtrl.updateItem(gallery)">Edit</a>
+</div>

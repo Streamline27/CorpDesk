@@ -1,0 +1,21 @@
+<div class="container">
+        <table class="table gallerytable">
+    <tr>
+        <td><h3>All Galleries</h3></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="gallery in galleries">
+        <td>{{gallery.userId}}</td>
+        <td>{{gallery.allowRate}}</td>
+        <td>{{gallery.allowRateIcons}}</td>
+        <td>{{gallery.label}}</td>
+        <td>{{gallery.description}}</td>
+        <td>{{gallery.isActive}}</td>
+        <td>
+            <a class="btn btn-primary" ng-click="GalleryListCtrl.showItem(gallery)">View</a>
+            <a class="btn btn-danger"  ng-click="deleteItem(gallery)">Delete</a>
+        </td>
+    </tr>
+            </table>
+
+</div>

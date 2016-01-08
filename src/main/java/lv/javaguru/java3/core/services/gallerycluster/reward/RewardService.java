@@ -17,7 +17,9 @@ public interface RewardService {
 
     Reward update(Reward reward);
 
-    RewardDTO update(RewardDTO rewardDTO);
+    RewardDTO updateDTO(RewardDTO rewardDTO);
+
+    Reward update(RewardDTO rewardDTO);
 
     void delete(long id);
 
