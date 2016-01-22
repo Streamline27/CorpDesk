@@ -13,6 +13,7 @@ public class CommentDTO implements Serializable {
     private Long userId;
     private String text;
     private Date postedDate;
+    private Date modifiedDate;
 
     public Long getId() {
         return id;
@@ -52,5 +53,13 @@ public class CommentDTO implements Serializable {
 
     public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 }

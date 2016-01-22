@@ -50,17 +50,20 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         Long newUserId = 2L;
         String newText = "New Text";
         Date newPostedDate = new Date(System.currentTimeMillis() + 2);
+        Date newModifiedDate = new Date(System.currentTimeMillis() + 4);
 
         comment.setPostId(newPostId);
         comment.setUserId(newUserId);
         comment.setText(newText);
         comment.setPostedDate(newPostedDate);
+        comment.setModifiedDate(newModifiedDate);
 
         Comment commentFromDB = commentDAO.getById(comment.getId());
         assertEquals(commentFromDB.getPostId(), newPostId);
         assertEquals(commentFromDB.getUserId(), newUserId);
         assertEquals(commentFromDB.getText(), newText);
         assertEquals(commentFromDB.getPostedDate(), newPostedDate);
+        assertEquals(commentFromDB.getModifiedDate(), newModifiedDate);
 
         commentDAO.delete(comment);
     }
@@ -87,6 +90,7 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
                 .withUserId(1L)
                 .withText("Text")
                 .withPostedDate(currentDate)
+                .withModifiedDate(null)
                 .build();
     }
 

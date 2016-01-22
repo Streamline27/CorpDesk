@@ -14,7 +14,8 @@ public interface CommentService {
                    Long newPostId,
                    Long newUserId,
                    String newText,
-                   Date newPostedDate);
+                   Date newPostedDate,
+                   Date newModifiedDate);
 
     Comment get(Long commentId);
 

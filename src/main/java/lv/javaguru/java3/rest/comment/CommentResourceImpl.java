@@ -38,7 +38,8 @@ public class CommentResourceImpl implements CommentResource {
                 commentDTO.getPostId(),
                 commentDTO.getUserId(),
                 commentDTO.getText(),
-                commentDTO.getPostedDate());
+                commentDTO.getPostedDate(),
+                commentDTO.getModifiedDate());
         CreateCommentResult result = commandExecutor.execute(command);
         return result.getCommentDTO();
     }

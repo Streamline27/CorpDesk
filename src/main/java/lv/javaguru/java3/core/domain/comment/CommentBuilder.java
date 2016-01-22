@@ -12,6 +12,7 @@ public class CommentBuilder {
     private Long userId;
     private String text;
     private Date postedDate;
+    private Date modifiedDate;
 
     private CommentBuilder() {
 
@@ -28,6 +29,7 @@ public class CommentBuilder {
         comment.setUserId(userId);
         comment.setText(text);
         comment.setPostedDate(postedDate);
+        comment.setModifiedDate(modifiedDate);
         return comment;
     }
 
@@ -56,4 +58,8 @@ public class CommentBuilder {
         return this;
     }
 
+    public CommentBuilder withModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+        return this;
+    }
 }

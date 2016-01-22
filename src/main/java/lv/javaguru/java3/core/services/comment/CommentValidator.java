@@ -10,5 +10,6 @@ public interface CommentValidator {
     void validate(Long postId,
                   Long userId,
                   String text,
-                  Date postedDate);
+                  Date postedDate,
+                  Date modifiedDate);
 }

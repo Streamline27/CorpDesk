@@ -24,13 +24,15 @@ public class CommentServiceImpl implements CommentService {
                           Long newPostId,
                           Long newUserId,
                           String newText,
-                          Date newPostedDate) {
-        commentValidator.validate(newPostId, newUserId, newText, newPostedDate);
+                          Date newPostedDate,
+                          Date newModifiedDate) {
+        commentValidator.validate(newPostId, newUserId, newText, newPostedDate, newModifiedDate);
         Comment comment = get(commentId);
         comment.setPostId(newPostId);
         comment.setUserId(newUserId);
         comment.setText(newText);
         comment.setPostedDate(newPostedDate);
+        comment.setModifiedDate(newModifiedDate);
         return comment;
     }
 

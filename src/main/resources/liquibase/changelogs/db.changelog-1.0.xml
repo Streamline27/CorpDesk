@@ -507,7 +507,13 @@
                               />
     </changeSet>
 
-
+    <changeSet id="22" author="svetlana">
+        <addColumn tableName="comments">
+            <column name="modified_date" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 
 

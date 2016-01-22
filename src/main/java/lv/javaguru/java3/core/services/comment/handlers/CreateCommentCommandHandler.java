@@ -27,7 +27,8 @@ public class CreateCommentCommandHandler implements DomainCommandHandler<CreateC
                 command.getPostId(),
                 command.getUserId(),
                 command.getText(),
-                command.getPostedDate()
+                command.getPostedDate(),
+                command.getModifiedDate()
         );
         CommentDTO commentDTO = commentConverter.convert(comment);
         return new CreateCommentResult(commentDTO);

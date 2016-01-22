@@ -28,7 +28,8 @@ public class UpdateCommentCommandHandler implements DomainCommandHandler<UpdateC
                 command.getPostId(),
                 command.getUserId(),
                 command.getText(),
-                command.getPostedDate());
+                command.getPostedDate(),
+                command.getModifiedDate());
         CommentDTO commentDTO = commentConverter.convert(comment);
         return new UpdateCommentResult(commentDTO);
     }

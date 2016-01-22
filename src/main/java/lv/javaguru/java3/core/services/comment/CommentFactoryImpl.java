@@ -21,13 +21,14 @@ public class CommentFactoryImpl implements CommentFactory {
     private CommentValidator commentValidator;
 
     @Override
-    public Comment create(Long postId, Long userId, String text, Date postedDate) {
-        commentValidator.validate(postId, userId, text, postedDate);
+    public Comment create(Long postId, Long userId, String text, Date postedDate, Date modifiedDate) {
+        commentValidator.validate(postId, userId, text, postedDate, modifiedDate);
         Comment comment = createComment()
                 .withPostId(postId)
                 .withUserId(userId)
                 .withText(text)
                 .withPostedDate(postedDate)
+                .withModifiedDate(modifiedDate)
                 .build();
         commentDAO.create(comment);
         return comment;

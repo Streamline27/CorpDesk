@@ -27,6 +27,9 @@ public class Comment {
     @Column(name = "posted_date", nullable = false)
     private Date postedDate;
 
+    @Column(name = "modified_date", nullable = true)
+    private Date modifiedDate;
+
     public Long getId() {
         return id;
     }
@@ -65,5 +68,13 @@ public class Comment {
 
     public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 }

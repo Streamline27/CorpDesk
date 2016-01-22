@@ -35,10 +35,12 @@ public class CommentServiceImplTest {
     private static final Long USERID = 1L;
     private static final String TEXT = "Text";
     private static final Date POSTEDDATE = new Date(System.currentTimeMillis());
+    private static final Date MODIFIEDDATE = null;
     private static final Long NEWPOSTID = 2L;
     private static final Long NEWUSERID = 2L;
     private static final String NEWTEXT = "NewText";
     private static final Date NEWPOSTEDDATE = new Date(System.currentTimeMillis() + 2);
+    private static final Date NEWMODIFIEDDATE = new Date(System.currentTimeMillis() + 4);
 
     @Test
     public void getShouldReturnComment() {
@@ -49,6 +51,7 @@ public class CommentServiceImplTest {
         assertThat(comment.getUserId(), is(USERID));
         assertThat(comment.getText(), is(TEXT));
         assertThat(comment.getPostedDate(), is(POSTEDDATE));
+        assertThat(comment.getModifiedDate(), is(MODIFIEDDATE));
     }
 
     @Test
@@ -69,33 +72,67 @@ public class CommentServiceImplTest {
     @Test
     public void updateShouldInvokeValidator() {
         when(commentDAO.getRequired(COMMENTID)).thenReturn(createCommentForTest());
-        commentService.update(COMMENTID, NEWPOSTID, NEWUSERID, NEWTEXT, NEWPOSTEDDATE);
-        verify(commentValidator).validate(NEWPOSTID, NEWUSERID, NEWTEXT, NEWPOSTEDDATE);
+        commentService.update(COMMENTID,
+                NEWPOSTID,
+                NEWUSERID,
+                NEWTEXT,
+                NEWPOSTEDDATE,
+                NEWMODIFIEDDATE);
+
+        verify(commentValidator).validate(NEWPOSTID,
+                NEWUSERID,
+                NEWTEXT,
+                NEWPOSTEDDATE,
+                NEWMODIFIEDDATE);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void updateShouldFailIfValidateFail() {
         when(commentDAO.getRequired(POSTID)).thenReturn(createCommentForTest());
         doThrow(new IllegalArgumentException())
-                .when(commentValidator).validate(NEWPOSTID, NEWUSERID, NEWTEXT, NEWPOSTEDDATE);
-        commentService.update(COMMENTID, NEWPOSTID, NEWUSERID, NEWTEXT, NEWPOSTEDDATE);
+                .when(commentValidator).validate(NEWPOSTID,
+                NEWUSERID,
+                NEWTEXT,
+                NEWPOSTEDDATE,
+                NEWMODIFIEDDATE);
+
+        commentService.update(COMMENTID,
+                NEWPOSTID,
+                NEWUSERID,
+                NEWTEXT,
+                NEWPOSTEDDATE,
+                NEWMODIFIEDDATE);
     }
 
     @Test
     public void updateShouldPersistUpdatedCommentAfterValidation() {
         Comment comment = createCommentForTest();
         when(commentDAO.getRequired(COMMENTID)).thenReturn(comment);
-        commentService.update(COMMENTID, NEWPOSTID, NEWPOSTID, NEWTEXT, NEWPOSTEDDATE);
+        commentService.update(COMMENTID,
+                NEWPOSTID,
+                NEWPOSTID,
+                NEWTEXT,
+                NEWPOSTEDDATE,
+                NEWMODIFIEDDATE);
 
         InOrder inOrder = inOrder(commentValidator, commentDAO);
-        inOrder.verify(commentValidator).validate(NEWPOSTID, NEWUSERID, NEWTEXT, NEWPOSTEDDATE);
+        inOrder.verify(commentValidator).validate(NEWPOSTID,
+                NEWUSERID,
+                NEWTEXT,
+                NEWPOSTEDDATE,
+                NEWMODIFIEDDATE);
         inOrder.verify(commentDAO).getRequired(COMMENTID);
     }
 
     @Test
     public void updateShouldReturnUpdatedComment() {
         when(commentDAO.getRequired(COMMENTID)).thenReturn(createCommentForTest());
-        Comment comment = commentService.update(COMMENTID, NEWPOSTID, NEWUSERID, NEWTEXT, NEWPOSTEDDATE);
+        Comment comment = commentService.update(COMMENTID,
+                NEWPOSTID,
+                NEWUSERID,
+                NEWTEXT,
+                NEWPOSTEDDATE,
+                NEWMODIFIEDDATE);
 
         assertThat(comment.getPostId(), is(NEWPOSTID));
         assertThat(comment.getUserId(), is(NEWUSERID));
@@ -109,6 +146,7 @@ public class CommentServiceImplTest {
         comment.setUserId(USERID);
         comment.setText(TEXT);
         comment.setPostedDate(POSTEDDATE);
+        comment.setModifiedDate(MODIFIEDDATE);
         return comment;
     }
 
