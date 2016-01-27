@@ -21,28 +21,38 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
     @Test
     @Transactional
     public void testCreatePost() {
+        startTransaction();
+
         Comment comment = createCommentForTest();
         assertThat(comment.getId(), is(nullValue()));
         commentDAO.create(comment);
         assertThat(comment.getId(), is(notNullValue()));
 
         commentDAO.delete(comment);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testGetCommentById() {
+        startTransaction();
+
         Comment comment = createCommentForTest();
         commentDAO.create(comment);
         Comment commentFromDB = commentDAO.getById(comment.getId());
         assertThat(commentFromDB, is(notNullValue()));
 
         commentDAO.delete(comment);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testUpdatePost() {
+        startTransaction();
+
         Comment comment = createCommentForTest();
         commentDAO.create(comment);
 
@@ -66,11 +76,15 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         assertEquals(commentFromDB.getModifiedDate(), newModifiedDate);
 
         commentDAO.delete(comment);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testDeleteComment() {
+        startTransaction();
+
         Comment comment1 = createCommentForTest();
         Comment comment2 = createCommentForTest();
         commentDAO.create(comment1);
@@ -82,6 +96,8 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         assertThat(commentDAO.getById(comment2.getId()), is(notNullValue()));
         commentDAO.delete(comment2);
         assertThat(commentDAO.getById(comment2.getId()), is(nullValue()));
+
+        commitTransaction();
     }
 
     private Comment createCommentForTest() {

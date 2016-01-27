@@ -515,6 +515,39 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="23" author="svetlana">
+        <insert tableName="posts">
+            <column name="id" value="100"/>
+            <column name="user_id" value="1"/>
+            <column name="group_id" value="1"/>
+            <column name="title" value="OFFICE CHRISTMAS PARTY!"/>
+            <column name="body"
+                    value="Don't forget... you will still have to work with these people.
+            Friday, December 18, 2015, 8:00 P.M. Radisson Blu Hotel Latvia, Riga"/>
+            <column name="created_date" value="2015-12-15"/>
+            <column name="modified_date" value="null"/>
+        </insert>
 
+        <insert tableName="posts">
+            <column name="id" value="101"/>
+            <column name="user_id" value="1"/>
+            <column name="group_id" value="1"/>
+            <column name="title" value="Black Tie"/>
+            <column name="body" value="Black Tie fundraiser to raise money for Charity.
+            February 1, 2016, 1:00 P.M. Radisson Blu Hotel Latvia, Riga"/>
+            <column name="created_date" value="2016-01-20"/>
+            <column name="modified_date" value="null"/>
+        </insert>
+
+        <insert tableName="posts">
+            <column name="id" value="102"/>
+            <column name="user_id" value="1"/>
+            <column name="group_id" value="1"/>
+            <column name="title" value="Weekend in ESTONIA"/>
+            <column name="body" value=""/>
+            <column name="created_date" value="2016-01-26"/>
+            <column name="modified_date" value="null"/>
+        </insert>
+    </changeSet>
 
 </databaseChangeLog>

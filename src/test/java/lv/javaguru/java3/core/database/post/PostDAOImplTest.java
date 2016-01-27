@@ -21,28 +21,38 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
     @Test
     @Transactional
     public void testCreatePost() {
+        startTransaction();
+
         Post post = createPostForTest();
         assertThat(post.getId(), is(nullValue()));
         postDAO.create(post);
         assertThat(post.getId(), is(notNullValue()));
 
         postDAO.delete(post);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testGetPostById() {
+        startTransaction();
+
         Post post = createPostForTest();
         postDAO.create(post);
         Post postFromDB = postDAO.getById(post.getId());
         assertThat(postFromDB, is(notNullValue()));
 
         postDAO.delete(post);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testUpdatePost() {
+        startTransaction();
+
         Post post = createPostForTest();
         postDAO.create(post);
 
@@ -69,11 +79,15 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
         assertEquals(postFromDB.getModifiedDate(), newModifiedDate);
 
         postDAO.delete(post);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testDeletePost() {
+        startTransaction();
+
         Post post1 = createPostForTest();
         Post post2 = createPostForTest();
         postDAO.create(post1);
@@ -85,6 +99,8 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
         assertThat(postDAO.getById(post2.getId()), is(notNullValue()));
         postDAO.delete(post2);
         assertThat(postDAO.getById(post2.getId()), is(nullValue()));
+
+        commitTransaction();
     }
 
     private Post createPostForTest() {

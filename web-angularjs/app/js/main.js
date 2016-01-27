@@ -66,8 +66,8 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: "PostListCtrl",
           controllerAs: "PostListCtrl"
       })
-      .when("/post/:id?", {
-          templateUrl: "partial/post.html",
+      .when("/posts/:id?", {
+          templateUrl: "partials/post.html",
           controller: "PostPageCtrl",
           controllerAs: "PostPageCtrl"
       })
