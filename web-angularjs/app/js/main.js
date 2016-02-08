@@ -6,7 +6,8 @@
 var app = angular.module('corpDeskApp', [
   'ngRoute',
   'galleryConfigApp',
-  'corpdeskControllers'
+  'corpdeskControllers',
+    'postsConfig'
 ]);
 
 app.run(
@@ -61,16 +62,6 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: "PasswordCtrl",
           controllerAs: "PasswordCtrl"
       })
-      .when("/posts", {
-          templateUrl: "partials/posts.html",
-          controller: "PostListCtrl",
-          controllerAs: "PostListCtrl"
-      })
-      .when("/posts/:id?", {
-          templateUrl: "partials/post.html",
-          controller: "PostPageCtrl",
-          controllerAs: "PostPageCtrl"
-      })
 
 
       // todo must be removed, for example only
@@ -100,7 +91,7 @@ app.controller('MainController', function($scope, $rootScope, $window) {
     $scope.reload = function() {
         $window.location.reload();
     }
-})
+});
 
 // https://spring.io/blog/2015/01/12/the-login-page-angular-js-and-spring-security-part-ii
 app.controller('LoginController', function($scope, $rootScope, $http, $location) {
@@ -150,4 +141,4 @@ app.controller('LoginController', function($scope, $rootScope, $http, $location)
         $rootScope.loginContext.user = undefined;
         $location.path("/login");
     }
-})
+});

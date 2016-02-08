@@ -11,8 +11,6 @@ import java.util.List;
 public interface PostService {
 
     Post update(Long postId,
-                Long newUserId,
-                Long newGroupId,
                 String newTitle,
                 String newBody,
                 Date modifiedDate);

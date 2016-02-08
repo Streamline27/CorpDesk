@@ -16,7 +16,7 @@ public interface PostResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/posts")
-    PostDTO create(PostDTO postDTO) throws Exception;
+    Response create(PostDTO postDTO) throws Exception;
 
     @GET
     @Consumes(APPLICATION_JSON)

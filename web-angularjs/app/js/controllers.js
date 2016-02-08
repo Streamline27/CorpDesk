@@ -223,44 +223,6 @@ corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
         };
     }]);
 
-corpdeskControllers.controller('PostListCtrl', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
-        var ctrl = this;
-
-        $http({
-            method: 'GET',
-            url: apiHost + '/posts'
-        }).success(function(data) {
-            ctrl.posts = data;
-        }).catch(function(err) {
-            alert(err.data);
-        });
-
-        ctrl.openPost = function(post) {
-            $location.path("/posts/" + post.id)
-        };
-
-    }]);
-
-corpdeskControllers.controller('PostPageCtrl', ['$scope', '$http', '$routeParams', '$location',
-    function($scope, $http, $routeParams, $location){
-        var ctrl = this;
-        ctrl.postId = $routeParams.id
-        $scope.post = {};
-
-        if(ctrl.postId) {
-            $http({
-                method: 'GET',
-                url: apiHost + '/posts',
-                params: {postId: ctrl.postId}
-            }).success(function(data){
-                $scope.post = data[0];
-            }).catch(function(err) {
-              alert(err.data);
-            });
-        }
-}]);
-
 /*
 corpdeskControllers.controller('AllGalleryCtrl', ['$scope', '$http', '$location',
     function($scope, $http, $location) {

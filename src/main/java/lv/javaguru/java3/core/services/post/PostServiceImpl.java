@@ -21,15 +21,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post update(Long postId,
-                       Long newUserId,
-                       Long newGroupId,
                        String newTitle,
                        String newBody,
                        Date modifiedDate) {
-        postValidator.validate(newUserId, newGroupId, newTitle, newBody);
+        postValidator.validateForUpdate(postId, newTitle, newBody, modifiedDate);
         Post post = get(postId);
-        post.setUserId(newUserId);
-        post.setGroupId(newGroupId);
         post.setTitle(newTitle);
         post.setBody(newBody);
         post.setModifiedDate(modifiedDate);

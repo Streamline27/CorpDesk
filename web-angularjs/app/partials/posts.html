@@ -15,7 +15,7 @@
 
     </div>
 
-    <div class="row" ng-repeat="post in PostListCtrl.posts">
+    <div class="row" ng-repeat="post in posts">
 
         <hr>
 
@@ -26,16 +26,16 @@
             <p>{{ post.createdDate }}</p>
         </div>
         <div class="col-md-6">
-            <h3><a ng-click="PostListCtrl.openPost(post)">{{ post.title }}</a>
+            <h3><a ng-click="openPost(post.id)">{{ post.title }}</a>
             </h3>
 
             <p>by <a href="#">user</a>
             </p>
 
             <p>{{ post.body }}</p>
-            <a class="btn btn-primary" ng-click="PostListCtrl.openPost(post)">
+            <a class="btn btn-primary" ng-click="openPost(post.id)">
                 Read More<i class="fa fa-angle-right"></i></a>
-            <a class="btn btn-primary" ng-click="PostListCtrl.openPost(post)">
+            <a class="btn btn-primary" ng-click="openPost(post)">
                 Edit<i class="fa fa-angle-right"></i></a>
         </div>
 

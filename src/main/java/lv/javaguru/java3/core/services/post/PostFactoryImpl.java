@@ -21,13 +21,19 @@ public class PostFactoryImpl implements PostFactory {
     private PostValidator postValidator;
 
     @Override
-    public Post create(Long userId, Long groupId, String title, String body, Date createdDate) {
-        postValidator.validate(userId, groupId, title, body);
+    public Post create(Long userId,
+                       Long groupId,
+                       String title,
+                       String body,
+                       Date createdDate,
+                       Date modifiedDate) {
+        postValidator.validateForCreate(userId, groupId, title, body, createdDate, modifiedDate);
         Post post = createPost().withUserId(userId)
                 .withGroupId(groupId)
                 .withTitle(title)
                 .withBody(body)
                 .withCreatedDate(createdDate)
+                .withModifiedDate(modifiedDate)
                 .build();
         postDAO.create(post);
         return post;

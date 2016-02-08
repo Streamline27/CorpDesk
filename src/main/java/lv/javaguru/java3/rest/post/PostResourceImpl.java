@@ -32,15 +32,20 @@ public class PostResourceImpl implements PostResource {
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public PostDTO create(PostDTO postDTO) throws Exception {
-        CreatePostCommand command = new CreatePostCommand(
-                postDTO.getUserId(),
-                postDTO.getGroupId(),
-                postDTO.getTitle(),
-                postDTO.getBody(),
-                postDTO.getCreatedDate());
-        CreatePostResult result = commandExecutor.execute(command);
-        return result.getPostDTO();
+    public Response create(PostDTO postDTO) throws Exception {
+        try {
+            CreatePostCommand command = new CreatePostCommand(
+                    postDTO.getUserId(),
+                    postDTO.getGroupId(),
+                    postDTO.getTitle(),
+                    postDTO.getBody(),
+                    postDTO.getCreatedDate(),
+                    postDTO.getModifiedDate());
+            CreatePostResult result = commandExecutor.execute(command);
+            return Response.ok().entity(gson.toJson(result.getPostDTO())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
     }
 
     @Override
@@ -51,7 +56,7 @@ public class PostResourceImpl implements PostResource {
         try {
             GetAllPostsCommand command = new GetAllPostsCommand();
             GetAllPostsResult result = commandExecutor.execute(command);
-            return Response.ok(). entity(gson.toJson(result.getPostDTOs())).build();
+            return Response.ok().entity(gson.toJson(result.getPostDTOs())).build();
         } catch (Exception e) {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
         }

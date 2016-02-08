@@ -14,17 +14,20 @@ public class CreatePostCommand implements DomainCommand<CreatePostResult> {
     private String title;
     private String body;
     private Date createdDate;
+    private Date modifiedDate;
 
     public CreatePostCommand(Long userId,
                              Long groupId,
                              String title,
                              String body,
-                             Date createdDate) {
+                             Date createdDate,
+                             Date modifiedDate) {
         this.userId = userId;
         this.groupId = groupId;
         this.title = title;
         this.body = body;
         this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
     }
 
     public Long getUserId() {
@@ -45,5 +48,9 @@ public class CreatePostCommand implements DomainCommand<CreatePostResult> {
 
     public Date getCreatedDate() {
         return createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
     }
 }

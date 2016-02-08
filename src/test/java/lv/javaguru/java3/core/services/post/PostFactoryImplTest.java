@@ -36,36 +36,38 @@ public class PostFactoryImplTest {
     private static final String TITLE = "title";
     private static final String BODY = "body";
     private static final Date CREATEDDATE = new Date(System.currentTimeMillis());
+    private static final Date MODIFIEDDATE = null;
 
     @Test
     public void createShouldInvokeValidator() {
-        postFactory.create(USERID, GROUPID, TITLE, BODY, CREATEDDATE);
-        verify(postValidator).validate(USERID, GROUPID, TITLE, BODY);
+        postFactory.create(USERID, GROUPID, TITLE, BODY, CREATEDDATE, MODIFIEDDATE);
+        verify(postValidator).validateForCreate(USERID, GROUPID, TITLE, BODY, CREATEDDATE, MODIFIEDDATE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createShouldFailIfValidateFail() {
         doThrow(new IllegalArgumentException())
-                .when(postValidator).validate(USERID, GROUPID, TITLE, BODY);
-        postFactory.create(USERID, GROUPID, TITLE, BODY, CREATEDDATE);
+                .when(postValidator).validateForCreate(USERID, GROUPID, TITLE, BODY, CREATEDDATE, MODIFIEDDATE);
+        postFactory.create(USERID, GROUPID, TITLE, BODY, CREATEDDATE, MODIFIEDDATE);
     }
 
     @Test
     public void createShouldPersistPostAfterValidation() {
-        Post post = postFactory.create(USERID, GROUPID, TITLE, BODY, CREATEDDATE);
+        Post post = postFactory.create(USERID, GROUPID, TITLE, BODY, CREATEDDATE, MODIFIEDDATE);
         InOrder inOrder = inOrder(postValidator, postDAO);
-        inOrder.verify(postValidator).validate(USERID, GROUPID, TITLE, BODY);
+        inOrder.verify(postValidator).validateForCreate(USERID, GROUPID, TITLE, BODY, CREATEDDATE, MODIFIEDDATE);
         inOrder.verify(postDAO).create(post);
     }
 
     @Test
     public void createShouldReturnNewPost() {
-        Post post = postFactory.create(USERID, GROUPID, TITLE, BODY, CREATEDDATE);
+        Post post = postFactory.create(USERID, GROUPID, TITLE, BODY, CREATEDDATE, MODIFIEDDATE);
         assertThat(post.getUserId(), is(USERID));
         assertThat(post.getGroupId(), is(GROUPID));
         assertThat(post.getTitle(), is(TITLE));
         assertThat(post.getBody(), is(BODY));
         assertThat(post.getCreatedDate(),is(CREATEDDATE));
+        assertThat(post.getModifiedDate(), is(MODIFIEDDATE));
     }
 
 }

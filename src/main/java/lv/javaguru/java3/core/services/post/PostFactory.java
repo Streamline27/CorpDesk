@@ -13,5 +13,6 @@ public interface PostFactory {
                 Long groupId,
                 String title,
                 String body,
-                Date createdDate);
+                Date createdDate,
+                Date modifiedDate);
 }
