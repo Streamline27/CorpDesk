@@ -223,6 +223,45 @@ corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
         };
     }]);
 
+corpdeskControllers.controller('FolderListCtrl', ['$scope', '$http', '$location',
+    function($scope, $http, $location) {
+        var ctrl = this;
+
+        $http({
+            method: 'GET',
+            url: apiHost + '/mail/folder/list'
+        }).success(function(data) {
+            ctrl.folders = data;
+        }).catch(function(err) {
+            alert(err.data);
+        });
+
+        ctrl.viewFolder = function(folder){
+            $scope.folder = folder;
+        }
+
+    }]);
+
+corpdeskControllers.controller('MessageListCtrl', ['$scope', '$http', '$location',
+    function($scope, $http, $location) {
+        var ctrl = this;
+        var folder = $scope.folder;
+
+        $http({
+            method: 'GET',
+            url: apiHost + '/mail/message/list?folderId=' + folder.id
+        }).success(function(data) {
+            ctrl.messages = data;
+        }).catch(function(err) {
+            alert(err.data);
+        });
+
+        ctrl.viewMessage = function(folder){
+
+        }
+
+    }]);
+
 /*
 corpdeskControllers.controller('AllGalleryCtrl', ['$scope', '$http', '$location',
     function($scope, $http, $location) {

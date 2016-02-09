@@ -1,5 +1,30 @@
 <div class="container">
-    <div class="col-xs-9">
-        <span>Users</span>
+
+
+    <div class="col-md-3">
+
+        <span>Folders</span>
+
+        <div class="row" ng-repeat="folder in FolderListCtrl.folders">
+
+            <span><a href="" ng-click="FolderListCtrl.viewFolder(folder)">{{folder.name}}</a></span>
+
+        </div>
+
     </div>
+
+    <div class="col-md-9">
+
+        <span>Messages</span>
+
+        <div class=row" ng-repeat="message in MessageListCtrl.messages">
+
+            <div class="col-md-4">
+                {{message.title}}
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
