@@ -24,8 +24,8 @@ app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
       // Pages
       .when("/",{
-          templateUrl: "partials/home.html",
-          controller: "PageCtrl"
+          templateUrl: "partials/posts.html",
+          controller: "PostListCtrl"
       })
     .when("/login", {
           templateUrl: "partials/login.html",

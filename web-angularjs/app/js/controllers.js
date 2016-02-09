@@ -232,6 +232,7 @@ corpdeskControllers.controller('FolderListCtrl', ['$scope', '$http', '$location'
             url: apiHost + '/mail/folder/list'
         }).success(function(data) {
             ctrl.folders = data;
+            // load right after folder load first folder messages
             if (ctrl.folders && ctrl.folders.length>0)
                 ctrl.viewFolder(ctrl.folders[0]);
         }).catch(function(err) {
@@ -254,48 +255,6 @@ corpdeskControllers.controller('FolderListCtrl', ['$scope', '$http', '$location'
         }
 
     }]);
-
-corpdeskControllers.controller('MessageListCtrl', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
-        var ctrl = this;
-        var folder = $scope.folder;
-
-        $http({
-            method: 'GET',
-            url: apiHost + '/mail/message/list?folderId=' + folder.id
-        }).success(function(data) {
-            ctrl.messages = data;
-        }).catch(function(err) {
-            alert(err.data);
-        });
-
-        ctrl.viewMessage = function(folder){
-
-        }
-
-    }]);
-
-/*
-corpdeskControllers.controller('AllGalleryCtrl', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
-        var ctrl = this;
-
-        $http({
-            method: 'GET',
-            url: apiHost + '/gallerycluster/galleries'
-        }).success(function (data) {
-          //  ctrl.gallery = data;
-            $scope.galleries = data;
-        }).catch(function(err){
-            alert(err.data);
-        });
-
-    }]);*/
-
-
-
-
-
 
 
 
