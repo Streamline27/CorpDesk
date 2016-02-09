@@ -71,6 +71,11 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: "PostPageCtrl",
           controllerAs: "PostPageCtrl"
       })
+      .when("/mail", {
+          templateUrl: "partials/mail.html",
+          controller: "FolderListCtrl",
+          controllerAs: "FolderListCtrl"
+      })
 
 
       // todo must be removed, for example only
