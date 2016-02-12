@@ -2,6 +2,7 @@ package lv.javaguru.java3.core.database.mail;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.mail.Folder;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.domain.mail.Message;
 import lv.javaguru.java3.core.domain.mail.Recipient;
 import lv.javaguru.java3.core.domain.user.User;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
-import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
 import static lv.javaguru.java3.core.domain.mail.MessageBuilder.createMessage;
 import static lv.javaguru.java3.core.domain.mail.RecipientBuilder.createRecipient;
 import static lv.javaguru.java3.core.domain.user.RoleBuilder.createRole;
@@ -54,17 +54,17 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
                 .build();
         folder1 = createFolder()
                 .withName("User 1 Folder 1")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user1.getId())
                 .build();
         folder2 = createFolder()
                 .withName("User 2 Folder 1")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user2.getId())
                 .build();
         folder3 = createFolder()
                 .withName("User 2 Folder 2")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user2.getId())
                 .build();
     }

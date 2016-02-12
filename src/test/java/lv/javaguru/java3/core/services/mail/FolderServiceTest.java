@@ -1,8 +1,8 @@
 package lv.javaguru.java3.core.services.mail;
 
-import lv.javaguru.java3.config.AppCoreConfig;
 import lv.javaguru.java3.core.database.mail.FolderDAO;
 import lv.javaguru.java3.core.domain.mail.Folder;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.services.mail.exception.FolderNotEmptyException;
 import lv.javaguru.java3.core.services.mail.exception.InvalidFolderOperationException;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
@@ -14,14 +14,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
 
 import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
-import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
 import static lv.javaguru.java3.core.domain.user.UserBuilder.createUser;
 import static org.junit.Assert.assertEquals;
 
@@ -43,7 +39,7 @@ public class FolderServiceTest {
 
         Folder folder = createFolder()
                 .withName("Test Folder 1")
-                .withCategory(createFolderCategory().inbox().build())
+                .withType(FolderType.INBOX)
                 .withUserId(1)
                 .build();
 
@@ -51,7 +47,7 @@ public class FolderServiceTest {
 
         assertEquals(folder.getId(), folderService.list(createUser().withId(1).build()).get(0).getId());
         assertEquals(folder.getName(), folderService.list(createUser().withId(1).build()).get(0).getName());
-        assertEquals(folder.getCategory(), folderService.list(createUser().withId(1).build()).get(0).getCategory());
+        assertEquals(folder.getFolderType(), folderService.list(createUser().withId(1).build()).get(0).getFolderType());
         assertEquals(folder.getUserId(), folderService.list(createUser().withId(1).build()).get(0).getUserId());
 
     }
@@ -63,22 +59,22 @@ public class FolderServiceTest {
 
         Folder folder1 = createFolder()
                 .withName("User 1 Test Folder 1")
-                .withCategory(createFolderCategory().inbox().build())
+                .withType(FolderType.INBOX)
                 .withUserId(2)
                 .build();
         Folder folder2 = createFolder()
                 .withName("User 1 Test Folder 2")
-                .withCategory(createFolderCategory().inbox().build())
+                .withType(FolderType.INBOX)
                 .withUserId(2)
                 .build();
         Folder folder3 = createFolder()
                 .withName("User 2 Test Folder 1")
-                .withCategory(createFolderCategory().inbox().build())
+                .withType(FolderType.INBOX)
                 .withUserId(3)
                 .build();
         Folder folder4 = createFolder()
                 .withName("User 2 Test Folder 1")
-                .withCategory(createFolderCategory().inbox().build())
+                .withType(FolderType.INBOX)
                 .withUserId(3)
                 .build();
 
@@ -88,7 +84,7 @@ public class FolderServiceTest {
         folderService.create(folder4);
 
         assertEquals(folder1.getName(), folderService.list(createUser().withId(2).build()).get(0).getName());
-        assertEquals(folder2.getCategory(), folderService.list(createUser().withId(2).build()).get(1).getCategory());
+        assertEquals(folder2.getFolderType(), folderService.list(createUser().withId(2).build()).get(1).getFolderType());
         assertEquals(folder3.getUserId(), folderService.list(createUser().withId(3).build()).get(0).getUserId());
         assertEquals(folder4.getName(), folderService.list(createUser().withId(3).build()).get(1).getName());
 
@@ -101,7 +97,7 @@ public class FolderServiceTest {
 
         Folder folder = createFolder()
                 .withName("Test Folder 1")
-                .withCategory(createFolderCategory().inbox().build())
+                .withType(FolderType.INBOX)
                 .withUserId(4)
                 .build();
 

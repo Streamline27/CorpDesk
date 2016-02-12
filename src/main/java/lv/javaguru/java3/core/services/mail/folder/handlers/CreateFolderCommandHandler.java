@@ -2,13 +2,13 @@ package lv.javaguru.java3.core.services.mail.folder.handlers;
 
 import lv.javaguru.java3.core.commands.VoidResult;
 import lv.javaguru.java3.core.commands.mail.folder.CreateFolderCommand;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
-import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
 
 /**
  * Created by Andrew on 02.12.2015.
@@ -24,10 +24,7 @@ public class CreateFolderCommandHandler implements DomainCommandHandler<CreateFo
         folderService.create(
                 createFolder()
                         .withName(command.getFolderDTO().getName())
-                        .withCategory(
-                                createFolderCategory()
-                                        .custom()
-                                        .build())
+                        .withType(FolderType.USER_CREATED)
                         .withUserId(command.getFolderDTO().getUserId())
                         .build()
         );

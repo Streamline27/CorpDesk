@@ -459,47 +459,14 @@
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(50)"/>
-            <column name="category_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="message_folder_categories">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="name" type="VARCHAR(50)">
+            <column name="folder_type"
+                    type="ENUM('INBOX','SENT','DRAFT','DELETED','USER_CREATED')"
+                    defaultValue="USER_CREATED">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
     </changeSet>
-
-    <changeSet id="20" author="andrew" context="main">
-        <insert tableName="message_folder_categories">
-            <column name="id" value="1"/>
-            <column name="name" value="Inbox"/>
-        </insert>
-        <insert tableName="message_folder_categories">
-            <column name="id" value="2"/>
-            <column name="name" value="Sent"/>
-        </insert>
-        <insert tableName="message_folder_categories">
-            <column name="id" value="3"/>
-            <column name="name" value="Draft"/>
-        </insert>
-        <insert tableName="message_folder_categories">
-            <column name="id" value="4"/>
-            <column name="name" value="Deleted"/>
-        </insert>
-        <insert tableName="message_folder_categories">
-            <column name="id" value="5"/>
-            <column name="name" value="Custom"/>
-        </insert>
-
-        <dropColumn tableName="messages" columnName="modified"/>
-    </changeSet>
-
 
     <changeSet id="21" author="nastasjab" >
         <dropNotNullConstraint  tableName="users" columnName="password"

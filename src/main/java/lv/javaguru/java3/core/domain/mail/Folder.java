@@ -1,7 +1,6 @@
 package lv.javaguru.java3.core.domain.mail;
 
 import lv.javaguru.java3.core.domain.Generic;
-import lv.javaguru.java3.core.domain.user.User;
 
 import javax.persistence.*;
 
@@ -23,9 +22,9 @@ public class Folder extends Generic {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", nullable = false)
-    private FolderCategory category;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "folder_type")
+    private FolderType folderType;
 
     public Folder() {
     }
@@ -54,11 +53,11 @@ public class Folder extends Generic {
         this.name = name;
     }
 
-    public FolderCategory getCategory() {
-        return category;
+    public FolderType getFolderType() {
+        return folderType;
     }
 
-    public void setCategory(FolderCategory category) {
-        this.category = category;
+    public void setFolderType(FolderType folderType) {
+        this.folderType = folderType;
     }
 }

@@ -3,6 +3,7 @@ package lv.javaguru.java3.core.database.mail;
 import lv.javaguru.java3.core.database.CRUDOperationDAOImpl;
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.domain.mail.FolderCategory;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.domain.user.User;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -27,11 +28,11 @@ public class FolderDAOImpl extends CRUDOperationDAOImpl<Folder, Long> implements
     }
 
     @Override
-    public Folder getByCategory(long userId, FolderCategory folderCategory) {
+    public Folder getByType(long userId, FolderType folderType) {
         return (Folder) getCurrentSession().createCriteria(Folder.class)
                 .add(Restrictions.and(
                         Restrictions.eq("userId", userId),
-                        Restrictions.eq("category", folderCategory)
+                        Restrictions.eq("folderType", folderType)
                 )).list().get(0);
     }
 

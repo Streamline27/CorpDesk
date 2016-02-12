@@ -1,10 +1,10 @@
 package lv.javaguru.java3.core.commands.mail.folder;
 
 import lv.javaguru.java3.core.domain.mail.Folder;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.dto.mail.folder.FolderDTO;
 import org.springframework.stereotype.Component;
 
-import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
 import static lv.javaguru.java3.core.dto.mail.folder.FolderDTOBuilder.createFolderDTO;
 
 /**
@@ -18,7 +18,7 @@ public class FolderConverter {
                 .withId(folder.getId())
                 .withName(folder.getName())
                 .withUserId(folder.getUserId())
-                .isRemovable(folder.getCategory().getId() == createFolderCategory().custom().build().getId())
+                .isRemovable(folder.getFolderType() == FolderType.USER_CREATED)
                 .build();
     }
 
