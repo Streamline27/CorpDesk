@@ -77,4 +77,20 @@ public class CommentResourceImpl implements CommentResource {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
         }
     }
+
+    @Override
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/{page}&{size}")
+    public Response findAll(@PathParam("page") int page,
+                            @PathParam("size") int size) throws Exception {
+        try {
+            FindAllCommentsCommand command = new FindAllCommentsCommand(page, size);
+            FindAllCommentsResult result = commandExecutor.execute(command);
+            return Response.ok().entity(gson.toJson(result.getCommentDTOList())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
 }

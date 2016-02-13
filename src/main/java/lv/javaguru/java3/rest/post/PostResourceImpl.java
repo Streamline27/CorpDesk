@@ -76,4 +76,20 @@ public class PostResourceImpl implements PostResource {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
         }
     }
+
+    @Override
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/{page}&{size}")
+    public Response findAll(@PathParam("page") int page,
+                            @PathParam("size") int size) throws Exception {
+        try {
+            FindAllPostsCommand command = new FindAllPostsCommand(page, size);
+            FindAllPostsResult result = commandExecutor.execute(command);
+            return Response.ok().entity(gson.toJson(result.getPostDTOList())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
 }

@@ -20,4 +20,6 @@ public interface PostService {
     List<Post> getAll();
 
     void delete(Long postId);
+
+    List<Post> findAllWithPagination(int page, int size);
 }

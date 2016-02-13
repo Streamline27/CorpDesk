@@ -29,4 +29,10 @@ public interface CommentResource {
     @Produces(APPLICATION_JSON)
     @Path("/comments/{commentId}")
     Response get(@PathParam("commentId") Long commentId) throws Exception;
+
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/comments/{page}&{size}")
+    Response findAll(@PathParam("page") int page, @PathParam("size") int size) throws Exception;
 }

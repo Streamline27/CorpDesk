@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.database;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -60,6 +61,14 @@ public abstract class CRUDOperationDAOImpl<E, K extends Serializable> implements
     @Override
     public List<E> getAll() {
         return getCurrentSession().createCriteria(daoType).list();
+    }
+
+    @Override
+    public List<E> findAllWithPagination(int page, int size) {
+        Criteria criteria = getCurrentSession().createCriteria(daoType);
+        criteria.setFirstResult((page - 1) * size);
+        criteria.setMaxResults(size);
+        return criteria.list();
     }
 
 }

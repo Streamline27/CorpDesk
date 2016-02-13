@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
+import java.util.List;
 
 import static lv.javaguru.java3.core.domain.post.PostBuilder.createPost;
 import static org.hamcrest.CoreMatchers.*;
@@ -99,6 +100,33 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
         assertThat(postDAO.getById(post2.getId()), is(notNullValue()));
         postDAO.delete(post2);
         assertThat(postDAO.getById(post2.getId()), is(nullValue()));
+
+        commitTransaction();
+    }
+
+    @Test
+    @Transactional
+    public void testFindAllPostsWithPagination() {
+        startTransaction();
+
+        Post post1 = createPostForTest();
+        Post post2 = createPostForTest();
+        Post post3 = createPostForTest();
+        Post post4 = createPostForTest();
+
+        postDAO.create(post1);
+        postDAO.create(post2);
+        postDAO.create(post3);
+        postDAO.create(post4);
+
+        List<Post> postList = postDAO.findAllWithPagination(2, 2);
+
+        assertEquals(2, postList.size());
+
+        postDAO.delete(post1);
+        postDAO.delete(post2);
+        postDAO.delete(post3);
+        postDAO.delete(post4);
 
         commitTransaction();
     }

@@ -16,4 +16,6 @@ public interface CRUDOperationDAO<E, K> {
 
     List<E> getAll();
 
+    List<E> findAllWithPagination(int page, int size);
+
 }
