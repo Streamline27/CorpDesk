@@ -12,6 +12,7 @@ public class CommentDTOBuilder {
     private Long userId;
     private String text;
     private Date postedDate;
+    private Date modifiedDate;
 
     private CommentDTOBuilder() {
 
@@ -28,6 +29,7 @@ public class CommentDTOBuilder {
         commentDTO.setUserId(userId);
         commentDTO.setText(text);
         commentDTO.setPostedDate(postedDate);
+        commentDTO.setModifiedDate(modifiedDate);
         return commentDTO;
     }
 
@@ -56,4 +58,8 @@ public class CommentDTOBuilder {
         return this;
     }
 
+    public CommentDTOBuilder withModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+        return this;
+    }
 }

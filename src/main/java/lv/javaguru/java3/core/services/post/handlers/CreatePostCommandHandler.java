@@ -28,7 +28,8 @@ public class CreatePostCommandHandler implements DomainCommandHandler<CreatePost
                 command.getGroupId(),
                 command.getTitle(),
                 command.getBody(),
-                command.getCreatedDate()
+                command.getCreatedDate(),
+                command.getModifiedDate()
         );
         PostDTO postDTO = postConverter.convert(post);
         return new CreatePostResult(postDTO);

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
+import java.util.List;
 
 import static lv.javaguru.java3.core.domain.comment.CommentBuilder.createComment;
 import static org.hamcrest.CoreMatchers.*;
@@ -21,28 +22,38 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
     @Test
     @Transactional
     public void testCreatePost() {
+        startTransaction();
+
         Comment comment = createCommentForTest();
         assertThat(comment.getId(), is(nullValue()));
         commentDAO.create(comment);
         assertThat(comment.getId(), is(notNullValue()));
 
         commentDAO.delete(comment);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testGetCommentById() {
+        startTransaction();
+
         Comment comment = createCommentForTest();
         commentDAO.create(comment);
         Comment commentFromDB = commentDAO.getById(comment.getId());
         assertThat(commentFromDB, is(notNullValue()));
 
         commentDAO.delete(comment);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testUpdatePost() {
+        startTransaction();
+
         Comment comment = createCommentForTest();
         commentDAO.create(comment);
 
@@ -50,24 +61,31 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         Long newUserId = 2L;
         String newText = "New Text";
         Date newPostedDate = new Date(System.currentTimeMillis() + 2);
+        Date newModifiedDate = new Date(System.currentTimeMillis() + 4);
 
         comment.setPostId(newPostId);
         comment.setUserId(newUserId);
         comment.setText(newText);
         comment.setPostedDate(newPostedDate);
+        comment.setModifiedDate(newModifiedDate);
 
         Comment commentFromDB = commentDAO.getById(comment.getId());
         assertEquals(commentFromDB.getPostId(), newPostId);
         assertEquals(commentFromDB.getUserId(), newUserId);
         assertEquals(commentFromDB.getText(), newText);
         assertEquals(commentFromDB.getPostedDate(), newPostedDate);
+        assertEquals(commentFromDB.getModifiedDate(), newModifiedDate);
 
         commentDAO.delete(comment);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testDeleteComment() {
+        startTransaction();
+
         Comment comment1 = createCommentForTest();
         Comment comment2 = createCommentForTest();
         commentDAO.create(comment1);
@@ -79,6 +97,39 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
         assertThat(commentDAO.getById(comment2.getId()), is(notNullValue()));
         commentDAO.delete(comment2);
         assertThat(commentDAO.getById(comment2.getId()), is(nullValue()));
+
+        commitTransaction();
+    }
+
+
+    @Test
+    @Transactional
+    public void testFindAllCommentsWithPagination() {
+        startTransaction();
+
+        Comment comment1 = createCommentForTest();
+        Comment comment2 = createCommentForTest();
+        Comment comment3 = createCommentForTest();
+        Comment comment4 = createCommentForTest();
+
+        commentDAO.create(comment1);
+        commentDAO.create(comment2);
+        commentDAO.create(comment3);
+        commentDAO.create(comment4);
+
+        List<Comment> commentList = commentDAO.findAllWithPagination(2, 2);
+
+        assertEquals(2, commentList.size());
+
+        assertEquals(commentList.get(0), commentDAO.getById(comment3.getId()));
+        assertEquals(commentList.get(1), commentDAO.getById(comment4.getId()));
+
+        commentDAO.delete(comment1);
+        commentDAO.delete(comment2);
+        commentDAO.delete(comment3);
+        commentDAO.delete(comment4);
+
+        commitTransaction();
     }
 
     private Comment createCommentForTest() {
@@ -87,6 +138,7 @@ public class CommentDAOImplTest extends DatabaseHibernateTest {
                 .withUserId(1L)
                 .withText("Text")
                 .withPostedDate(currentDate)
+                .withModifiedDate(null)
                 .build();
     }
 

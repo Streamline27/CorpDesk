@@ -15,11 +15,12 @@ import static org.apache.commons.lang.StringUtils.isBlank;
 public class CommentValidatorImpl implements CommentValidator {
 
     @Override
-    public void validate(Long postId, Long userId, String text, Date postedDate) {
+    public void validate(Long postId, Long userId, String text, Date postedDate, Date modifiedDate) {
         validatePostId(postId);
         validateUserId(userId);
         validateText(text);
         validatePostedDate(postedDate);
+        validateModifiedDate(modifiedDate);
     }
 
     private void validatePostId(Long postId) {
@@ -37,5 +38,9 @@ public class CommentValidatorImpl implements CommentValidator {
 
     private void validatePostedDate(Date postedDate) {
         checkNotNull(postedDate, "Comment posted date must not be null");
+    }
+
+    private void validateModifiedDate(Date modifiedDate) {
+
     }
 }

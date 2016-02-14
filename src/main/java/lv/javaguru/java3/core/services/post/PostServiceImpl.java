@@ -21,15 +21,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post update(Long postId,
-                       Long newUserId,
-                       Long newGroupId,
                        String newTitle,
                        String newBody,
                        Date modifiedDate) {
-        postValidator.validate(newUserId, newGroupId, newTitle, newBody);
+
+        postValidator.validateForUpdate(postId,
+                newTitle,
+                newBody,
+                modifiedDate);
+
         Post post = get(postId);
-        post.setUserId(newUserId);
-        post.setGroupId(newGroupId);
         post.setTitle(newTitle);
         post.setBody(newBody);
         post.setModifiedDate(modifiedDate);
@@ -50,5 +51,10 @@ public class PostServiceImpl implements PostService {
     public void delete(Long postId) {
         Post post = get(postId);
         postDAO.delete(post);
+    }
+
+    @Override
+    public List<Post> findAllWithPagination(int page, int size) {
+        return postDAO.findAllWithPagination(page, size);
     }
 }

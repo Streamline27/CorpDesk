@@ -9,7 +9,7 @@ public class FolderBuilder {
     private long id;
     private long userId;
     private String name;
-    private FolderCategory category;
+    private FolderType folderType;
 
     public FolderBuilder() {
     }
@@ -25,7 +25,7 @@ public class FolderBuilder {
         folder.setId(id);
         folder.setUserId(userId);
         folder.setName(name);
-        folder.setCategory(category);
+        folder.setFolderType(folderType);
 
         return folder;
     }
@@ -45,8 +45,8 @@ public class FolderBuilder {
         return this;
     }
 
-    public FolderBuilder withCategory(FolderCategory category) {
-        this.category = category;
+    public FolderBuilder withType(FolderType folderType) {
+        this.folderType = folderType;
         return this;
     }
 

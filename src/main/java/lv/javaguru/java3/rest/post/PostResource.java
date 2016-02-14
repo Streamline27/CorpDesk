@@ -16,7 +16,7 @@ public interface PostResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/posts")
-    PostDTO create(PostDTO postDTO) throws Exception;
+    Response create(PostDTO postDTO) throws Exception;
 
     @GET
     @Consumes(APPLICATION_JSON)
@@ -29,4 +29,11 @@ public interface PostResource {
     @Produces(APPLICATION_JSON)
     @Path("/posts/{postId}")
     Response get(@PathParam("postId") Long postId) throws Exception;
+
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/posts/{page}&{size}")
+    Response findAll(@PathParam("page") int page, @PathParam("size") int size) throws Exception;
+
 }

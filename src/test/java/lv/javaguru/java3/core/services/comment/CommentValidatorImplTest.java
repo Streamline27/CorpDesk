@@ -19,39 +19,41 @@ public class CommentValidatorImplTest {
     private static final Long USERID = 1L;
     private static final String TEXT = "Text";
     private static final Date POSTEDDATE = new Date(System.currentTimeMillis());
+    private static final Date MODIFIEDDATE = null;
 
     @Test
     public void validateShouldFailIfPostIdIsNull(){
-        validateShouldFail(null, USERID, TEXT, POSTEDDATE, "Comment post id must not be null");
+        validateShouldFail(null, USERID, TEXT, POSTEDDATE, MODIFIEDDATE, "Comment post id must not be null");
     }
 
     @Test
     public void validateShouldFailIfUserIdIsNull() {
-        validateShouldFail(POSTID, null, TEXT, POSTEDDATE, "Comment user id must not be null");
+        validateShouldFail(POSTID, null, TEXT, POSTEDDATE, MODIFIEDDATE, "Comment user id must not be null");
     }
 
     @Test
     public void validateShouldFailIfTextIsNull() {
-        validateShouldFail(POSTID, USERID, null, POSTEDDATE, "Comment text must not be null");
+        validateShouldFail(POSTID, USERID, null, POSTEDDATE, MODIFIEDDATE, "Comment text must not be null");
     }
 
     @Test
     public void validateShouldFailIfPostedDateIsNull() {
-        validateShouldFail(POSTID, USERID, TEXT, null, "Comment posted date must not be null");
+        validateShouldFail(POSTID, USERID, TEXT, null, MODIFIEDDATE, "Comment posted date must not be null");
     }
 
     @Test
     public void validateShouldFailIfTextIsEmpty() {
-        validateShouldFail(POSTID, USERID, "", POSTEDDATE, "Comment text must not be empty");
+        validateShouldFail(POSTID, USERID, "", POSTEDDATE, MODIFIEDDATE, "Comment text must not be empty");
     }
 
     private void validateShouldFail(Long postId,
                                     Long userId,
                                     String text,
                                     Date postedDate,
+                                    Date modifiedDate,
                                     String errorMessage) {
         try {
-            validator.validate(postId, userId, text, postedDate);
+            validator.validate(postId, userId, text, postedDate, modifiedDate);
             fail();
         } catch (Exception e) {
             assertThat(e.getMessage(), is(errorMessage));

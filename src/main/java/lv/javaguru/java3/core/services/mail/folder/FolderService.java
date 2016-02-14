@@ -39,6 +39,6 @@ public interface FolderService {
 
     boolean isDeleted(Folder folder);
 
-    boolean isCustom(Folder folder);
+    boolean isUserCreated(Folder folder);
 
 }

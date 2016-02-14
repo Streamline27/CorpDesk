@@ -18,17 +18,20 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
             url: apiHost + '/user'
         }).success(function (data) {
             ctrl.users = data;
+            $http({
+                method: 'GET',
+                url: apiHost + '/group'
+            }).success(function (data) {
+                ctrl.groups = data;
+            }).catch(function(err){
+                if (err.data) {
+                    alert(err.data);
+                }
+            });
         }).catch(function(err){
-            alert(err.data);
-        });
-
-        $http({
-            method: 'GET',
-            url: apiHost + '/group'
-        }).success(function (data) {
-            ctrl.groups = data;
-        }).catch(function(err){
-            alert(err.data);
+            if (err.data) {
+                alert(err.data);
+            }
         });
 
         ctrl.addUser=function(group){
@@ -51,7 +54,9 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
                     ctrl.users.splice(index, 1);
                 }
             }).catch(function(err){
-                alert(err.data);
+                if (err.data) {
+                    alert(err.data);
+                }
             });
         };
 
@@ -74,7 +79,9 @@ corpdeskControllers.controller('UserListCtrl', ['$scope', '$http', '$location',
                     ctrl.groups.splice(index, 1);
                 }
             }).catch(function(err){
-                alert(err.data);
+                if (err.data) {
+                    alert(err.data);
+                }
             });
         };
   }]);
@@ -106,11 +113,15 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
                         }
                     });
                 }).catch(function(err){
-                    alert(err.data);
+                    if (err.data) {
+                        alert(err.data);
+                    }
                 });
 
             }).catch(function(err){
-                alert(err.data);
+                if (err.data) {
+                    alert(err.data);
+                }
                 $location.path("/users")
             });
         }
@@ -154,7 +165,9 @@ corpdeskControllers.controller('UserEditCtrl', ['$scope', '$http', '$routeParams
                 }
             }).catch(function(err){
                 $scope.user.lastModified = lastModified;
-                alert(err.data);
+                if (err.data) {
+                    alert(err.data);
+                }
             });
         };
     }]);
@@ -174,7 +187,9 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
             }).success(function (data) {
                 $scope.group = data[0];
             }).catch(function(err){
-                alert(err.data);
+                if (err.data) {
+                    alert(err.data);
+                }
                 $location.path("/users")
             });
         }
@@ -191,7 +206,9 @@ corpdeskControllers.controller('GroupEditCtrl', ['$scope', '$http', '$routeParam
                     $location.path("/users")
                 }
             }).catch(function(err){
-                alert(err.data);
+                if (err.data) {
+                    alert(err.data);
+                }
             });
         };
     }]);
@@ -222,47 +239,6 @@ corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
             });
         };
     }]);
-
-corpdeskControllers.controller('PostListCtrl', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
-        var ctrl = this;
-
-        $http({
-            method: 'GET',
-            url: apiHost + '/posts'
-        }).success(function(data) {
-            ctrl.posts = data;
-        }).catch(function(err) {
-            alert(err.data);
-        });
-
-        ctrl.openPost = function(post) {
-            $location.path("/post/" + post.id)
-        };
-
-    }]);
-
-/*
-corpdeskControllers.controller('AllGalleryCtrl', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
-        var ctrl = this;
-
-        $http({
-            method: 'GET',
-            url: apiHost + '/gallerycluster/galleries'
-        }).success(function (data) {
-          //  ctrl.gallery = data;
-            $scope.galleries = data;
-        }).catch(function(err){
-            alert(err.data);
-        });
-
-    }]);*/
-
-
-
-
-
 
 
 

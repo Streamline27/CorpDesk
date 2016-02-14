@@ -2,7 +2,6 @@ package lv.javaguru.java3.core.services.mail.folder;
 
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.domain.mail.FolderCategory;
-import lv.javaguru.java3.core.domain.user.User;
 import org.springframework.stereotype.Component;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -19,7 +18,6 @@ public class FolderValidatorImpl implements FolderValidator {
     public void validate(Folder folder) {
         validateUser(folder.getUserId());
         validateName(folder.getName());
-        validateCategory(folder.getCategory());
     }
 
     private void validateUser(long userId) {
@@ -29,11 +27,6 @@ public class FolderValidatorImpl implements FolderValidator {
     private void validateName(String name) {
         checkNotNull(name, "Folder name must not be null");
         checkArgument(isNotBlank(name), "Folder must not be blank");
-    }
-
-    private void validateCategory(FolderCategory category) {
-        checkNotNull(category, "Folder category must not be null");
-        checkArgument(category.getId() > 0, "Folder category ID must be greater than zero");
     }
 
 }

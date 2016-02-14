@@ -12,5 +12,6 @@ public interface CommentFactory {
     Comment create(Long postId,
                    Long userId,
                    String text,
-                   Date postedDate);
+                   Date postedDate,
+                   Date modifiedDate);
 }

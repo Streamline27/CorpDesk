@@ -2,6 +2,7 @@ package lv.javaguru.java3.core.database.mail;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.mail.Folder;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.domain.mail.Message;
 import lv.javaguru.java3.core.domain.mail.Recipient;
 import lv.javaguru.java3.core.domain.user.User;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
-import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
 import static lv.javaguru.java3.core.domain.mail.MessageBuilder.createMessage;
 import static lv.javaguru.java3.core.domain.mail.RecipientBuilder.createRecipient;
 import static lv.javaguru.java3.core.domain.user.RoleBuilder.createRole;
@@ -54,17 +54,17 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
                 .build();
         folder1 = createFolder()
                 .withName("User 1 Folder 1")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user1.getId())
                 .build();
         folder2 = createFolder()
                 .withName("User 2 Folder 1")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user2.getId())
                 .build();
         folder3 = createFolder()
                 .withName("User 2 Folder 2")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user2.getId())
                 .build();
     }
@@ -121,7 +121,7 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
         message1.setIsActive(true);
         message1.setRecipients(recipients1);
         message1.setIsImportant(false);
-        message1.setSender(user2);
+        message1.setSenderId(user2.getId());
         message1.setTitle("Test message 1");
         messageDAO.create(message1);
 
@@ -129,7 +129,7 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
         message2.setIsActive(true);
         message2.setRecipients(recipients2);
         message2.setIsImportant(false);
-        message2.setSender(user1);
+        message2.setSenderId(user1.getId());
         message2.setTitle("Test message 2");
         messageDAO.create(message2);
 
@@ -137,7 +137,7 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
         message3.setIsActive(true);
         message3.setRecipients(recipients3);
         message3.setIsImportant(false);
-        message3.setSender(user2);
+        message3.setSenderId(user2.getId());
         message3.setTitle("Test message 3");
         messageDAO.create(message3);
 
@@ -199,7 +199,7 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
         message1.setIsActive(true);
         message1.setRecipients(recipients1);
         message1.setIsImportant(false);
-        message1.setSender(user2);
+        message1.setSenderId(user2.getId());
         message1.setTitle("Test message 1");
         messageDAO.create(message1);
 
@@ -207,7 +207,7 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
         message2.setIsActive(true);
         message2.setRecipients(recipients2);
         message2.setIsImportant(false);
-        message2.setSender(user1);
+        message2.setSenderId(user1.getId());
         message2.setTitle("Test message 2");
         messageDAO.create(message2);
 
@@ -215,7 +215,7 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
         message3.setIsActive(true);
         message3.setRecipients(recipients3);
         message3.setIsImportant(false);
-        message3.setSender(user1);
+        message3.setSenderId(user1.getId());
         message3.setTitle("Test message 3");
         messageDAO.create(message3);
 
@@ -268,7 +268,7 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
         message1.setIsActive(true);
         message1.setRecipients(recipients1);
         message1.setIsImportant(false);
-        message1.setSender(user2);
+        message1.setSenderId(user2.getId());
         message1.setTitle("Test message 1");
         messageDAO.create(message1);
 
@@ -276,7 +276,7 @@ public class RecipientDAOImplTest extends DatabaseHibernateTest {
         message2.setIsActive(true);
         message2.setRecipients(recipients2);
         message2.setIsImportant(false);
-        message2.setSender(user1);
+        message2.setSenderId(user1.getId());
         message2.setTitle("Test message 2");
         messageDAO.create(message2);
 

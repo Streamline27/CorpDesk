@@ -11,8 +11,6 @@ import java.util.List;
 public interface PostService {
 
     Post update(Long postId,
-                Long newUserId,
-                Long newGroupId,
                 String newTitle,
                 String newBody,
                 Date modifiedDate);
@@ -22,4 +20,6 @@ public interface PostService {
     List<Post> getAll();
 
     void delete(Long postId);
+
+    List<Post> findAllWithPagination(int page, int size);
 }

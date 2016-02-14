@@ -15,17 +15,20 @@ public class UpdateCommentCommand implements DomainCommand<UpdateCommentResult> 
     private Long userId;
     private String text;
     private Date postedDate;
+    private Date modifiedDate;
 
     public UpdateCommentCommand(Long commentId,
                                 Long postId,
                                 Long userId,
                                 String text,
-                                Date postedDate) {
+                                Date postedDate,
+                                Date modifiedDate) {
         this.commentId = commentId;
         this.postId = postId;
         this.userId = userId;
         this.text = text;
         this.postedDate = postedDate;
+        this.modifiedDate = modifiedDate;
     }
 
     public Long getCommentId() {
@@ -46,5 +49,9 @@ public class UpdateCommentCommand implements DomainCommand<UpdateCommentResult> 
 
     public Date getPostedDate() {
         return postedDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
     }
 }

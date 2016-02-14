@@ -13,15 +13,18 @@ public class CreateCommentCommand implements DomainCommand<CreateCommentResult> 
     private Long userId;
     private String text;
     private Date postedDate;
+    private Date modifiedDate;
 
     public CreateCommentCommand(Long postId,
                                 Long userId,
                                 String text,
-                                Date postedDate) {
+                                Date postedDate,
+                                Date modifiedDate) {
         this.postId = postId;
         this.userId = userId;
         this.text = text;
         this.postedDate = postedDate;
+        this.modifiedDate = modifiedDate;
     }
 
     public Long getPostId() {
@@ -38,5 +41,9 @@ public class CreateCommentCommand implements DomainCommand<CreateCommentResult> 
 
     public Date getPostedDate() {
         return postedDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
     }
 }

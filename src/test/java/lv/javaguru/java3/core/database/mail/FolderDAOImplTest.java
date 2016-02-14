@@ -2,8 +2,7 @@ package lv.javaguru.java3.core.database.mail;
 
 import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.mail.Folder;
-import lv.javaguru.java3.core.domain.mail.Message;
-import lv.javaguru.java3.core.domain.mail.Recipient;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.domain.user.User;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -12,13 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
-import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
-import static lv.javaguru.java3.core.domain.mail.MessageBuilder.createMessage;
-import static lv.javaguru.java3.core.domain.mail.RecipientBuilder.createRecipient;
 import static lv.javaguru.java3.core.domain.user.RoleBuilder.createRole;
 import static lv.javaguru.java3.core.domain.user.UserBuilder.createUser;
 import static org.hamcrest.CoreMatchers.is;
@@ -61,17 +56,17 @@ public class FolderDAOImplTest extends DatabaseHibernateTest {
                 .build();
         folder1 = createFolder()
                 .withName("User 1 Folder 1")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user1.getId())
                 .build();
         folder2 = createFolder()
                 .withName("User 2 Folder 1")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user2.getId())
                 .build();
         folder3 = createFolder()
                 .withName("User 2 Folder 2")
-                .withCategory(createFolderCategory().custom().build())
+                .withType(FolderType.USER_CREATED)
                 .withUserId(user2.getId())
                 .build();
     }
@@ -89,7 +84,7 @@ public class FolderDAOImplTest extends DatabaseHibernateTest {
         folderDAO.create(folder1);
 
         assertThat(folder1.getId(), is(notNullValue()));
-        assertThat(folder1.getCategory(), is(notNullValue()));
+        assertThat(folder1.getFolderType(), is(notNullValue()));
         assertThat(folder1.getName(), is(notNullValue()));
         assertThat(folder1.getUserId(), is(notNullValue()));
 
@@ -189,13 +184,13 @@ public class FolderDAOImplTest extends DatabaseHibernateTest {
 
         folder1.setUserId(user1.getId());
         folder2.setUserId(user2.getId());
-        folder2.setCategory(createFolderCategory().inbox().build());
+        folder2.setFolderType(FolderType.INBOX);
 
         folderDAO.create(folder2);
         folder3.setUserId(user2.getId());
         folderDAO.create(folder3);
 
-        assertEquals(folder2, folderDAO.getByCategory(user2.getId(), createFolderCategory().inbox().build()));
+        assertEquals(folder2, folderDAO.getByType(user2.getId(), FolderType.INBOX));
 
     }
 
@@ -208,12 +203,12 @@ public class FolderDAOImplTest extends DatabaseHibernateTest {
         folder1.setUserId(user1.getId());
         folder2.setUserId(user2.getId());
         folder3.setUserId(user2.getId());
-        folder2.setCategory(createFolderCategory().inbox().build());
+        folder2.setFolderType(FolderType.INBOX);
 
         folderDAO.create(folder2);
         folderDAO.create(folder3);
 
-        folderDAO.getByCategory(user2.getId(), createFolderCategory().sent().build());
+        folderDAO.getByType(user2.getId(), FolderType.SENT);
 
     }
 }

@@ -6,7 +6,6 @@ import lv.javaguru.java3.core.database.gallerycluster.category.CategoryDAO;
 import lv.javaguru.java3.core.database.gallerycluster.gallery.GalleryDAO;
 import lv.javaguru.java3.core.database.gallerycluster.image.ImageDAO;
 import lv.javaguru.java3.core.database.gallerycluster.reward.RewardDAO;
-import lv.javaguru.java3.core.database.mail.FolderCategoryDAO;
 import lv.javaguru.java3.core.database.mail.FolderDAO;
 import lv.javaguru.java3.core.database.mail.MessageDAO;
 import lv.javaguru.java3.core.database.mail.RecipientDAO;
@@ -16,16 +15,12 @@ import lv.javaguru.java3.core.database.user.GroupDAO;
 import lv.javaguru.java3.core.database.user.UserDAO;
 import lv.javaguru.java3.core.database.user.UserLogDAO;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Component
@@ -63,9 +58,6 @@ public abstract class DatabaseHibernateTest {
 
 	@Autowired
 	protected FolderDAO folderDAO;
-
-	@Autowired
-	protected FolderCategoryDAO folderCategoryDAO;
 
 	@Autowired
 	protected GalleryDAO galleryDAO;

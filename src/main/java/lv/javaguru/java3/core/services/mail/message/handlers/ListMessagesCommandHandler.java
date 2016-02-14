@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ListMessagesCommandHandler implements DomainCommandHandler<ListMessagesCommand, ListMessagesResult>{
 
-    @Autowired private MessageService service;
+    @Autowired private MessageService messageService;
     @Autowired private MessageConverter converter;
 
     @Override
     public ListMessagesResult execute(ListMessagesCommand command) throws Exception {
 
-        return new ListMessagesResult(converter.convert(service.list(command.getFolderId())));
+        return new ListMessagesResult(converter.convert(messageService.list(command.getFolderId())));
     }
 
     @Override

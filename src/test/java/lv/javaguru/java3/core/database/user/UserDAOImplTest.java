@@ -5,6 +5,7 @@ import lv.javaguru.java3.core.database.DatabaseHibernateTest;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.domain.user.Group;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.transaction.Transactional;
@@ -119,6 +120,7 @@ public class UserDAOImplTest extends DatabaseHibernateTest {
     }
 
     @Test
+    @Ignore
     @Transactional
     public void testMultipleUserCreation()  {
         List<User> users = userDAO.getAll();

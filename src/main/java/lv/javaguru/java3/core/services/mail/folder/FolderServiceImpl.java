@@ -3,6 +3,7 @@ package lv.javaguru.java3.core.services.mail.folder;
 import lv.javaguru.java3.core.database.mail.FolderDAO;
 import lv.javaguru.java3.core.database.mail.RecipientDAO;
 import lv.javaguru.java3.core.domain.mail.Folder;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.domain.user.User;
 import lv.javaguru.java3.core.services.mail.exception.FolderNotEmptyException;
 import lv.javaguru.java3.core.services.mail.exception.InvalidFolderOperationException;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static lv.javaguru.java3.core.domain.mail.FolderCategoryBuilder.createFolderCategory;
+import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
 
 /**
  * Created by Andrew on 21.11.2015.
@@ -32,7 +33,7 @@ public class FolderServiceImpl implements FolderService {
 
     @Override
     public Folder get(long folderId) throws Exception{
-        return folderDAO.getById(folderId);
+        return folderDAO.getRequired(folderId);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class FolderServiceImpl implements FolderService {
         if (recipientDAO.getMessagesCount(folder.getId()) > 0)
             throw new FolderNotEmptyException();
 
-        if (!isCustom(folder))
+        if (!isUserCreated(folder))
             throw new InvalidFolderOperationException();
 
         folderDAO.delete(folder);
@@ -53,46 +54,63 @@ public class FolderServiceImpl implements FolderService {
 
     @Override
     public Folder getInbox(User user) {
-        return folderDAO.getByCategory(user.getId(), createFolderCategory().inbox().build());
+        return getFolder(user, FolderType.INBOX, "Inbox");
     }
 
     @Override
     public Folder getSent(User user) {
-        return folderDAO.getByCategory(user.getId(), createFolderCategory().sent().build());
+        return getFolder(user, FolderType.SENT, "Sent");
     }
 
     @Override
     public Folder getDraft(User user) {
-        return folderDAO.getByCategory(user.getId(), createFolderCategory().draft().build());
+        return getFolder(user, FolderType.DRAFT, "Draft");
     }
 
     @Override
     public Folder getDeleted(User user) {
-        return folderDAO.getByCategory(user.getId(), createFolderCategory().deleted().build());
+        return getFolder(user, FolderType.DELETED, "Deleted");
+    }
+
+    private Folder getFolder(User user, FolderType folderType, String folderName) {
+        Folder folder;
+        try {
+            folder = folderDAO.getByType(user.getId(), folderType);
+        } catch (IndexOutOfBoundsException e) {
+            folderDAO.create(
+                    createFolder()
+                            .withUserId(user.getId())
+                            .withName(folderName)
+                            .withType(folderType)
+                            .build()
+            );
+            folder = folderDAO.getByType(user.getId(), folderType);
+        }
+        return folder;
     }
 
     @Override
     public boolean isInbox(Folder folder) {
-        return folderDAO.getById(folder.getId()).getCategory().getId() == createFolderCategory().inbox().build().getId();
+        return folder.getFolderType() == FolderType.INBOX;
     }
 
     @Override
     public boolean isSent(Folder folder) {
-        return folderDAO.getById(folder.getId()).getCategory().getId() == createFolderCategory().sent().build().getId();
+        return folder.getFolderType() == FolderType.SENT;
     }
 
     @Override
     public boolean isDraft(Folder folder) {
-        return folderDAO.getById(folder.getId()).getCategory().getId() == createFolderCategory().draft().build().getId();
+        return folder.getFolderType() == FolderType.DRAFT;
     }
 
     @Override
     public boolean isDeleted(Folder folder) {
-        return folderDAO.getById(folder.getId()).getCategory().getId() == createFolderCategory().deleted().build().getId();
+        return folder.getFolderType() == FolderType.DELETED;
     }
 
     @Override
-    public boolean isCustom(Folder folder) {
-        return folderDAO.getById(folder.getId()).getCategory().getId() == createFolderCategory().custom().build().getId();
+    public boolean isUserCreated(Folder folder) {
+        return folder.getFolderType() == FolderType.USER_CREATED;
     }
 }

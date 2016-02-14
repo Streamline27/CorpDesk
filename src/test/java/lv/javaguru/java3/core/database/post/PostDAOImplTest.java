@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
+import java.util.List;
 
 import static lv.javaguru.java3.core.domain.post.PostBuilder.createPost;
 import static org.hamcrest.CoreMatchers.*;
@@ -21,28 +22,38 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
     @Test
     @Transactional
     public void testCreatePost() {
+        startTransaction();
+
         Post post = createPostForTest();
         assertThat(post.getId(), is(nullValue()));
         postDAO.create(post);
         assertThat(post.getId(), is(notNullValue()));
 
         postDAO.delete(post);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testGetPostById() {
+        startTransaction();
+
         Post post = createPostForTest();
         postDAO.create(post);
         Post postFromDB = postDAO.getById(post.getId());
         assertThat(postFromDB, is(notNullValue()));
 
         postDAO.delete(post);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testUpdatePost() {
+        startTransaction();
+
         Post post = createPostForTest();
         postDAO.create(post);
 
@@ -69,11 +80,15 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
         assertEquals(postFromDB.getModifiedDate(), newModifiedDate);
 
         postDAO.delete(post);
+
+        commitTransaction();
     }
 
     @Test
     @Transactional
     public void testDeletePost() {
+        startTransaction();
+
         Post post1 = createPostForTest();
         Post post2 = createPostForTest();
         postDAO.create(post1);
@@ -85,6 +100,35 @@ public class PostDAOImplTest extends DatabaseHibernateTest {
         assertThat(postDAO.getById(post2.getId()), is(notNullValue()));
         postDAO.delete(post2);
         assertThat(postDAO.getById(post2.getId()), is(nullValue()));
+
+        commitTransaction();
+    }
+
+    @Test
+    @Transactional
+    public void testFindAllPostsWithPagination() {
+        startTransaction();
+
+        Post post1 = createPostForTest();
+        Post post2 = createPostForTest();
+        Post post3 = createPostForTest();
+        Post post4 = createPostForTest();
+
+        postDAO.create(post1);
+        postDAO.create(post2);
+        postDAO.create(post3);
+        postDAO.create(post4);
+
+        List<Post> postList = postDAO.findAllWithPagination(2, 2);
+
+        assertEquals(2, postList.size());
+
+        postDAO.delete(post1);
+        postDAO.delete(post2);
+        postDAO.delete(post3);
+        postDAO.delete(post4);
+
+        commitTransaction();
     }
 
     private Post createPostForTest() {

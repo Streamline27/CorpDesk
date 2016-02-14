@@ -14,11 +14,14 @@ public interface CommentService {
                    Long newPostId,
                    Long newUserId,
                    String newText,
-                   Date newPostedDate);
+                   Date newPostedDate,
+                   Date newModifiedDate);
 
     Comment get(Long commentId);
 
     List<Comment> getAll();
 
     void delete(Long commentId);
+
+    List<Comment> findAllWithPagination(int page, int size);
 }

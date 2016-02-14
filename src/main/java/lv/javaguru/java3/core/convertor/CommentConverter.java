@@ -23,6 +23,7 @@ public class CommentConverter {
                 .withUserId(comment.getUserId())
                 .withText(comment.getText())
                 .withPostedDate(comment.getPostedDate())
+                .withModifiedDate(comment.getModifiedDate())
                 .build();
     }
 

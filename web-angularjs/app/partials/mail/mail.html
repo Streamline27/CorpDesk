@@ -1,0 +1,34 @@
+<div class="container">
+
+
+    <div class="col-md-3">
+
+        <h3>Folders</h3>
+
+        <div class="row" ng-repeat="folder in FolderListCtrl.folders">
+
+            <span><a href="" ng-click="FolderListCtrl.viewFolder(folder)">{{folder.name}}</a></span>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-9">
+
+        <h3>Messages</h3>
+        <table><tr>
+            <th>Date sent</th>
+            <th>Sender</th>
+            <th>Subject</th>
+        </tr>
+
+            <tr class=row" ng-repeat="message in FolderListCtrl.messages">
+                <td>{{message.created}}</td>
+                <td>{{message.sender.id}}</td>
+                <td>{{message.title}}</td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>

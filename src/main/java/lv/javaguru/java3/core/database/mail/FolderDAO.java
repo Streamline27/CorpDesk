@@ -3,6 +3,7 @@ package lv.javaguru.java3.core.database.mail;
 import lv.javaguru.java3.core.database.CRUDOperationDAO;
 import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.domain.mail.FolderCategory;
+import lv.javaguru.java3.core.domain.mail.FolderType;
 import lv.javaguru.java3.core.domain.mail.Message;
 import lv.javaguru.java3.core.domain.user.User;
 
@@ -14,5 +15,5 @@ import java.util.List;
  */
 public interface FolderDAO extends CRUDOperationDAO<Folder, Long> {
     List listByUserId(long userId);
-    Folder getByCategory(long userId, FolderCategory folderCategory);
+    Folder getByType(long userId, FolderType folderType);
 }

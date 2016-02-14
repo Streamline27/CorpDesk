@@ -34,34 +34,36 @@ public class CommentFactoryImplTest {
     private static final Long USERID = 1L;
     private static final String TEXT = "Text";
     private static final Date POSTEDDATE = new Date(System.currentTimeMillis());
+    private static final Date MODIFIEDDATE = null;
 
     @Test
     public void createShouldInvokeValidator() {
-        commentFactory.create(POSTID, USERID, TEXT, POSTEDDATE);
-        verify(commentValidator).validate(POSTID, USERID, TEXT, POSTEDDATE);
+        commentFactory.create(POSTID, USERID, TEXT, POSTEDDATE, MODIFIEDDATE);
+        verify(commentValidator).validate(POSTID, USERID, TEXT, POSTEDDATE, MODIFIEDDATE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createShouldFailIfValidatorFail() {
         doThrow(new IllegalArgumentException())
-                .when(commentValidator).validate(POSTID, USERID, TEXT, POSTEDDATE);
-        commentFactory.create(POSTID, USERID, TEXT, POSTEDDATE);
+                .when(commentValidator).validate(POSTID, USERID, TEXT, POSTEDDATE, MODIFIEDDATE);
+        commentFactory.create(POSTID, USERID, TEXT, POSTEDDATE, MODIFIEDDATE);
     }
 
     @Test
     public void createShouldPersistCommentAfterValidation() {
-        Comment comment = commentFactory.create(POSTID, USERID, TEXT, POSTEDDATE);
+        Comment comment = commentFactory.create(POSTID, USERID, TEXT, POSTEDDATE, MODIFIEDDATE);
         InOrder inOrder = inOrder(commentValidator, commentDAO);
-        inOrder.verify(commentValidator).validate(POSTID, USERID, TEXT, POSTEDDATE);
+        inOrder.verify(commentValidator).validate(POSTID, USERID, TEXT, POSTEDDATE, MODIFIEDDATE);
         inOrder.verify(commentDAO).create(comment);
     }
 
     @Test
     public void createShouldReturnNewComment() {
-        Comment comment = commentFactory.create(POSTID, USERID, TEXT, POSTEDDATE);
+        Comment comment = commentFactory.create(POSTID, USERID, TEXT, POSTEDDATE, MODIFIEDDATE);
         assertThat(comment.getPostId(), is(POSTID));
         assertThat(comment.getUserId(), is(USERID));
         assertThat(comment.getText(), is(TEXT));
         assertThat(comment.getPostedDate(), is(POSTEDDATE));
+        assertThat(comment.getModifiedDate(), is(MODIFIEDDATE));
     }
 }

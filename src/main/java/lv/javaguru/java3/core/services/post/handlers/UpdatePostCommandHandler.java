@@ -25,8 +25,6 @@ public class UpdatePostCommandHandler implements DomainCommandHandler<UpdatePost
     public UpdatePostResult execute(UpdatePostCommand command) throws Exception {
         Post post = postService.update(
                 command.getPostId(),
-                command.getUserId(),
-                command.getGroupId(),
                 command.getTitle(),
                 command.getBody(),
                 command.getModifiedDate());
