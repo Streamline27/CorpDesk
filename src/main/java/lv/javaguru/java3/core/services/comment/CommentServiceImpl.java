@@ -26,7 +26,13 @@ public class CommentServiceImpl implements CommentService {
                           String newText,
                           Date newPostedDate,
                           Date newModifiedDate) {
-        commentValidator.validate(newPostId, newUserId, newText, newPostedDate, newModifiedDate);
+
+        commentValidator.validate(newPostId,
+                newUserId,
+                newText,
+                newPostedDate,
+                newModifiedDate);
+
         Comment comment = get(commentId);
         comment.setPostId(newPostId);
         comment.setUserId(newUserId);
@@ -50,5 +56,10 @@ public class CommentServiceImpl implements CommentService {
     public void delete(Long commentId) {
         Comment comment = get(commentId);
         commentDAO.delete(comment);
+    }
+
+    @Override
+    public List<Comment> findAllWithPagination(int page, int size) {
+        return commentDAO.findAllWithPagination(page, size);
     }
 }

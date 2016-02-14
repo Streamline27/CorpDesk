@@ -24,7 +24,12 @@ public class PostServiceImpl implements PostService {
                        String newTitle,
                        String newBody,
                        Date modifiedDate) {
-        postValidator.validateForUpdate(postId, newTitle, newBody, modifiedDate);
+
+        postValidator.validateForUpdate(postId,
+                newTitle,
+                newBody,
+                modifiedDate);
+
         Post post = get(postId);
         post.setTitle(newTitle);
         post.setBody(newBody);
@@ -46,5 +51,10 @@ public class PostServiceImpl implements PostService {
     public void delete(Long postId) {
         Post post = get(postId);
         postDAO.delete(post);
+    }
+
+    @Override
+    public List<Post> findAllWithPagination(int page, int size) {
+        return postDAO.findAllWithPagination(page, size);
     }
 }

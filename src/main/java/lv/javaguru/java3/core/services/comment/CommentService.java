@@ -22,4 +22,6 @@ public interface CommentService {
     List<Comment> getAll();
 
     void delete(Long commentId);
+
+    List<Comment> findAllWithPagination(int page, int size);
 }
