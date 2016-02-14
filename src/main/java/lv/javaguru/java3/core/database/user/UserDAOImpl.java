@@ -7,6 +7,7 @@ import org.hibernate.JDBCException;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import static lv.javaguru.java3.core.domain.user.StateBuilder.createState;
 
@@ -31,6 +32,7 @@ class UserDAOImpl extends CRUDOperationDAOImpl<User, Long> implements UserDAO {
     }
 
     @Override
+    @Transactional
     public User getByLogin(String login) {
         List<User> list =  getCurrentSession().createCriteria(User.class)
                     .add(Restrictions.eq("login", login))
