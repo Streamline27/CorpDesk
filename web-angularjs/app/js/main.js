@@ -7,7 +7,8 @@ var app = angular.module('corpDeskApp', [
   'ngRoute',
   'galleryConfigApp',
   'corpdeskControllers',
-    'postsConfig'
+  'postsConfig',
+  'mailConfig'
 ]);
 
 app.run(
@@ -61,11 +62,6 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: "partials/change_password.html",
           controller: "PasswordCtrl",
           controllerAs: "PasswordCtrl"
-      })
-      .when("/mail", {
-          templateUrl: "partials/mail.html",
-          controller: "FolderListCtrl",
-          controllerAs: "FolderListCtrl"
       })
 
 

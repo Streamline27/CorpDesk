@@ -223,39 +223,6 @@ corpdeskControllers.controller('PasswordCtrl', ['$scope', '$http', '$rootScope',
         };
     }]);
 
-corpdeskControllers.controller('FolderListCtrl', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
-        var ctrl = this;
-
-        $http({
-            method: 'GET',
-            url: apiHost + '/mail/folder/list'
-        }).success(function(data) {
-            ctrl.folders = data;
-            // load right after folder load first folder messages
-            if (ctrl.folders && ctrl.folders.length>0)
-                ctrl.viewFolder(ctrl.folders[0]);
-        }).catch(function(err) {
-            alert(err.data);
-        });
-
-
-        ctrl.viewFolder = function(folder){
-            $scope.folder = folder;
-            ctrl.folder2 = folder;
-
-            $http({
-                method: 'GET',
-                url: apiHost + '/mail/message/list?folderId=' + $scope.folder.id
-            }).success(function(data) {
-                ctrl.messages = data;
-            }).catch(function(err) {
-                alert(err.data);
-            });
-        }
-
-    }]);
-
 
 
 

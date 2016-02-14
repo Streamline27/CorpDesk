@@ -3,7 +3,7 @@
 
     <div class="col-md-3">
 
-        <span>Folders</span>
+        <h3>Folders</h3>
 
         <div class="row" ng-repeat="folder in FolderListCtrl.folders">
 
@@ -15,15 +15,23 @@
 
     <div class="col-md-9">
 
-        <span>Messages</span>
+        <h3>Messages</h3>
+        <table><tr>
+            <th>Date sent</th>
+            <th>Sender</th>
+            <th>Subject</th>
+        </tr>
 
         <div class=row" ng-repeat="message in FolderListCtrl.messages">
-
+            <tr>
             <div class="col-md-4">
-                {{message.title}}
+                    <td>{{message.created}}</td>
+                    <td>{{message.sender}}</td>
+                    <td>{{message.title}}</td>
             </div>
-
+            </tr>
         </div>
+        </table>
 
     </div>
 

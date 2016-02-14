@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static lv.javaguru.java3.core.domain.mail.FolderBuilder.createFolder;
+
 /**
  * Created by Andrew on 21.11.2015.
  */
@@ -52,22 +54,39 @@ public class FolderServiceImpl implements FolderService {
 
     @Override
     public Folder getInbox(User user) {
-        return folderDAO.getByType(user.getId(), FolderType.INBOX);
+        return getFolder(user, FolderType.INBOX, "Inbox");
     }
 
     @Override
     public Folder getSent(User user) {
-        return folderDAO.getByType(user.getId(), FolderType.SENT);
+        return getFolder(user, FolderType.SENT, "Sent");
     }
 
     @Override
     public Folder getDraft(User user) {
-        return folderDAO.getByType(user.getId(), FolderType.DRAFT);
+        return getFolder(user, FolderType.DRAFT, "Draft");
     }
 
     @Override
     public Folder getDeleted(User user) {
-        return folderDAO.getByType(user.getId(), FolderType.DELETED);
+        return getFolder(user, FolderType.DELETED, "Deleted");
+    }
+
+    private Folder getFolder(User user, FolderType folderType, String folderName) {
+        Folder folder;
+        try {
+            folder = folderDAO.getByType(user.getId(), folderType);
+        } catch (IndexOutOfBoundsException e) {
+            folderDAO.create(
+                    createFolder()
+                            .withUserId(user.getId())
+                            .withName(folderName)
+                            .withType(folderType)
+                            .build()
+            );
+            folder = folderDAO.getByType(user.getId(), folderType);
+        }
+        return folder;
     }
 
     @Override
