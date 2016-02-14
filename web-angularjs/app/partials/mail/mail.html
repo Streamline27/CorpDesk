@@ -22,15 +22,11 @@
             <th>Subject</th>
         </tr>
 
-        <div class=row" ng-repeat="message in FolderListCtrl.messages">
-            <tr>
-            <div class="col-md-4">
-                    <td>{{message.created}}</td>
-                    <td>{{message.sender}}</td>
-                    <td>{{message.title}}</td>
-            </div>
+            <tr class=row" ng-repeat="message in FolderListCtrl.messages">
+                <td>{{message.created}}</td>
+                <td>{{message.sender.id}}</td>
+                <td>{{message.title}}</td>
             </tr>
-        </div>
         </table>
 
     </div>
