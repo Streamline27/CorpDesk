@@ -1,6 +1,8 @@
 package lv.javaguru.java3.core.dto.gallerycluster;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Aleksej_home on 2015.11.17..
@@ -13,6 +15,7 @@ public class CategoryDTO extends GalleryModiferDTO{
     private boolean allowRate;
     private boolean allowRateIcons;
     private Date modified;
+   // private List<UserDTO> users = new ArrayList<>();
 
 
     public long getGalleryId() {

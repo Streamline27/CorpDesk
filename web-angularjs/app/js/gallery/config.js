@@ -8,97 +8,93 @@ var gconf = angular.module('galleryConfigApp', [
 ]);
 
 gconf.constant('galleryConfig', {
-    subPath: '/gallery',
-    info: "none"
+    INFO: "none",
+    RESOURCES: {
+        GALLERY: {
+            list: 'galleries',
+            item: 'gallery'
+        },
+        CATEGORY: {
+            list: 'categories',
+            item: 'category'
+        },
+        IMAGE: {
+            list: 'images',
+            item: 'image'
+        },
+        REWARD: {
+            list: 'rewards',
+            item: 'reward'
+        }
+    },
+    PATHS:{
+        SUB: '/gallery',
+        PREFIX: {
+            NEW: '/new',
+            EDIT: '/edit',
+            VIEW: '/view'
+        },
+        ROOT: 'http://localhost:8080/gallerycluster'
+    },
+    CRUDVActions: {
+        CREATE: 'cr',
+        UPDATE: 'upd',
+        DELETE: 'del',
+        VIEW: 'vw',
+        LIST: 'lt',
+        EDIT: 'ed',
+        VIEW_WITH_COLLECTION: 'vwcol'
+    },
+    CRUDVArgs: {
+        ERROR: 'error',
+        SUCCESS: 'success',
+        WARNING: 'warning',
+        INFO: 'info',
+        ERROR_DATA: 'errorText',
+        SUCCESS_DATA: 'successText',
+        SUCCESS_ID: 'successID',
+        WARNING_DATA: 'warningText',
+        INFO_DATA: 'infoText'
+    }
 
 });
 
-/*
-gconf.config(function($stateProvider) {
-    var subpath = '/gallery';
-    $stateProvider.state('gallery', { // state for showing all movies
-        url: '/gallery',
-        templateUrl: 'partials'+ subpath + '/galleries.html',
-        controller: 'GalleryListController'
-    }).state('viewGallery', { //state for showing single movie
-        url: '/gallery/:id/view',
-        templateUrl: 'partials'+ subpath + '/gallery-view.html',
-        controller: 'GalleryViewController'
-    }).state('newGallery', { //state for adding a new movie
-        url: '/gallery/new',
-        templateUrl: 'partials'+ subpath + '/gallery-add.html',
-        controller: 'GalleryCreateController'
-    }).state('editGallery', { //state for updating a movie
-        url: '/gallery/:id/edit',
-        templateUrl: 'partials'+ subpath + '/gallery-edit.html',
-        controller: 'GalleryEditController'
-    });
-}).run(function($state) {
-    $state.go('gallery'); //make a transition to movies state when app starts
-});*/
-/*
-gconf.config(['$stateProvider', function($stateProvider) {
-    $stateProvider.state('allGallery', {
-        url: '/galllerycluster/gallery',
-        templateUrl: 'partials/gallery/galleries.html',
-        controller: 'GalleryListCtrl'
-    });.state('viewGallery', {
-        url: '/gallery/:id/view',
-        templateUrl: 'partials/gallery/gallery-view.html',
-        controller: 'GalleryViewController'
-    }).state('newGallery', {
-        url: '/gallery/new',
-        templateUrl: 'partials/gallery/gallery-add.html',
-        controller: 'GalleryCreateController'
-    }).state('editGallery', {
-        url: '/gallery/:id/edit',
-        templateUrl: 'partials/gallery/gallery-edit.html',
-        controller: 'GalleryEditController'
-    });
-}]);*/
 
-gconf.config(['$routeProvider', function ($routeProvider) {
+gconf.config(['$routeProvider', 'galleryConfig',  function ($routeProvider, galleryConfig) {
     $routeProvider
         // Pages
 
-        .when("/gallery/galleries", {
-            templateUrl: "partials/gallery/galleries.html",
+        .when("/gallery", {
+            templateUrl: "partials"+galleryConfig.PATHS.SUB+"/galleries.html",
             controller: "GalleryListCtrl",
-            controllerAs: "GalleryListCtrl"
+            controllerAs: "GalleryListCtrl",
+            action: galleryConfig.CRUDVActions.LIST
         })
-
-    .when("/gallery/gallery", {
-        templateUrl: "partials/gallery/gallery-view.html",
-        controller: "GalleryViewCtrl",
-        controllerAs: "GalleryViewCtrl"
+    .when("/gallery/:id"+galleryConfig.PATHS.PREFIX.VIEW, {
+        templateUrl: "partials"+galleryConfig.PATHS.SUB+"/gallery-view.html",
+        controller: "GalleryListCtrl",
+        controllerAs: "GalleryListCtrl",
+        action: galleryConfig.CRUDVActions.VIEW
     })
-     .when("/gallery/gallery/edit", {
-            templateUrl: "partials/gallery/gallery-edit.html",
-            controller: "GalleryEditCtrl",
-            controllerAs: "GalleryEditCtrl"
-        });
-   /* .when("/gallery/gallery/:id", {
-        templateUrl: "partials/gallery/gallery-view.html",
-        controller: "GalleryViewCtrl",
-        controllerAs: "GalleryViewtCtrl"
-    })
-        .when("/gallery/gallery/", {
-            templateUrl: "partials/gallery/gallery-view.html",
-            controller: "GalleryViewCtrl",
-            controllerAs: "GalleryViewCtrl"
-        });*/
-       /* .when("/users", {
-            templateUrl: "partials/users.html",
-            controller: "UserListCtrl",
-            controllerAs: "UserListCtrl"
+        .when("/gallery/:id", {
+            templateUrl: "partials"+galleryConfig.PATHS.SUB+"/index.html",
+            controller: "GalleryListCtrl",
+            controllerAs: "GalleryListCtrl",
+            action: galleryConfig.CRUDVActions.VIEW
         })
-        .when("/user/:id?", {
-            templateUrl: "partials/user.html",
-            controller: "UserEditCtrl",
-            controllerAs: "UserEditCtrl"
+     .when("/gallery/:id"+galleryConfig.PATHS.PREFIX.EDIT, {
+            templateUrl: "partials"+galleryConfig.PATHS.SUB+"/gallery-edit.html",
+            controller: "GalleryListCtrl",
+            controllerAs: "GalleryListCtrl",
+            action: galleryConfig.CRUDVActions.EDIT
         })
+    .when("/gallery"+galleryConfig.PATHS.PREFIX.NEW, {
+        templateUrl: "partials"+galleryConfig.PATHS.SUB+"/gallery-add.html",
+        controller: "GalleryListCtrl",
+        controllerAs: "GalleryListCtrl",
+        action: galleryConfig.CRUDVActions.CREATE
+    });
 
-        .otherwise("/404", {templateUrl: "partials/404.html", controller: "PageCtrl"});*/
 }]);
 
 gconf.config(['$resourceProvider', function($resourceProvider) {

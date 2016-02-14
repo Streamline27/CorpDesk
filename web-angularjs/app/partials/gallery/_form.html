@@ -1,31 +1,35 @@
 <div class="form-group">
     <label for="allowRate" class="col-sm-2 control-label">allowRate</label>
     <div class="col-sm-10">
-        <input type="checkbox" ng-model="gallery.allowRate" class="form-control" id="allowRate" />
+        <input type="checkbox" ng-model="model.gallery.allowRate" class="form-control" id="allowRate" />
     </div>
 </div>
 <div class="form-group">
     <label for="allowRateIcons" class="col-sm-2 control-label">allowRateIcons</label>
     <div class="col-sm-10">
-        <input type="checkbox" ng-model="gallery.allowRateIcons" class="form-control" id="allowRateIcons" />
+        <input type="checkbox" ng-model="model.gallery.allowRateIcons" class="form-control" id="allowRateIcons" />
     </div>
 </div>
-<div class="form-group">
+<div class="form-group has-success has-feedback">
     <label for="label" class="col-sm-2 control-label">label</label>
     <div class="col-sm-10">
-        <input type="text" ng-model="gallery.label" class="form-control" id="label" placeholder="Who label?"/>
+        <input type="text" ng-model="model.gallery.label" class="form-control"
+               id="label" placeholder="Label" data-error="Invalid label" required/>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
     </div>
 </div>
-<div class="form-group">
+<div class="form-group" >
     <label for="description" class="col-sm-2 control-label">Description</label>
     <div class="col-sm-10">
-        <input type="text" ng-model="gallery.description" class="form-control" id="description" placeholder="description genre here"/>
+        <input type="text" ng-model="model.gallery.description" name="desc" class="form-control"
+               id="description" placeholder="description genre here" strongPass/>
+        <span ng-show="form.desc.$error.strongPass">This is not valid integer!</span>
     </div>
 </div>
 <div class="form-group">
     <label for="isActive" class="col-sm-2 control-label">isActive Genre</label>
     <div class="col-sm-10">
-        <input type="checkbox" ng-model="gallery.isActive" class="form-control" id="isActive"/>
+        <input type="checkbox" ng-model="model.gallery.isActive" class="form-control" id="isActive"/>
     </div>
 </div>
 <div class="form-group">

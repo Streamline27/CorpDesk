@@ -41,7 +41,7 @@ public class Category extends GalleryModifer {
     private Date modified;
 
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Gallery gallery;
 
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "category")

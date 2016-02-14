@@ -1,9 +1,11 @@
 package lv.javaguru.java3.core.dto.gallerycluster;
 
+import java.io.Serializable;
+
 /**
  * Created by Aleksej_home on 2015.11.17..
  */
-public abstract class GalleryModiferDTO {
+public abstract class GalleryModiferDTO implements Serializable {
 
     protected String label;
     protected String description;
