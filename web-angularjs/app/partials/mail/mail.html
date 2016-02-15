@@ -33,7 +33,15 @@
         <td colspan="2">
             <table>
                 <tr><td>
-                    <input type="text" name="messageTitle" ng-model="messageTitle">
+                    <input type="text" name="messageTitle" ng-model="messageTitle" size="40">
+                    <input type="checkbox" name="messageIsImportant" ng-model="messageIsImportant"/>
+                    Important
+                    <input type="button" ng-click="FolderListCtrl.clearMessage()" value="Clear">
+                    <select ng-model="selectedRecipient"
+                            ng-options="item.id as item.firstName + ' ' + item.lastName for item in messageRecipients">
+                        <option selected value="">Select Recipient</option>
+                    </select>
+                    <input type="button" ng-click="FolderListCtrl.sendMessage()" value="Send">
                 </td></tr>
                 <tr><td>
                     <textarea ng-model="messageBody" rows="20" cols="80"/>
