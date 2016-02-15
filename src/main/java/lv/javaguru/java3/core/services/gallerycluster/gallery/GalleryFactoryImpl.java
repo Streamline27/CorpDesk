@@ -46,8 +46,9 @@ public class GalleryFactoryImpl implements GalleryFactory{
     public GalleryDTO createDTO(GalleryDTO galleryDTO) {
 
         galleryValidator.validate(galleryDTO);
-        galleryDAO.create(galleryConverter.convert(galleryDTO));
-        return galleryDTO;
+        Gallery gallery = galleryConverter.convert(galleryDTO);
+        galleryDAO.create(gallery);
+        return galleryConverter.convert(gallery);
     }
     @Override
     public Gallery create(GalleryDTO galleryDTO) {

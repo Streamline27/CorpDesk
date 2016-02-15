@@ -1,10 +1,12 @@
 <div class="container">
+    <div ng-include="'partials/gallery/handlers/_error.html'"></div>
+    <div ng-include="'partials/gallery/handlers/_success.html'"></div>
         <table class="table gallerytable">
     <tr>
         <td><h3>All Galleries</h3></td>
         <td></td>
     </tr>
-    <tr ng-repeat="gallery in galleries">
+    <tr ng-repeat="gallery in model.galleries">
         <td>{{gallery.userId}}</td>
         <td>{{gallery.allowRate}}</td>
         <td>{{gallery.allowRateIcons}}</td>
@@ -12,10 +14,14 @@
         <td>{{gallery.description}}</td>
         <td>{{gallery.isActive}}</td>
         <td>
-            <a class="btn btn-primary" ng-click="GalleryListCtrl.showItem(gallery)">View</a>
+            <a class="btn btn-primary" ng-click="showItem(gallery.userId)">View</a>
             <a class="btn btn-danger"  ng-click="deleteItem(gallery)">Delete</a>
         </td>
     </tr>
+            <tr>
+               <td><a class="btn btn-primary" ng-click="addItem(gallery.userId)">New</a></td>
+                </tr>
             </table>
+
 
 </div>

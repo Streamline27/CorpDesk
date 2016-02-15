@@ -34,24 +34,21 @@ public class GalleryResourceImpl implements GalleryResource {
         this.gson = new Gson();
     }
 
-  /* @Override
-   @GET
-   @Consumes(APPLICATION_JSON)
-   @Produces(APPLICATION_JSON)
-   public Response getCurrent(@QueryParam("galleryId") Long galleryId) throws Exception {
-       try {
 
-           //  GetGalleryCommand command = new GetGalleryCommand(userId); // TODO logged in user?
-           GetGalleryCommand command = new GetGalleryCommand(9l); // TODO logged in user?
-           GetGalleryResult result = commandExecutor.execute(command);
-
-           return Response.ok().entity(gson.toJson(result.getGalleryDTO())).build();
-
-
-       } catch (Exception e) {
-           return Response.serverError().entity(gson.toJson(e.getMessage())).build();
-       }
-   }*/
+    @Override
+    @POST
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    public Response create(GalleryDTO galleryDTO) throws Exception {
+        try {
+            CreateGalleryCommand command = new CreateGalleryCommand(galleryDTO); // TODO logged in user?
+            CreateGalleryResult result = commandExecutor.execute(command);
+            return Response.ok().entity(gson.toJson(result.getGalleryDTO())).build();
+            // return Response.ok().build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
 
     @Override
     @GET
@@ -62,6 +59,7 @@ public class GalleryResourceImpl implements GalleryResource {
             GetAllGalleryCommand command = new GetAllGalleryCommand();
             GetAllGalleryResult result = commandExecutor.execute(command);
             return Response.ok().entity(gson.toJson(result.getAllGalleryDTOs())).build();
+           // return Response.serverError().build();
 
         } catch (Exception e) {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
@@ -81,29 +79,19 @@ public class GalleryResourceImpl implements GalleryResource {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
         }
     }
-    @Override
-    @POST
-    @Consumes(APPLICATION_JSON)
-    @Produces(APPLICATION_JSON)
-    public Response create(GalleryDTO galleryDTO) throws Exception {
-        try {
-            GetGalleryCommand command = new GetGalleryCommand(9l); // TODO logged in user?
-            GetGalleryResult result = commandExecutor.execute(command);
-            return Response.ok().entity(gson.toJson(null)).build();
-        } catch (Exception e) {
-            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
-        }
-    }
 
     @Override
     @PUT
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public Response update(GalleryDTO galleryDTO) throws Exception {
+    @Path("/{id}")
+    public Response update(@PathParam("id")Long id, GalleryDTO galleryDTO) throws Exception {
         try {
             UpdateGalleryCommand command = new UpdateGalleryCommand(galleryDTO); // TODO logged in user?
             UpdateGalleryResult result = commandExecutor.execute(command);
+
             return Response.ok().entity(gson.toJson(result.getGalleryDTO())).build();
+           // return Response.ok().build();
         } catch (Exception e) {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
         }

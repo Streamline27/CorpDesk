@@ -7,111 +7,162 @@
 
 var apiHost='http://localhost:8080';
 
+
 var galleryControllers = angular.module('galleryControllers', ['galleryServices']);
 
 
 
-galleryControllers.controller('GalleryListCtrl', ['$scope', '$http', 'currentGallery', '$location', 'Gallery',
-    function($scope, $http, currentGallery, $location, Gallery) {
-        var ctrl = this;
-        $scope.galleries = Gallery.query();
+galleryControllers.controller('GalleryListCtrl', ['$scope', '$http', '$route', '$routeParams',
+     '$location', 'Gallery', 'GalleryHandler', 'galleryConfig', 'EntityDefines',
+    function($scope, $http, $route,$routeParams, $location, Gallery, GalleryHandler, galleryConfig, EntityDefines) {
+        var self = this;
+        var entity;
+        $scope.model = {};
 
-      /*  ctrl.showList = function(){
-           // $scope.moduleState = 'list';
-            return  Gallery.query();
-        };*/
+        entity = GalleryHandler.action({
+            state: $route.current.action,
+            id: $routeParams.id});
 
-        ctrl.showItem = function(gallery){
-          //  $scope.moduleState = 'item';
-          //  alert('Stuff');
-          //  $ccope.currentGallery = gallery;
-            currentGallery.setGallery(gallery);
-            $location.path("/gallery/gallery");
+        var item;
+        while (entity.length) {
+            item = entity.pop();
+
+            if (item.options.resource){
+                item.value().$promise.then(function(data) {
+                    $scope.model[item.key] = data;
+                },onEntityError);
+            }else{
+                $scope.model[item.key] = item.value();
+            }
+        }
+
+        $scope.addItem = function(){
+            $location.path("/gallery/new");
         };
 
-        ctrl.updateItem = function(gallery){
-          //  $scope.moduleState = 'update';
-            currentGallery.setGallery(gallery);
-            $location.path("/gallery/gallery/edit");
+        $scope.showItem = function(userId){
+            $location.path("/gallery/" + userId+ "/view");
         };
 
-        ctrl.deleteItem = function(gallery){
-           // $scope.moduleState = 'delete';
-            alert('deleted');
-          //  $location.path("/gallery/gallery-d")
+        $scope.editItem = function(userId){
+            $location.path("/gallery/"+userId+"/edit");
         };
 
-      // $scope.galleries = Gallery.query();
-      //  var ctrl = this;
+        $scope.updateGallery = function(gallery){
+            gallery.$update().then(function(data) {
+                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                    text: 'updated',
+                    id: data.userId
+                });
+                $scope.showItem(data.userId);
+            },onEntityError);
 
-    /*    $http({
-            method: 'GET',
-            url: apiHost + '/gallerycluster/gallery'
-        }).success(function (data) {
-            // ctrl.gallery = data;
-            $scope.galleries = data;
+        };
+        $scope.createGallery = function(gallery){
+            gallery.$save().then(function(data) {
+                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                    text: 'created',
+                    id: data.userId
+                });
+                $scope.showItem(data.userId);
+            },onEntityError);
+        };
 
-        }).catch(function(err){
-            alert(err.data);
-        });*/
+        $scope.deleteItem = function(gallery){
+            gallery.$delete().then(function(data) {
+                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                    text: 'deleted',
+                    id: data.userId
+                });
+                $route.reload();
+            }, onEntityError);
+        };
+
+        function onEntityError(error){
+            var err = GalleryHandler.onError(error);
+            var item;
+            while (err.length){
+                item = err.pop();
+                $scope.model[item.key] = item.value();
+            }
+        }
 
     }]);
-galleryControllers.controller('GalleryViewCtrl', ['$scope',  '$routeParams', 'currentGallery', '$location', 'Gallery',
-    function($scope, $routeParams, currentGallery, $location, Gallery) {
-       // var ctrl = this;
 
-      //  $scope.gallery = Gallery.get({ id: $routeParams.userId });
+galleryControllers.controller('CategoryCtrl', ['$scope', '$http', '$route', '$routeParams',
+    '$location', 'Gallery', 'GalleryHandler', 'galleryConfig',
+    function($scope, $http, $route,$routeParams, $location, Gallery, GalleryHandler, galleryConfig) {
+        var self = this;
+        var entity;
+        $scope.model = {};
 
-        $scope.gallery = currentGallery.getGallery();
+        entity = GalleryHandler.action({
+            state: $route.current.action,
+            id: $routeParams.id});
 
+        var item;
+        while (entity.length) {
+            item = entity.pop();
 
+            if (item.options.resource){
+                item.value().$promise.then(function(data) {
+                    $scope.model[item.key] = data;
+                },onEntityError);
+            }else{
+                $scope.model[item.key] = item.value();
+            }
+        }
 
-
-      //  $scope.galleries = Gallery.query();
-       /* ctrl.viewGallery=function(gallery){
-            $location.path("/user/")
-        };*/
-      //  $scope.gallery = gallery;
-      //  $scope.viewGallery = function(gallery){
-       //     $location.path(id); // path not hash
-       // }
-       // $scope.gallery = Gallery.get({ id: Gallery.id });
-        //  var ctrl = this;
-      //  alert('Controller');
-        /*    $http({
-         method: 'GET',
-         url: apiHost + '/gallerycluster/gallery'
-         }).success(function (data) {
-         // ctrl.gallery = data;
-         $scope.galleries = data;
-
-         }).catch(function(err){
-         alert(err.data);
-         });*/
-
-    }]);
-galleryControllers.controller('GalleryEditCtrl', ['$scope', '$http',  'currentGallery', '$location', 'Gallery',
-    function($scope, $http, currentGallery, $location, Gallery) {
-     //   $scope.galleries = Gallery.query();
-          var ctrl = this;
-        $scope.gallery = currentGallery.getGallery();
-
-
-        ctrl.updateGallery = function(gallery){
-            //  $scope.moduleState = 'update';
-            currentGallery.setGallery(gallery);
-           // $location.path("/gallery/gallery/edit");
+        $scope.addItem = function(){
+            $location.path("/gallery/new");
         };
-        /*    $http({
-         method: 'GET',
-         url: apiHost + '/gallerycluster/gallery'
-         }).success(function (data) {
-         // ctrl.gallery = data;
-         $scope.galleries = data;
-         updateGallery
-         }).catch(function(err){
-         alert(err.data);
-         });*/
+
+        $scope.showItem = function(userId){
+            $location.path("/gallery/" + userId+ "/view");
+        };
+
+        $scope.editItem = function(userId){
+            $location.path("/gallery/"+userId+"/edit");
+        };
+
+        $scope.updateGallery = function(gallery){
+            gallery.$update().then(function(data) {
+                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                    text: 'updated',
+                    id: data.userId
+                });
+                $scope.showItem(data.userId);
+            },onEntityError);
+
+        };
+        $scope.createGallery = function(gallery){
+            gallery.$save().then(function(data) {
+                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                    text: 'created',
+                    id: data.userId
+                });
+                $scope.showItem(data.userId);
+            },onEntityError);
+        };
+
+        $scope.deleteItem = function(gallery){
+            gallery.$delete().then(function(data) {
+                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                    text: 'deleted',
+                    id: data.userId
+                });
+                $route.reload();
+            }, onEntityError);
+        };
+
+        function onEntityError(error){
+            var err = GalleryHandler.onError(error);
+            var item;
+            while (err.length){
+                item = err.pop();
+                $scope.model[item.key] = item.value();
+            }
+        }
 
     }]);
 

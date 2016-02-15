@@ -1,5 +1,9 @@
 package lv.javaguru.java3.core.domain.gallerycluster.gallery;
 
+import lv.javaguru.java3.core.domain.gallerycluster.category.Category;
+
+import java.util.List;
+
 /**
  * Created by Aleksej_home on 2015.11.09..
  */
@@ -10,6 +14,7 @@ public class GalleryBuilder {
     private long id;
     private boolean allowRate;
     private boolean allowRateIcons;
+    private List<Category> categories;
 
     private GalleryBuilder() {
     }
@@ -48,6 +53,11 @@ public class GalleryBuilder {
         return this;
     }
 
+    public GalleryBuilder withCategories(List<Category> categories) {
+        this.categories = categories;
+        return this;
+    }
+
     public GalleryBuilder but() {
         return aGallery()
                 //.withUserId(userId)
@@ -55,7 +65,8 @@ public class GalleryBuilder {
                 .withAllowRateIcons(allowRateIcons)
                 .withLabel(label)
                 .withDescription(description)
-                .withIsActive(isActive);
+                .withIsActive(isActive)
+                .withCategories(categories);
     }
 
     public Gallery build() {
@@ -66,6 +77,7 @@ public class GalleryBuilder {
         gallery.setLabel(label);
         gallery.setDescription(description);
         gallery.setIsActive(isActive);
+        gallery.setCategories(categories);
         return gallery;
     }
 }

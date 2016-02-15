@@ -1,5 +1,8 @@
 package lv.javaguru.java3.core.dto.gallerycluster;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Aleksej_home on 2015.11.17..
  */
@@ -10,6 +13,7 @@ public class GalleryDTOBuilder {
     private long userId;
     private boolean allowRate;
     private boolean allowRateIcons;
+    private List<CategoryDTO> categoryDTOs = new ArrayList<>();
 
     private GalleryDTOBuilder() {
     }
@@ -48,8 +52,20 @@ public class GalleryDTOBuilder {
         return this;
     }
 
+    public GalleryDTOBuilder withCategories(List<CategoryDTO> categoryDTOs) {
+        this.categoryDTOs = categoryDTOs;
+        return this;
+    }
+
     public GalleryDTOBuilder but() {
-        return aGalleryDTO().withUserId(userId).withAllowRate(allowRate).withAllowRateIcons(allowRateIcons).withLabel(label).withDescription(description).withIsActive(isActive);
+        return aGalleryDTO().withUserId(userId)
+                .withAllowRate(allowRate)
+                .withAllowRateIcons(allowRateIcons)
+                .withLabel(label)
+                .withDescription(description)
+                .withIsActive(isActive)
+                .withCategories(categoryDTOs);
+
     }
 
     public GalleryDTO build() {
@@ -60,6 +76,7 @@ public class GalleryDTOBuilder {
         galleryDTO.setLabel(label);
         galleryDTO.setDescription(description);
         galleryDTO.setIsActive(isActive);
+        galleryDTO.setCategoryDTOs(categoryDTOs);
         return galleryDTO;
     }
 }

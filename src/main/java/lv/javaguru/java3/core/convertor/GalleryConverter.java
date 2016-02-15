@@ -4,7 +4,11 @@ package lv.javaguru.java3.core.convertor;
 import lv.javaguru.java3.core.domain.gallerycluster.gallery.Gallery;
 import static lv.javaguru.java3.core.domain.gallerycluster.gallery.GalleryBuilder.aGallery;
 import lv.javaguru.java3.core.dto.gallerycluster.GalleryDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static lv.javaguru.java3.core.dto.gallerycluster.GalleryDTOBuilder.aGalleryDTO;
 
@@ -13,6 +17,8 @@ import static lv.javaguru.java3.core.dto.gallerycluster.GalleryDTOBuilder.aGalle
  */
 @Component
 public class GalleryConverter {
+    @Autowired
+    private CategoryConverter categoryConverter;
 
     public GalleryDTO convert(Gallery gallery){
         if (gallery == null) return null;
@@ -23,17 +29,21 @@ public class GalleryConverter {
                 .withDescription(gallery.getDescription())
                 .withIsActive(gallery.isActive())
                 .withLabel(gallery.getLabel())
+                .withCategories(categoryConverter.convert(gallery.getCategories()))
                 .build();
     }
     public Gallery convert(GalleryDTO galleryDTO){
         if (galleryDTO == null) return null;
         return aGallery()
-             //   .withUserId(galleryDTO.getUserId())
+                .withId(galleryDTO.getUserId())
                 .withAllowRate(galleryDTO.getAllowRate())
                 .withAllowRateIcons(galleryDTO.getAllowRateIcons())
                 .withDescription(galleryDTO.getDescription())
                 .withIsActive(galleryDTO.isActive())
                 .withLabel(galleryDTO.getLabel())
+                .withCategories(categoryConverter.convertDTO(galleryDTO.getCategoryDTOs()))
                 .build();
     }
+
+
 }

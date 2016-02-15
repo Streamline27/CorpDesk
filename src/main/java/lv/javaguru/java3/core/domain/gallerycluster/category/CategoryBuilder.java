@@ -77,7 +77,7 @@ public class CategoryBuilder {
 
     public CategoryBuilder but() {
         return aCategory()
-             //   .withId(id)
+                .withId(id)
               //  .withGalleryId(galleryId)
               //  .withImgId(imgId)
                 .withAllowRate(allowRate)

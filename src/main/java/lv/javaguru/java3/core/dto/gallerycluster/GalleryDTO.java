@@ -1,5 +1,8 @@
 package lv.javaguru.java3.core.dto.gallerycluster;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Aleksej_home on 2015.11.17..
  */
@@ -8,6 +11,7 @@ public class GalleryDTO extends GalleryModiferDTO {
     private long userId;
     private boolean allowRate;
     private boolean allowRateIcons;
+    private List<CategoryDTO> categoryDTOs = new ArrayList<>();
 
 
     public long getUserId() {
@@ -31,4 +35,11 @@ public class GalleryDTO extends GalleryModiferDTO {
         return allowRateIcons;
     }
 
+    public List<CategoryDTO> getCategoryDTOs() {
+        return categoryDTOs;
+    }
+
+    public void setCategoryDTOs(List<CategoryDTO> categoryDTOs) {
+        this.categoryDTOs = categoryDTOs;
+    }
 }
