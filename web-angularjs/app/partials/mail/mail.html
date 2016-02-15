@@ -1,38 +1,50 @@
 <div class="container">
 
 
-    <div class="col-md-3">
-
-        <h3>Folders</h3>
-
-        <div class="row" ng-repeat="folder in FolderListCtrl.folders">
-
-            <span><a href="" ng-click="FolderListCtrl.viewFolder(folder)">{{folder.name}}</a></span>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-9">
-
-        <h3>Messages</h3>
-        <table><tr>
-            <th>Date sent</th>
-            <th>Sender</th>
-            <th>Subject</th>
+    <table align="center">
+        <tr>
+            <th><h3 align="center">Folders</h3></th>
+            <th><h3 align="center">Messages</h3></th>
         </tr>
 
-        <div class=row" ng-repeat="message in FolderListCtrl.messages">
-            <tr>
-            <div class="col-md-4">
+        <tr><td>
+            <table><tr class="row" ng-repeat="folder in FolderListCtrl.folders">
+                <td><a href="" ng-click="FolderListCtrl.viewFolder(folder)">{{folder.name}}</a></td>
+            </table>
+        </td>
+
+        <td>
+            <table>
+                <tr>
+                    <th>Date sent</th>
+                    <th>Sender</th>
+                    <th>Subject</th>
+                </tr>
+
+                <tr class=row" ng-repeat="message in FolderListCtrl.messages">
                     <td>{{message.created}}</td>
                     <td>{{message.sender}}</td>
-                    <td>{{message.title}}</td>
-            </div>
-            </tr>
-        </div>
-        </table>
+                    <td><a href="" ng-click="FolderListCtrl.viewMessage(message)">{{message.title}}</a></td>
+                </tr>
+            </table>
+        </td>
+        <tr>
 
-    </div>
+        <td colspan="2">
+            <table>
+                <tr><td>
+                    <input type="text" name="messageTitle" ng-model="messageTitle">
+                </td></tr>
+                <tr><td>
+                    <textarea ng-model="messageBody" rows="20" cols="80"/>
+                </td></tr>
+
+            </table>
+
+        </td>
+
+    </tr>
+
+    </table>
 
 </div>

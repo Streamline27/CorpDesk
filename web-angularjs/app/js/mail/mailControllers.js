@@ -29,7 +29,7 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$http', '$location',
 
         ctrl.viewFolder = function(folder){
             $scope.folder = folder;
-            ctrl.folder2 = folder;
+            /*ctrl.folder2 = folder;*/
 
             $http({
                 method: 'GET',
@@ -41,20 +41,21 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$http', '$location',
             });
         }
 
-    }]);
+        ctrl.viewMessage = function(message){
+            $scope.messageId = message.messageId;
 
-mailControllers.controller('MessageReadCtrl', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
-        var ctrl = this;
+            $http({
+                method: 'GET',
+                url: apiHost + '/mail/message?messageId=' + $scope.messageId
+            }).success(function(data) {
+                /* ctrl.message = data; */
+                $scope.messageTitle = data.title;
+                $scope.messageBody = data.body;
+            }).catch(function(err) {
+                alert(err.data);
+            });
+        }
 
-        $http({
-            method: 'GET',
-            url: apiHost + '/mail/message/?messageId=' + $http.messageId
-        }).success(function(data) {
-            ctrl.message = data;
-        }).catch(function(err) {
-            alert(err.data);
-        });
     }]);
 
 
