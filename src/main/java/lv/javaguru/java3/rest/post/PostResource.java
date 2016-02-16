@@ -36,4 +36,16 @@ public interface PostResource {
     @Path("/posts/{page}&{size}")
     Response findAll(@PathParam("page") int page, @PathParam("size") int size) throws Exception;
 
+    @PUT
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/posts")
+    Response update(PostDTO postDTO) throws Exception;
+
+    @DELETE
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/posts/{postId}")
+    Response delete(@PathParam("postId") Long postId) throws Exception;
+
 }

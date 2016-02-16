@@ -13,14 +13,14 @@ postsServices.factory('PostsPageFactory', function ($resource) {
 postsServices.factory('PostsFactory', function ($resource) {
     return $resource(apiHost + '/posts', {}, {
         query: { method: 'GET', isArray: true },
-        create: { method: 'POST' }
+        create: { method: 'POST' },
+        update: { method: 'PUT' }
     })
 });
 
 postsServices.factory('PostFactory', function ($resource) {
     return $resource(apiHost + '/posts/:id', {}, {
         show: { method: 'GET' },
-        update: { method: 'PUT', params: {id: '@id'} },
         delete: { method: 'DELETE', params: {id: '@id'} }
     })
 });
