@@ -10,8 +10,8 @@ mailControllers.run(function ($rootScope, $templateCache) {
     });
 });
 
-mailControllers.controller('FolderListCtrl', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
+mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '$location',
+    function($scope, $rootScope, $http, $location) {
         var ctrl = this;
 
         $http({
@@ -78,10 +78,10 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$http', '$location',
             var message;
             var recipientList = [];
 
-            recipientList.push($scope.selectedRecipient);
+            recipientList.push({id: $scope.selectedRecipient});
             message = {
                 sender: {
-                    id: $scope.loginContext.user.id
+                    id: $rootScope.loginContext.user.id
                 },
                 recipients: recipientList,
                 title: $scope.messageTitle,
@@ -102,6 +102,39 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$http', '$location',
             })
         }
 
+        ctrl.createFolder = function() {
+            var folder;
+
+            folder = {
+                userId: 1,
+                name: $scope.newFolder
+            };
+
+            $http({
+                method: 'POST',
+                url: apiHost + '/mail/folder',
+                data: folder
+            }).success(function () {
+                alert("Folder created");
+            }).catch(function (err) {
+                if (err.data) {
+                    alert(err.data);
+                }
+            })
+        }
+
+        ctrl.deleteFolder = function(folderId) {
+            $http({
+                method: 'DELETE',
+                url: apiHost + '/mail/folder?folderId=' + folderId
+            }).success(function () {
+                alert("Folder deleted");
+            }).catch(function (err) {
+                if (err.data) {
+                    alert(err.data);
+                }
+            })
+        }
     }]);
 
 

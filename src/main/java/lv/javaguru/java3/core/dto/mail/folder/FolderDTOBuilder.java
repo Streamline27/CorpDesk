@@ -9,6 +9,8 @@ public class FolderDTOBuilder {
     private String name;
     private long userId;
     private boolean isRemovable;
+    private long messagesCount;
+    private long unreadMessagesCount;
 
     public FolderDTOBuilder() {
     }
@@ -23,6 +25,8 @@ public class FolderDTOBuilder {
         dto.setName(name);
         dto.setUserId(userId);
         dto.setIsRemovable(isRemovable);
+        dto.setMessageCount(messagesCount);
+        dto.setUnreadMessageCount(unreadMessagesCount);
         return dto;
     }
 
@@ -43,6 +47,16 @@ public class FolderDTOBuilder {
 
     public FolderDTOBuilder isRemovable(boolean isRemovable) {
         this.isRemovable = isRemovable;
+        return this;
+    }
+
+    public FolderDTOBuilder withMessagesCount(long messagesCount) {
+        this.messagesCount = messagesCount;
+        return this;
+    }
+
+    public FolderDTOBuilder withUnreadMessagesCount(long unreadMessagesCount) {
+        this.unreadMessagesCount = unreadMessagesCount;
         return this;
     }
 

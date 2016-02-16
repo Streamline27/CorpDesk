@@ -8,8 +8,30 @@
         </tr>
 
         <tr><td>
-            <table><tr class="row" ng-repeat="folder in FolderListCtrl.folders">
-                <td><a href="" ng-click="FolderListCtrl.viewFolder(folder)">{{folder.name}}</a></td>
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" size="15" ng-model="newFolder">
+                        <input type="button" ng-click="FolderListCtrl.createFolder()" value="Create New">
+                    </td>
+                </tr>
+                <tr class="row" ng-repeat="folder in FolderListCtrl.folders">
+                    <td>
+                        <a href="" ng-click="FolderListCtrl.viewFolder(folder)">{{folder.name}}</a>
+                        (<b>{{folder.unreadMessageCount}}</b>/{{folder.messageCount}})
+                    </td>
+                    <td>
+                        <a href="" ng-click="FolderListCtrl.deleteFolder(folder.id)">Delete</a>
+                        <!--
+                        <script>
+                            if (folder.isRemovable) {
+                                document.write("<a href='' ng-click='FolderListCtrl.deleteFolder(folder.id)'" +
+                                        ">Delete</a>");
+                            }
+                        </script>
+                        -->
+                    </td>
+                </tr>
             </table>
         </td>
 
