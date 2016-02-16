@@ -6,8 +6,6 @@
             <h1 class="page-header">{{ post.title }}
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#/">Home</a>
-                </li>
                 <li class="active">
                     <a href="#/posts">Posts List</a>
                 </li>
@@ -23,7 +21,7 @@
 
             <!-- the actual blog post: title/author/date/content -->
             <hr>
-            <p><i class="fa fa-clock-o"></i> Posted on {{ post.createdDate }} by <a href="#">user</a>
+            <p><i class="fa fa-clock-o"></i> Posted on {{ post.createdDate | date : 'medium'}} by <a href="#">user</a>
             </p>
             <hr>
             <p>{{ post.body }}</p>
