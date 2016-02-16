@@ -17,6 +17,10 @@ postsConfig.config(['$routeProvider', function ($routeProvider) {
             templateUrl: "partials/post.html",
             controller: "PostPageCtrl"
         })
+        .when("/postnew", {
+            templateUrl: "partials/postnew.html",
+            controller: "PostCreationCtrl"
+        })
 }]);
 
 postsConfig.config(['$resourceProvider', function($resourceProvider) {

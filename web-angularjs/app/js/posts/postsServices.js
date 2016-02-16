@@ -4,6 +4,12 @@ var postsServices = angular.module('postsServices', []);
 
 var apiHost='http://localhost:8080';
 
+postsServices.factory('PostsPageFactory', function ($resource) {
+    return $resource(apiHost + '/posts/:page&:size', {}, {
+        page: {method: 'GET', isArray: true, params: {page: '@page', size: '@size'}},
+    })
+});
+
 postsServices.factory('PostsFactory', function ($resource) {
     return $resource(apiHost + '/posts', {}, {
         query: { method: 'GET', isArray: true },
@@ -21,4 +27,4 @@ postsServices.factory('PostFactory', function ($resource) {
 
 postsServices.factory('CommentsFactory', function($resource) {
     return $resource(apiHost + 'comments')
-})
+});

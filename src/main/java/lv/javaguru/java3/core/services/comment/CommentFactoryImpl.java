@@ -21,7 +21,11 @@ public class CommentFactoryImpl implements CommentFactory {
     private CommentValidator commentValidator;
 
     @Override
-    public Comment create(Long postId, Long userId, String text, Date postedDate, Date modifiedDate) {
+    public Comment create(Long postId,
+                          Long userId,
+                          String text,
+                          Date postedDate,
+                          Date modifiedDate) {
         commentValidator.validate(postId, userId, text, postedDate, modifiedDate);
         Comment comment = createComment()
                 .withPostId(postId)
