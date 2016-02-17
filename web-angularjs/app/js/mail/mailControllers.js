@@ -62,6 +62,7 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '
                 $scope.messageTitle = data.title;
                 $scope.messageBody = data.body;
                 $scope.messageIsImportant = data.isImportant;
+                $scope.selectedRecipients = data.recipients;
             }).catch(function (err) {
                 alert(err.data);
             });
