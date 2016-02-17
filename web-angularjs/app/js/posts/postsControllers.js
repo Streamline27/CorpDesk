@@ -14,7 +14,7 @@ postsControllers.controller('PostListCtrl', ['$scope', 'PostsPageFactory', '$loc
     function($scope, PostsPageFactory, $location) {
 
         var page = 1;
-        var size = 10;
+        var size = 5;
 
         $scope.posts = PostsPageFactory.page({page: page, size: size});
 
@@ -25,6 +25,25 @@ postsControllers.controller('PostListCtrl', ['$scope', 'PostsPageFactory', '$loc
         $scope.newPost = function() {
             $location.path('/postnew')
         };
+
+        $scope.editPost = function(postId) {
+            $location.path('/postedit/' + postId)
+        };
+
+        $scope.firstPage = function() {
+            page = 1;
+            $scope.posts = PostsPageFactory.page({page: page, size: size});
+        };
+
+        $scope.previousPage = function() {
+            page = page - 1;
+            $scope.posts = PostsPageFactory.page({page: page, size: size});
+        };
+
+        $scope.nextPage = function() {
+            page = page + 1;
+            $scope.posts = PostsPageFactory.page({page: page, size: size});
+        }
 
     }]);
 
@@ -41,10 +60,33 @@ postsControllers.controller('PostCreationCtrl', ['$scope', 'PostsFactory', '$loc
     function($scope, PostsFactory, $location) {
 
         $scope.post = {};
+        $scope.post.userId = 1;
+        $scope.post.groupId = 1;
         $scope.post.createdDate = Date.now();
 
         $scope.createNewPost = function() {
             PostsFactory.create($scope.post);
+            $location.path('/posts')
+        }
+
+    }]);
+
+postsControllers.controller('PostEditCtrl', ['$scope', '$routeParams', 'PostFactory', 'PostsFactory', '$location',
+    function($scope, $routeParams, PostFactory, PostsFactory, $location) {
+
+        var postId = $routeParams.id;
+
+        $scope.post = PostFactory.show({id: postId});
+
+        $scope.post.modifiedDate = Date.now();
+
+        $scope.updatePost = function() {
+            PostsFactory.update($scope.post);
+            $location.path('/posts')
+        };
+
+        $scope.deletePost = function() {
+            PostFactory.delete({id: postId});
             $location.path('/posts')
         }
 

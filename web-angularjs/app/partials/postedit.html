@@ -3,13 +3,13 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <h1 class="page-header">Create new post
+            <h1 class="page-header">Edit post "{{ post. title }}"
             </h1>
             <ol class="breadcrumb">
                 <li class="active">
                     <a href="#/posts">Posts List</a>
                 </li>
-                <li class="active">Post creation</li>
+                <li class="active">Edit post "{{ post. title }}"</li>
             </ol>
         </div>
 
@@ -35,8 +35,10 @@
                     <div class="form-group">
                         <textarea class="form-control" rows="3" ng-model="post.body"></textarea>
                     </div>
-                    <a class="btn btn-primary" ng-click="createNewPost()">
-                        Create new<i class="fa fa-angle-right"></i></a>
+                    <a class="btn btn-primary" ng-click="updatePost()">
+                        Update post<i class="fa fa-angle-right"></i></a>
+                    <a class="btn btn-primary" ng-click="deletePost()">
+                        Delete post<i class="fa fa-angle-right"></i></a>
                 </form>
             </div>
 

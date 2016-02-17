@@ -92,4 +92,36 @@ public class PostResourceImpl implements PostResource {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
         }
     }
+
+    @Override
+    @PUT
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    public Response update(PostDTO postDTO) throws Exception {
+        try {
+            UpdatePostCommand command = new UpdatePostCommand(postDTO.getId(),
+                    postDTO.getTitle(),
+                    postDTO.getBody(),
+                    postDTO.getModifiedDate());
+            UpdatePostResult result = commandExecutor.execute(command);
+            return Response.ok().entity(gson.toJson(result.getPostDTO())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
+
+    @Override
+    @DELETE
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/{postId}")
+    public Response delete(@PathParam("postId")Long postId) throws Exception {
+        try {
+            DeletePostCommand command = new DeletePostCommand(postId);
+            commandExecutor.execute(command);
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
 }

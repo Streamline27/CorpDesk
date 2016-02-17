@@ -21,6 +21,10 @@ postsConfig.config(['$routeProvider', function ($routeProvider) {
             templateUrl: "partials/postnew.html",
             controller: "PostCreationCtrl"
         })
+        .when("/postedit/:id?", {
+            templateUrl: "partials/postedit.html",
+            controller: "PostEditCtrl"
+        })
 }]);
 
 postsConfig.config(['$resourceProvider', function($resourceProvider) {
