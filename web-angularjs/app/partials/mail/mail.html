@@ -59,8 +59,8 @@
                     <input type="checkbox" name="messageIsImportant" ng-model="messageIsImportant"/>
                     Important
                     <input type="button" ng-click="FolderListCtrl.clearMessage()" value="Clear">
-                    <select ng-model="selectedRecipient"
-                            ng-options="item.id as item.firstName + ' ' + item.lastName for item in messageRecipients">
+                    <select multiple ng-model="selectedRecipients"
+                            ng-options="{id: item.id} as item.firstName + ' ' + item.lastName for item in messageRecipients">
                         <option selected value="">Select Recipient</option>
                     </select>
                     <input type="button" ng-click="FolderListCtrl.sendMessage()" value="Send">

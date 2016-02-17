@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import lv.javaguru.java3.core.commands.mail.folder.*;
 import lv.javaguru.java3.core.dto.mail.folder.FolderDTO;
 import lv.javaguru.java3.core.services.CommandExecutor;
+import lv.javaguru.java3.core.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -75,9 +76,9 @@ public class FolderResourceImpl implements FolderResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/list")
-    public Response list() throws Exception {
+    public Response list(@QueryParam("userLogin") String login) throws Exception {
         try {
-            ListFoldersCommand command = new ListFoldersCommand(1L); // TODO current logged in userId
+            ListFoldersCommand command = new ListFoldersCommand(login);
             ListFoldersResult result = commandExecutor.execute(command);
             return Response.ok().entity(gson.toJson(result.getFolderDTOList())).build();
         } catch (Exception e) {

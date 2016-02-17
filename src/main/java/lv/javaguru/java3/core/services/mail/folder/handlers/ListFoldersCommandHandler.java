@@ -7,6 +7,7 @@ import lv.javaguru.java3.core.domain.mail.Folder;
 import lv.javaguru.java3.core.dto.mail.folder.FolderDTO;
 import lv.javaguru.java3.core.services.DomainCommandHandler;
 import lv.javaguru.java3.core.services.mail.folder.FolderService;
+import lv.javaguru.java3.core.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ import static lv.javaguru.java3.core.domain.user.UserBuilder.createUser;
 public class ListFoldersCommandHandler implements DomainCommandHandler<ListFoldersCommand, ListFoldersResult>{
 
     @Autowired private FolderService folderService;
+    @Autowired private UserService userService;
     @Autowired private FolderConverter converter;
 
     @Override
@@ -29,7 +31,7 @@ public class ListFoldersCommandHandler implements DomainCommandHandler<ListFolde
 
         List<FolderDTO> folderDTOList = new ArrayList<>();
 
-        for (Folder folder : folderService.list(createUser().withId(command.getUserId()).build()))
+        for (Folder folder : folderService.list(userService.get(command.getUserLogin())))
             folderDTOList.add(converter.convert(folder));
 
         return new ListFoldersResult(folderDTOList);

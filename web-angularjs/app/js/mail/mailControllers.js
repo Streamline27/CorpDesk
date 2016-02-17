@@ -16,7 +16,7 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '
 
         $http({
             method: 'GET',
-            url: apiHost + '/mail/folder/list'
+            url: apiHost + '/mail/folder/list?userLogin=' + $rootScope.loginContext.user
         }).success(function (data) {
             ctrl.folders = data;
             // load right after folder load first folder messages
@@ -76,14 +76,12 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '
 
         ctrl.sendMessage = function () {
             var message;
-            var recipientList = [];
 
-            recipientList.push({id: $scope.selectedRecipient});
             message = {
                 sender: {
-                    id: $rootScope.loginContext.user.id
+                    login: $rootScope.loginContext.user
                 },
-                recipients: recipientList,
+                recipients: $scope.selectedRecipients,
                 title: $scope.messageTitle,
                 body: $scope.messageBody,
                 isImportant: $scope.messageIsImportant

@@ -17,6 +17,8 @@ public interface UserService {
 
     User get(long userId);
 
+    User get(String login);
+
     void delete(long userId);
 
     void authorize(String login, String password) throws Exception;

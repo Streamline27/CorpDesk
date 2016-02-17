@@ -7,14 +7,14 @@ import lv.javaguru.java3.core.commands.DomainCommand;
  */
 public class ListFoldersCommand implements DomainCommand<ListFoldersResult>{
 
-    private final long userId;
+    private final String userLogin;
 
-    public ListFoldersCommand(long userId) {
-        this.userId = userId;
+    public ListFoldersCommand(String userLogin) {
+        this.userLogin = userLogin;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getUserLogin() {
+        return userLogin;
     }
 
 }

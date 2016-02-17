@@ -35,6 +35,6 @@ public interface FolderResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("/mail/folder/list")
-    Response list() throws Exception;
+    Response list(@QueryParam("userLogin") String login) throws Exception;
 
 }

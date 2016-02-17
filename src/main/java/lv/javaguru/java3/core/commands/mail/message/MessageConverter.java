@@ -76,7 +76,6 @@ public class MessageConverter {
         for (Recipient recipient : recipients)
             if (recipient.getUserId() != senderUserId)
                 users.add(createUser().withId(recipient.getUserId()).build());
-                //users.add(userService.get(recipient.getUserId()));
         return users;
     }
 
