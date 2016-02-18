@@ -1,8 +1,10 @@
 package lv.javaguru.java3.core.domain.gallerycluster.category;
 
 import lv.javaguru.java3.core.domain.gallerycluster.gallery.Gallery;
+import lv.javaguru.java3.core.domain.gallerycluster.image.Image;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by Aleksej_home on 2015.11.09..
@@ -18,6 +20,7 @@ public class CategoryBuilder {
     private boolean allowRateIcons;
     private Date modified;
     private Gallery gallery;
+    private List<Image> images;
 
     private CategoryBuilder() {
     }
@@ -75,6 +78,11 @@ public class CategoryBuilder {
         return this;
     }
 
+    public CategoryBuilder withImages(List<Image> images) {
+        this.images = images;
+        return this;
+    }
+
     public CategoryBuilder but() {
         return aCategory()
                 .withId(id)
@@ -100,6 +108,7 @@ public class CategoryBuilder {
         category.setIsActive(isActive);
         category.setModifed(modified);
         category.setGallery(gallery);
+        category.setImages(images);
         return category;
     }
 }

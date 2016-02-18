@@ -16,7 +16,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
  * Created by Aleksej_home on 2016.02.14..
  */
 @RestController
-@Path("/gallerycluster/category")
+@Path("/gallery/category")
 public class CategoryResourceImpl implements CategoryResource{
 
     private CommandExecutor commandExecutor;
@@ -32,10 +32,71 @@ public class CategoryResourceImpl implements CategoryResource{
     @GET
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public Response get(Long id) throws Exception {
+    @Path("/{id}")
+    public Response get(@PathParam("id") Long id) throws Exception {
         try {
             GetCategoryCommand command = new GetCategoryCommand(id); // TODO logged in user?
             GetCategoryResult result = commandExecutor.execute(command);
+            return Response.ok().entity(gson.toJson(result.getCategoryDTO())).build();
+          /*  if (page == null) page = 1;
+            GetCategoryLimitedImagesCommand command = new GetCategoryLimitedImagesCommand(id,page);
+            GetCategoryLimitedImagesResult result = commandExecutor.execute(command);
+            System.out.println("REGUEST: "+ id);*/
+           // return Response.ok().entity(gson.toJson(result.getCategoryDTO())).build();
+
+          //  return Response.ok().build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
+
+
+
+    @Override
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/{id}/thumb")
+    public Response getThumb(@PathParam("id")Long id, @QueryParam("page") Integer page) throws Exception {
+        try {
+            if (page == null) page = 1;
+            GetCategoryLimitedImagesCommand command = new GetCategoryLimitedImagesCommand(id,page);
+            GetCategoryLimitedImagesResult result = commandExecutor.execute(command);
+            //System.out.println("REGUEST: "+ id);
+            return Response.ok().entity(gson.toJson(result.getCategoryDTO())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
+
+    @Override
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/{id}/middle")
+    public Response getMiddle(@PathParam("id")Long id, @QueryParam("page") Integer page) throws Exception {
+        try {
+            System.out.println("1");
+            if (page == null) page = 1;
+            GetCategoryImagesSmallPageCommand command = new GetCategoryImagesSmallPageCommand(id,page);
+            GetCategoryImagesSmallPageResult result = commandExecutor.execute(command);
+
+            return Response.ok().entity(gson.toJson(result.getCategoryDTO())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
+
+    @Override
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/{id}/orig")
+    public Response getOrig(@PathParam("id")Long id, @QueryParam("page") Integer page) throws Exception {
+        try {
+            if (page == null) page = 1;
+            GetCategoryImagesSmallPageCommand command = new GetCategoryImagesSmallPageCommand(id,page);
+            GetCategoryImagesSmallPageResult result = commandExecutor.execute(command);
             return Response.ok().entity(gson.toJson(result.getCategoryDTO())).build();
         } catch (Exception e) {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
@@ -49,10 +110,10 @@ public class CategoryResourceImpl implements CategoryResource{
     public Response getAll() throws Exception {
         try {
 
-          /*  GetAllCategoryCommand command = new GetAllCategoryCommand();
-            GetAllCategoryResult result = commandExecutor.execute(command);
-            return Response.ok().entity(gson.toJson(result.getAllCategoryDTOs())).build();*/
-             return Response.serverError().build();
+          //  GetAllCategoryCommand command = new GetAllCategoryCommand();
+          //  GetAllCategoryResult result = commandExecutor.execute(command);
+         //   return Response.ok().entity(gson.toJson(result.getAllCategoryDTOs())).build();
+             return Response.ok().build();
 
         } catch (Exception e) {
             return Response.serverError().entity(gson.toJson(e.getMessage())).build();
@@ -78,7 +139,8 @@ public class CategoryResourceImpl implements CategoryResource{
     @PUT
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public Response update(Long id, CategoryDTO categoryDTO) throws Exception {
+    @Path("/{id}")
+    public Response update(@PathParam("id") Long id, CategoryDTO categoryDTO) throws Exception {
         try {
             UpdateCategoryCommand command = new UpdateCategoryCommand(categoryDTO); // TODO logged in user?
             UpdateCategoryResult result = commandExecutor.execute(command);
@@ -94,7 +156,8 @@ public class CategoryResourceImpl implements CategoryResource{
     @DELETE
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public Response delete(Long id) throws Exception {
+    @Path("/{id}")
+    public Response delete(@PathParam("id") Long id) throws Exception {
         try {
             DeleteCategoryCommand command = new DeleteCategoryCommand(id); // TODO logged in user?
             commandExecutor.execute(command);

@@ -25,5 +25,9 @@ public interface CategoryService {
 
     Category get(Long id);
 
+    CategoryDTO getCategoryImagesLimited(Long id, int page, int size);
+
+    CategoryDTO getCategoryImagesSmall(Long id, int page);
+
     void delete(long id);
 }

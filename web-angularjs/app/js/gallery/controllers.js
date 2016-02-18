@@ -8,20 +8,26 @@
 var apiHost='http://localhost:8080';
 
 
-var galleryControllers = angular.module('galleryControllers', ['galleryServices']);
+var galleryControllers = angular.module('galleryControllers', [
+    'galleryServices'
+   // 'galleryFilters',
+   /* 'galleryDirectives'*/]);
 
 
 
 galleryControllers.controller('GalleryListCtrl', ['$scope', '$http', '$route', '$routeParams',
-     '$location', 'Gallery', 'GalleryHandler', 'galleryConfig', 'EntityDefines',
-    function($scope, $http, $route,$routeParams, $location, Gallery, GalleryHandler, galleryConfig, EntityDefines) {
+     '$location', 'Gallery', 'GalleryHandler', 'galleryConfig', 'Pagination',
+    function($scope, $http, $route,$routeParams, $location, Gallery, GalleryHandler, galleryConfig, Pagination) {
         var self = this;
-        var entity;
+        var entity, actionState = $route.current.action;
         $scope.model = {};
 
         entity = GalleryHandler.action({
-            state: $route.current.action,
-            id: $routeParams.id});
+            state: actionState,
+            queryParams: {
+                id: $routeParams.id,
+                page: Pagination.currentPage()
+            }});
 
         var item;
         while (entity.length) {
@@ -30,11 +36,41 @@ galleryControllers.controller('GalleryListCtrl', ['$scope', '$http', '$route', '
             if (item.options.resource){
                 item.value().$promise.then(function(data) {
                     $scope.model[item.key] = data;
+                    initPagination(item.key,data);
                 },onEntityError);
             }else{
                 $scope.model[item.key] = item.value();
             }
         }
+
+        $scope.showThumbs = function(el) {
+            if (el.imgCount > 0) {
+                Pagination.destroy();
+                $location.search({});
+                $location.path("/gallery/category/" + el.id + "/thumb");
+             }else{
+                alert("Category with ID:"+el.id+" is empty.");
+            }
+
+        };
+        $scope.showMiddles = function(el){
+            if (el.imgCount > 0) {
+                Pagination.destroy();
+                $location.search({});
+                $location.path("/gallery/category/" + el.id + "/middle");
+            }else {
+                alert("Category with ID:" + el.id + " is empty.");
+            }
+        };
+        $scope.showOriginals = function(el){
+            if (el.imgCount > 0) {
+                Pagination.destroy();
+                $location.search({});
+                $location.path("/gallery/category/" + el.id + "/orig");
+            }else {
+                alert("Category with ID:" + el.id + " is empty.");
+            }
+        };
 
         $scope.addItem = function(){
             $location.path("/gallery/new");
@@ -78,6 +114,14 @@ galleryControllers.controller('GalleryListCtrl', ['$scope', '$http', '$route', '
             }, onEntityError);
         };
 
+        $scope.pagination = function(direction, num){
+           var cur = Pagination.currentPage();
+           // alert("Pag: " + Pagination.currentPage());
+            if (Pagination[direction](num))
+                $location.search('page', Pagination.currentPage());
+          //  $location.path("/gallery/"+userId+ "?page=" + Pagination.currentPage());
+        };
+
         function onEntityError(error){
             var err = GalleryHandler.onError(error);
             var item;
@@ -86,19 +130,38 @@ galleryControllers.controller('GalleryListCtrl', ['$scope', '$http', '$route', '
                 $scope.model[item.key] = item.value();
             }
         }
+        function initPagination(key,data){
+            if(actionState == galleryConfig.CRUDVActions.VIEW_WITH_COLLECTION)
+             if (key === galleryConfig.RESOURCES.GALLERY.item){
+                 if (data.addition.pageCount > 1){
+                   //  var paginator = {};
+                     $scope.model.showPagination = true;
+                     Pagination.initPage(data.addition.page);
+                     Pagination.setPageCount(data.addition.pageCount);
+                     $scope.model.prev = Pagination.getModel().prev;
+                     $scope.model.next = Pagination.getModel().next;
+                     $scope.model.paginator = Pagination.getModel().model();
+                 }else {
+                     $scope.model.showPagination = false;
+                 }
+             }
+
+        }
 
     }]);
 
-galleryControllers.controller('CategoryCtrl', ['$scope', '$http', '$route', '$routeParams',
-    '$location', 'Gallery', 'GalleryHandler', 'galleryConfig',
-    function($scope, $http, $route,$routeParams, $location, Gallery, GalleryHandler, galleryConfig) {
+galleryControllers.controller('CategoryListCtrl', ['$scope', '$http', '$route', '$routeParams',
+    '$location', 'Category', 'CategoryHandler', 'galleryConfig', 'Pagination',
+    function($scope, $http, $route,$routeParams, $location, Category, CategoryHandler, galleryConfig, Pagination) {
         var self = this;
-        var entity;
+        var entity, actionState = $route.current.action;
         $scope.model = {};
-
-        entity = GalleryHandler.action({
-            state: $route.current.action,
-            id: $routeParams.id});
+        entity = CategoryHandler.action({
+            state: actionState,
+            queryParams: {
+                id: $routeParams.id,
+                page: Pagination.currentPage()
+            }});
 
         var item;
         while (entity.length) {
@@ -107,11 +170,36 @@ galleryControllers.controller('CategoryCtrl', ['$scope', '$http', '$route', '$ro
             if (item.options.resource){
                 item.value().$promise.then(function(data) {
                     $scope.model[item.key] = data;
+                    initPagination(item.key,data);
                 },onEntityError);
             }else{
                 $scope.model[item.key] = item.value();
             }
         }
+
+        $scope.showThumbs = function(el){
+          //  if (el.imgCount > 0)
+             //   $location.path("/gallery/category/" + el.id+ "/thumb");
+          //  else
+              //  alert("Category with ID:"+el.id+" is empty.");
+        };
+        $scope.showMiddles = function(el){
+          //  if (el.imgCount > 0)
+            Pagination.destroy();
+            $location.search({});
+            $location.path("/gallery/category/" + el.id+ "/middle");
+          //  else
+              //  alert("Category with ID:"+el.id+" is empty.");
+        };
+        $scope.showOriginals = function(el){
+           // if (el.imgCount > 0)
+            alert("ddd: " + el.id);
+            Pagination.destroy();
+            $location.search({});
+                $location.path("/gallery/category/" + el.id + "/orig");
+         //   else
+            //    alert("Category with ID:"+el.id+" is empty.");
+        };
 
         $scope.addItem = function(){
             $location.path("/gallery/new");
@@ -127,9 +215,9 @@ galleryControllers.controller('CategoryCtrl', ['$scope', '$http', '$route', '$ro
 
         $scope.updateGallery = function(gallery){
             gallery.$update().then(function(data) {
-                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                CategoryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
                     text: 'updated',
-                    id: data.userId
+                    id: data.id
                 });
                 $scope.showItem(data.userId);
             },onEntityError);
@@ -137,9 +225,9 @@ galleryControllers.controller('CategoryCtrl', ['$scope', '$http', '$route', '$ro
         };
         $scope.createGallery = function(gallery){
             gallery.$save().then(function(data) {
-                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                CategoryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
                     text: 'created',
-                    id: data.userId
+                    id: data.id
                 });
                 $scope.showItem(data.userId);
             },onEntityError);
@@ -147,22 +235,48 @@ galleryControllers.controller('CategoryCtrl', ['$scope', '$http', '$route', '$ro
 
         $scope.deleteItem = function(gallery){
             gallery.$delete().then(function(data) {
-                GalleryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
+                CategoryHandler.setModels(galleryConfig.CRUDVArgs.SUCCESS,{
                     text: 'deleted',
-                    id: data.userId
+                    id: data.id
                 });
                 $route.reload();
             }, onEntityError);
         };
 
+        $scope.pagination = function(direction, num){
+            var cur = Pagination.currentPage();
+            // alert("Pag: " + Pagination.currentPage());
+            if (Pagination[direction](num))
+                $location.search('page', Pagination.currentPage());
+            //  $location.path("/gallery/"+userId+ "?page=" + Pagination.currentPage());
+        };
+
         function onEntityError(error){
-            var err = GalleryHandler.onError(error);
+            var err = CategoryHandler.onError(error);
             var item;
             while (err.length){
                 item = err.pop();
                 $scope.model[item.key] = item.value();
             }
         }
+        function initPagination(key,data){
+            if(actionState === galleryConfig.CRUDVActions.VIEW_WITH_THUMB)
+                if (key === galleryConfig.RESOURCES.CATEGORY.item){
+                    if (data.addition.pageCount > 1){
+                        //  var paginator = {};
+                        $scope.model.showPagination = true;
+                        Pagination.initPage(data.addition.page);
+                        Pagination.setPageCount(data.addition.pageCount);
+                        $scope.model.prev = Pagination.getModel().prev;
+                        $scope.model.next = Pagination.getModel().next;
+                        $scope.model.paginator = Pagination.getModel().model();
+                    }else {
+                        $scope.model.showPagination = actionState === galleryConfig.CRUDVActions.VIEW_WITH_MIDDLE||
+                                                        actionState === galleryConfig.CRUDVActions.VIEW_WITH_ORIG;
+
+                    }
+                }
+
+        }
 
     }]);
-

@@ -17,29 +17,35 @@ public interface GalleryResource {
     @GET
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/gallerycluster/gallery/{id}")
+    @Path("/gallery/{id}")
     Response get(@PathParam("id")Long id) throws Exception;
 
     @GET
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/gallerycluster/gallery")
+    @Path("/gallery/{id}/index")
+    Response getIndex(@PathParam("id")Long id, @QueryParam("page") Integer page) throws Exception;
+
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/gallery")
     Response getAll() throws Exception;
 
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/gallerycluster/gallery")
+    @Path("/gallery")
     Response create(GalleryDTO galleryDTO) throws Exception;
 
     @PUT
-    @Path("/gallerycluster/gallery/{id}")
+    @Path("/gallery/{id}")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     Response update(@PathParam("id")Long id, GalleryDTO galleryDTO) throws Exception;
 
     @DELETE
-    @Path("/gallerycluster/gallery/{id}")
+    @Path("/gallery/{id}")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     Response delete(@PathParam("id")Long id) throws Exception;

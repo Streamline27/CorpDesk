@@ -2,6 +2,7 @@ package lv.javaguru.java3.core.services.gallerycluster.category;
 
 import lv.javaguru.java3.core.dto.gallerycluster.CategoryDTO;
 import lv.javaguru.java3.core.services.gallerycluster.Validator;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 
@@ -11,6 +12,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Created by Aleksej_home on 2015.11.09..
  */
+@Component
 public class CategoryValidatorImpl extends Validator implements CategoryValidator{
 
     private final String BASE = "Category ";

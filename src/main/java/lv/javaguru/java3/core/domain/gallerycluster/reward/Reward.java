@@ -22,7 +22,7 @@ public class Reward extends GalleryModifer {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "rewards_images", joinColumns = @JoinColumn(name = "reward_id",
             referencedColumnName = "id",
             columnDefinition = "bigint"),

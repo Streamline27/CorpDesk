@@ -22,9 +22,9 @@ public class Category extends GalleryModifer {
     @Column(name = "id", columnDefinition = "bigint")
     private long id;
 
-   /* @Column(name = "gallery_id")
+    @Column(name = "gallery_id", insertable = false, updatable = false)
     private long galleryId;
-
+/*
     @Column(name = "img_id")
     private long imgId;*/
 
@@ -41,7 +41,7 @@ public class Category extends GalleryModifer {
     private Date modified;
 
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Gallery gallery;
 
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "category")

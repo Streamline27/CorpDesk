@@ -1,6 +1,8 @@
 package lv.javaguru.java3.core.services.gallerycluster.gallery;
 
 
+import lv.javaguru.java3.core.domain.gallerycluster.gallery.Gallery;
+import lv.javaguru.java3.core.dto.gallerycluster.CategoryPageDTO;
 import lv.javaguru.java3.core.dto.gallerycluster.GalleryDTO;
 
 /**
@@ -14,4 +16,6 @@ public interface GalleryValidator {
                   boolean allowRateIcons);
 
     void validate(GalleryDTO galleryDTO);
+
+    void validate(CategoryPageDTO categoryPageDTO);
 }

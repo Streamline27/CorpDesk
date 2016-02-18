@@ -3,30 +3,103 @@
             <img id="gallery-head" ng-src="../app{{model.gallery.label}}"/>
     </div>
     <div class="row">
+        <ol class="breadcrumb">
+            <li><a ng-href="#/app">Home</a></li>
+            <li class="active">Gallery categories</li>
+        </ol>
+    </div>
+    <div class="row">
         <div class="col-md-offset-1"></div>
         <div class="col-md-10">
             <p>{{model.gallery.description}}</p>
-            <p>{{model.gallery.categoryDTOs[0]}}</p>
 
         </div>
         <div class="col-md-1"></div>
     </div>
 
-    <div class="container">
-        <div class="row" ng-repeat="category in model.gallery.categoryDTOs" ng-if="$index % 4 == 0" >
-            <div class="col-md-3">
-                <p>{{category.label}}</p>
-            </div>
-            <div class="col-md-3">
-                <p>{{$index+1 < model.gallery.categoryDTOs.length?model.gallery.categoryDTOs[$index + 1].label:''}}</p>
-            </div>
-            <div class="col-md-3">
-                <p>{{$index+1 < model.gallery.categoryDTOs.length?model.gallery.categoryDTOs[$index + 2].label:''}}</p>
-            </div>
-            <div class="col-md-3">
-                <p>{{$index+1 < model.gallery.categoryDTOs.length?model.gallery.categoryDTOs[$index + 3].label:''}}</p>
-            </div>
-          </div>
 
+        <div class="row">
+            <div class="col-md-offset-5">
+                <div ng-include="'partials/gallery/handlers/_paging.html'"></div>
+            </div>
+        </div>
+        <div class="row" ng-repeat="category in model.gallery.addition.pagedEntity" ng-if="$index % 4 == 0" >
+            <div class="col-md-3">
+                <div class="row">
+                    <p class="text-center">{{model.gallery.addition.pagedEntity[$index].label}}</p>
+                </div>
+                    <div class="row">
+                        <img class="img-thumbnail center-block"
+                             ng-src="../app/images/gallery/thumbs{{
+                             model.gallery.addition.pagedEntity[$index].imageThumb?
+                                 model.gallery.addition.pagedEntity[$index].imageThumb:
+                                 '/th_emp.png'}}"/>
+                    </div>
+                    <div class="row">
+                        <div class="text-center btnGallery" onload="el = model.gallery.addition.pagedEntity[$index]"
+                             ng-include="'partials/gallery/handlers/_button-states.html'"></div>
+                    </div>
+            </div>
+            <div class="col-md-3">
+                <div ng-if="$index+1 < model.gallery.addition.pagedEntity.length">
+                    <div class="row">
+                        <p class="text-center">{{model.gallery.addition.pagedEntity[$index + 1].label}}</p>
+                    </div>
+                    <div class="row">
+                        <img class="img-thumbnail  center-block"
+                             ng-src="../app/images/gallery/thumbs{{
+                             model.gallery.addition.pagedEntity[$index + 1].imageThumb?
+                                 model.gallery.addition.pagedEntity[$index + 1].imageThumb:
+                                 '/th_emp.png'}}"/>
+                    </div>
+                    <div class="row">
+                        <div class="text-center btnGallery" onload="el = model.gallery.addition.pagedEntity[$index+1]"
+                             ng-include="'partials/gallery/handlers/_button-states.html'"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" >
+                <div ng-if="$index+2 < model.gallery.addition.pagedEntity.length">
+                    <div class="row">
+                        <p class="text-center">{{model.gallery.addition.pagedEntity[$index + 2].label}}</p>
+                    </div>
+                    <div class="row">
+                        <img class="img-thumbnail  center-block"
+                             ng-src="../app/images/gallery/thumbs{{
+                             model.gallery.addition.pagedEntity[$index + 2].imageThumb?
+                                 model.gallery.addition.pagedEntity[$index + 2].imageThumb:
+                                 '/th_emp.png'}}"/>
+                    </div>
+                    <div class="row">
+                        <div class="text-center btnGallery" onload="el = model.gallery.addition.pagedEntity[$index+2]"
+                             ng-include="'partials/gallery/handlers/_button-states.html'"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" >
+                <div ng-if="$index+3 < model.gallery.addition.pagedEntity.length">
+                    <div class="row">
+                        <p class="text-center">{{model.gallery.addition.pagedEntity[$index + 3].label}}</p>
+                    </div>
+                    <div class="row">
+                        <img class="img-thumbnail  center-block"
+                             ng-src="../app/images/gallery/thumbs{{
+                             model.gallery.addition.pagedEntity[$index + 3].imageThumb?
+                                 model.gallery.addition.pagedEntity[$index + 3].imageThumb:
+                                 '/th_emp.png'}}"/>
+                    </div>
+                    <div class="row">
+                        <div class="text-center btnGallery" onload="el = model.gallery.addition.pagedEntity[$index+3]"
+                             ng-include="'partials/gallery/handlers/_button-states.html'"></div>
+                    </div>
+                </div>
+             </div>
+           </div>
+
+          <div class="row">
+              <div class="col-md-offset-5">
+                    <div ng-include="'partials/gallery/handlers/_paging.html'"></div>
+              </div>
+          </div>
     </div>
 </div>

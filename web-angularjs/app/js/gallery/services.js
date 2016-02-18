@@ -45,25 +45,10 @@ galleryServices.factory('EntityDefines', ['galleryConfig', function(galleryConfi
 
 galleryServices.factory('Gallery',['$resource', '$cacheFactory', 'galleryConfig',
     function($resource, $cacheFactory, galleryConfig) {
-       // var entityType = EntityDefines.getEntityDefines();
-
-   /* var cache = $cacheFactory('resourceCache');
-    var interceptor = {
-        response: function (response) {
-            cache.remove(response.config.url);
-            console.log('cache removed', response.config.url);
-            return response;
-        },
-        responseError: function (response) {
-            console.log('error in interceptor', data);
-            return response;
-        }
-    };*/
-
 
     return {
       //  factory:  $resource('http://localhost:8080/gallerycluster/gallery/:id', { id: '@userId' }, {
-        factory:  $resource(galleryConfig.PATHS.ROOT + '/gallery/:id', { id: '@userId' }, {
+        factory:  $resource(galleryConfig.PATHS.ROOT + '/gallery/:id/:verb', { id: '@userId' }, {
             update: {method: 'PUT'/*, interceptor: interceptor*/},
             save:   { method: 'POST'/*, interceptor: interceptor*/ },
             remove: { method: 'DELETE'/*, interceptor: interceptor*/ },
@@ -71,10 +56,6 @@ galleryServices.factory('Gallery',['$resource', '$cacheFactory', 'galleryConfig'
             get: {method: 'GET', cache: false},
             query: {method: 'GET', cache: false, isArray: true}
         }),
-       /* options: {
-            list: entityType.list,
-            item: entityType.item
-        }*/
         options: galleryConfig.RESOURCES.GALLERY
     };
 
@@ -84,21 +65,165 @@ galleryServices.factory('Category',['$resource', '$cacheFactory', 'galleryConfig
     function($resource, $cacheFactory, galleryConfig) {
 
         return {
-            factory:  $resource(galleryConfig.PATHS.ROOT + '/gallery/category/:id', { id: '@id' }, {
-                update: {method: 'PUT'}
+            factory:  $resource(galleryConfig.PATHS.ROOT + '/gallery/category/:id/:verb', { id: '@userId' }, {
+                update: {method: 'PUT'/*, interceptor: interceptor*/},
+                save:   { method: 'POST'/*, interceptor: interceptor*/ },
+                remove: { method: 'DELETE'/*, interceptor: interceptor*/ },
+                delete: { method: 'DELETE'/*, interceptor: interceptor*/ },
+                get: {method: 'GET', cache: false},
+                query: {method: 'GET', cache: false, isArray: true}
             }),
             options: galleryConfig.RESOURCES.CATEGORY
         };
 
     }]);
 
-/*
-galleryServices.service('EntityDefines',['galleryConfig', function(galleryConfig){
-    var def;
-    function isDefined(){
-        return
+
+
+galleryServices.service('Pagination',['galleryConfig', function(galleryConfig){
+    var page,
+        pagecount, // Server side total pages
+        model,
+        pageQueue = [],
+        LEN = 3,// default queue model length, do not change it
+        PAGE_SIZE = 4; // Server side defaults
+
+
+    function first(){
+        return page < 2;
     }
-}]);*/
+    function last(){
+        return page == pagecount;
+    }
+
+    function validPage(pg){
+        return pg > 0 && pg <= pagecount;
+    }
+
+
+    function setPageCount(pcount){
+        pagecount = pcount;
+        model = pageModelBuild();
+    }
+    function getModel(){
+        return model;
+      //  return PAGE_SIZE;
+    }
+    function initPage(cpage){
+        page = cpage;
+    }
+
+    function getPageCount(){
+        return pagecount;
+    }
+
+    function pageModelBuild(){
+        var p, n;
+        if (first())
+            p = 'disabled';
+        if (last())
+            n = 'disabled';
+
+        function checkOffset(){
+            var offset = 0;
+            if (first()){
+             //   alert('first');
+               return offset;
+            }else if (last()){
+             //   alert('last');
+                return offset -=2;
+            }else{
+               // alert('usual');
+                return --offset;
+            }
+        }
+
+        function outOfBounds(){
+             return pagecount < LEN;
+        }
+
+        function current(i,offset){
+            return (page + i + offset) == page;
+        }
+
+        function generateQueue(i,offset){
+         //  alert("i: " + i+ " >page: "+ page+ " >offset: " +offset);
+            return page + i + offset;
+        }
+
+        function buildModel(){
+            var arr = [],
+                tmp;
+            for(var i = 0;i<LEN;i++){
+                if (!outOfBounds()){
+                    tmp = current(i,checkOffset());
+                    arr[i] = {
+                        id: generateQueue(i,checkOffset()),
+                        state: tmp?'active':
+                               !validPage(tmp)?'disabled':''
+                    }
+                }else{
+                    arr[i] = {
+                        id: i + 1,
+                        state: ((i + 1) == page)?'active':
+                               !validPage(i + 1)?'disabled':''
+                    }
+                }
+
+            }
+            return arr;
+        }
+
+        return {
+            prev: p,
+            next: n,
+            model: buildModel
+        }
+    }
+
+    function setPage(cpage){
+       if(!validPage(cpage))
+           return false;
+        page = cpage;
+        return true;
+    }
+    function next(){
+        if (last())
+             return false;
+        ++page;
+        return true;
+    }
+    function prev(){
+        if (first())
+             return false;
+        --page;
+        return true;
+    }
+    function currentPage(){
+       // alert("Page: " + page);
+        return page;
+    }
+
+    function destroy(){
+        page = undefined;
+        pagecount = 0;
+        model = null;
+    }
+
+    return {
+        setPage: setPage,
+        initPage: initPage,
+        setPageCount: setPageCount,
+        getPageCount: getPageCount,
+        next: next,
+        prev: prev,
+        currentPage: currentPage,
+        getModel: getModel,
+        destroy: destroy
+
+    }
+
+}]);
 
 
 
@@ -164,11 +289,11 @@ function CRUDService(entity, galleryConfig) {
        // switch (localState.length != 0?localState.pop():state) {
         switch (options.state) {
             case galleryConfig.CRUDVActions.VIEW:
-                return  _onViewCRUD(options.id);
+                return  _onViewCRUD(options.queryParams);
             case galleryConfig.CRUDVActions.LIST:
                 return  _onListCRUD();
             case galleryConfig.CRUDVActions.EDIT:
-                return  _onEditCRUD(options.id);
+                return  _onEditCRUD(options.queryParams);
             case galleryConfig.CRUDVActions.CREATE:
                 return  _onCreateCRUD();
             case galleryConfig.CRUDVActions.UPDATE:
@@ -194,15 +319,6 @@ function CRUDService(entity, galleryConfig) {
         }
 
     };
-  /*  this.methods = {
-        onViewCRUD: _onViewCRUD,
-        onListCRUD: _onListCRUD,
-        onEditCRUD: _onEditCRUD,
-        onCreateCRUD: _onCreateCRUD,
-        onUpdateCRUD: _onUpdateCRUD,
-        onDeleteCRUD: _onDeleteCRUD
-
-    };*/
 
     this.onEntityError = function(error){
         return wrapperModel(galleryConfig.CRUDVArgs.ERROR, true, false)
@@ -217,9 +333,13 @@ function CRUDService(entity, galleryConfig) {
 
     }
 
+    function testClass(){
+        console.log('parent class');
+    }
 
-    function _onViewCRUD(id) {
-        return resourceWrapper(entity.options.item, entity.factory.get({ id: id }), true);
+
+    function _onViewCRUD(queryParams) {
+        return resourceWrapper(entity.options.item, entity.factory.get(queryParams), true);
     }
   /*  this._onViewCRUD = function(id) {
         return resourceWrapper(entity.options.item, entity.factory.get({ id: id }), true);
@@ -229,8 +349,8 @@ function CRUDService(entity, galleryConfig) {
         return resourceWrapper(entity.options.list, entity.factory.query(), true);
     }
 
-    function _onEditCRUD (id){
-        return resourceWrapper(entity.options.item, entity.factory.get({ id: id }), true);
+    function _onEditCRUD (queryParams){
+        return resourceWrapper(entity.options.item, entity.factory.get(queryParams), true);
     }
     function _onCreateCRUD (){
         return resourceWrapper(entity.options.item, new entity.factory(), false);
@@ -257,12 +377,24 @@ function CRUDService(entity, galleryConfig) {
         return localStack.models.length > 0? models.concat(localStack.models.pop()): models;
     }
 
+    return {
+        testClass: testClass,
+        resourceWrapper: resourceWrapper,
+        onViewCRUD: _onViewCRUD,
+        onListCRUD: _onListCRUD,
+        onEditCRUD: _onEditCRUD,
+        onCreateCRUD: _onCreateCRUD,
+        onUpdateCRUD: _onUpdateCRUD,
+        onDeleteCRUD: _onDeleteCRUD
+
+    };
+
 }
 
 
 
 var GalleryInstance = function(entity,galleryConfig){
-    CRUDService.apply(this, arguments);
+    var parent = CRUDService.apply(this, arguments);
 
     var parentCurState = this._curState;
     var _curState = function(options) {
@@ -271,7 +403,11 @@ var GalleryInstance = function(entity,galleryConfig){
             return local;
         switch (options.state) {
             case galleryConfig.CRUDVActions.VIEW_WITH_COLLECTION:
-                return  this._onViewCRUD.apply(this, arguments);
+               // return  this._onViewCRUD.apply(this, arguments);
+                console.log(galleryConfig.CRUDVActions.VIEW_WITH_COLLECTION);
+                options.queryParams.verb = galleryConfig.VERBS.INDEX;
+                return parent.onViewCRUD(options.queryParams);
+               // return locTest.testClass();
             default:
                 throw new Error("No action with type of: " + state);
         }
@@ -289,45 +425,38 @@ GalleryInstance.$inject = ['Gallery', 'galleryConfig'];
 galleryServices.factory('GalleryHandler',GalleryInstance);
 
 
-galleryServices.directive('strongPassRequired', function () {
-    var isValid = function(s) {
-        return s && s.length > 5 && /\D/.test(s) && /\d/.test(s);
+var CategoryInstance = function(entity,galleryConfig){
+    var parent = CRUDService.apply(this, arguments);
+
+    var parentCurState = this._curState;
+    var _curState = function(options) {
+        var local = parentCurState.apply(this, arguments);
+        if (local)
+            return local;
+        switch (options.state) {
+            case galleryConfig.CRUDVActions.VIEW_WITH_THUMB:
+                options.queryParams.verb = galleryConfig.VERBS.THUMB;
+                return parent.onViewCRUD(options.queryParams);
+            case galleryConfig.CRUDVActions.VIEW_WITH_MIDDLE:
+                options.queryParams.verb = galleryConfig.VERBS.MIDDLE;
+                return parent.onViewCRUD(options.queryParams);
+            case galleryConfig.CRUDVActions.VIEW_WITH_ORIG:
+                options.queryParams.verb = galleryConfig.VERBS.ORIG;
+                return parent.onViewCRUD(options.queryParams);
+            default:
+                throw new Error("No action with type of: " + state);
+        }
     };
 
     return {
-        require:'ngModel',
-        link:function (scope, elm, attrs, ngModelCtrl) {
+        action: _curState,
+        onError: this.onEntityError,
+        setModels: this.setModels,
+        setAction: this.setAction
+    }
+};
 
-            ngModelCtrl.$parsers.unshift(function (viewValue) {
-                ngModelCtrl.$setValidity('strongPass', isValid(viewValue));
-                return viewValue;
-            });
-
-            ngModelCtrl.$formatters.unshift(function (modelValue) {
-                ngModelCtrl.$setValidity('strongPass', isValid(modelValue));
-                return modelValue;
-            });
-        }
-    };
-});
+CategoryInstance.$inject = ['Category', 'galleryConfig'];
+galleryServices.factory('CategoryHandler',CategoryInstance);
 
 
-galleryServices.directive('integer', function() {
-    var INTEGER_REGEXP = /^\-?\d*$/;
-    return {
-        require: 'ngModel',
-        link: function(scope, elm, attrs, ctrl) {
-            ctrl.$parsers.unshift(function(viewValue) {
-                if (INTEGER_REGEXP.test(viewValue)) {
-                    // it is valid
-                    ctrl.$setValidity('integer', true);
-                    return viewValue;
-                } else {
-                    // it is invalid, return undefined (no model update)
-                    ctrl.$setValidity('integer', false);
-                    return undefined;
-                }
-            });
-        }
-    };
-});

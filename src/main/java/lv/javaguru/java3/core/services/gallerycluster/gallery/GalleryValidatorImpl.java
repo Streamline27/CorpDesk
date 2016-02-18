@@ -1,5 +1,7 @@
 package lv.javaguru.java3.core.services.gallerycluster.gallery;
 
+import lv.javaguru.java3.core.domain.gallerycluster.gallery.Gallery;
+import lv.javaguru.java3.core.dto.gallerycluster.CategoryPageDTO;
 import lv.javaguru.java3.core.dto.gallerycluster.GalleryDTO;
 import lv.javaguru.java3.core.services.gallerycluster.Validator;
 import org.springframework.stereotype.Component;
@@ -38,5 +40,13 @@ public class GalleryValidatorImpl extends Validator implements GalleryValidator{
         validateState(galleryDTO.isActive(), BASE + "active state");
         validateState(galleryDTO.getAllowRate(), BASE + "allowRate");
         validateState(galleryDTO.getAllowRateIcons(), BASE + "allowRateIcons");
+    }
+
+
+
+    @Override
+    @Deprecated
+    public void validate(CategoryPageDTO categoryPageDTO) {
+
     }
 }

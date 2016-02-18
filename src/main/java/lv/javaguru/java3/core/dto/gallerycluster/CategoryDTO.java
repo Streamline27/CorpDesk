@@ -1,5 +1,6 @@
 package lv.javaguru.java3.core.dto.gallerycluster;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class CategoryDTO extends GalleryModiferDTO{
     private boolean allowRate;
     private boolean allowRateIcons;
     private Date modified;
-   // private List<UserDTO> users = new ArrayList<>();
+    private List<ImageDTO> imageDTOs = new ArrayList<>();
 
 
     public long getGalleryId() {
@@ -62,5 +63,13 @@ public class CategoryDTO extends GalleryModiferDTO{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public List<ImageDTO> getImageDTOs() {
+        return imageDTOs;
+    }
+
+    public void setImageDTOs(List<ImageDTO> imageDTOs) {
+        this.imageDTOs = imageDTOs;
     }
 }

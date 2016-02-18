@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.dto.gallerycluster;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by Aleksej_home on 2015.11.17..
@@ -15,6 +16,7 @@ public class CategoryDTOBuilder {
     private boolean allowRate;
     private boolean allowRateIcons;
     private Date modified;
+    private List<ImageDTO> imageDTOs;
 
     private CategoryDTOBuilder() {
     }
@@ -67,8 +69,21 @@ public class CategoryDTOBuilder {
         return this;
     }
 
+    public CategoryDTOBuilder withImages(List<ImageDTO> imageDTOs) {
+        this.imageDTOs = imageDTOs;
+        return this;
+    }
+
     public CategoryDTOBuilder but() {
-        return aCategoryDTO().withId(id).withGalleryId(galleryId).withImgId(imgId).withAllowRate(allowRate).withAllowRateIcons(allowRateIcons).withLabel(label).withDescription(description).withIsActive(isActive).withModified(modified);
+        return aCategoryDTO().withId(id)
+                .withGalleryId(galleryId)
+                .withImgId(imgId)
+                .withAllowRate(allowRate)
+                .withAllowRateIcons(allowRateIcons)
+                .withLabel(label)
+                .withDescription(description)
+                .withIsActive(isActive)
+                .withModified(modified);
     }
 
     public CategoryDTO build() {
@@ -82,6 +97,7 @@ public class CategoryDTOBuilder {
         categoryDTO.setDescription(description);
         categoryDTO.setIsActive(isActive);
         categoryDTO.setModifed(modified);
+        categoryDTO.setImageDTOs(imageDTOs);
         return categoryDTO;
     }
 }

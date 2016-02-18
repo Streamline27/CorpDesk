@@ -26,7 +26,7 @@ public class GetGalleryCommandHandler
 
     @Override
     public GetGalleryResult execute(GetGalleryCommand command) throws Exception {
-        return new GetGalleryResult(galleryConverter.convert(galleryService.get(command.getGalleryId())));
+        return new GetGalleryResult(galleryService.get(command.getGalleryId()));
     }
 
     @Override

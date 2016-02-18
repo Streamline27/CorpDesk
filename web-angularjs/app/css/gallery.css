@@ -2,3 +2,31 @@
     width: 100%;
     height: auto;
 }
+
+.row-centered {
+    text-align:center;
+}
+
+.category-cell-max{
+
+}
+
+/*div.btn-group {
+    margin: 0 auto;
+    text-align: center;
+    display: inline-block;
+}*/
+
+
+
+div.btnGallery{
+    padding-bottom: 5px;
+}
+img.middle-img{
+    display: block;
+    height: auto;
+}
+img.orig-img{
+    display: block;
+    height: auto;
+}

@@ -29,6 +29,11 @@ public class Image extends GalleryModifer {
    // @Column(name = "cat_id")
   //  private long categoryId;
 
+   // @Column(name = "category_id")
+   // private long categoryId;
+    @Column(name = "category_id", insertable = false, updatable = false)
+    private Long categoryId;
+
     @Column(name = "middle")
     private String middle;
 

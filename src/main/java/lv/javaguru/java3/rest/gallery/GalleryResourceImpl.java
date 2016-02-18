@@ -22,7 +22,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
  * Created by Aleksej_home on 2016.01.02..
  */
 @RestController
-@Path("/gallerycluster/gallery")
+@Path("/gallery")
 public class GalleryResourceImpl implements GalleryResource {
 
     private CommandExecutor commandExecutor;
@@ -34,6 +34,23 @@ public class GalleryResourceImpl implements GalleryResource {
         this.gson = new Gson();
     }
 
+
+    @Override
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/{id}/index")
+    public Response getIndex(@PathParam("id")Long id, @QueryParam("page") Integer page) throws Exception {
+        try {
+            if (page == null) page = 1;
+
+            GetGalleryWithLimitedCategoriesCommand command = new GetGalleryWithLimitedCategoriesCommand(id,page);
+            GetGalleryWithLimitedCategoriesResult result = commandExecutor.execute(command);
+            return Response.ok().entity(gson.toJson(result.getGalleryDTO())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(gson.toJson(e.getMessage())).build();
+        }
+    }
 
     @Override
     @POST

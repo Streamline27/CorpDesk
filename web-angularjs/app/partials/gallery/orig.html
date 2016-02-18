@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="container">
+    <div class="row text-center">
+        <p><h2><b>{{model.category.label}}</b></h2></p>
+        <p>{{model.category.description}}</p>
+    </div>
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a ng-href="#/app">Home</a></li>
+            <li><a ng-href="/app#/gallery/9">Gallery categories</a></li>
+            <li class="active">Images Origs</li>
+        </ol>
+    </div>
 
-</body>
-</html>
+
+    <div class="row">
+        <div class="col-md-offset-5">
+            <div ng-include="'partials/gallery/handlers/_paging.html'"></div>
+        </div>
+    </div>
+    <div class="row" >
+            <div class="row">
+                <p class="text-center">{{model.category.imageDTOs[0].label}}</p>
+            </div>
+            <div class="row">
+                <img class="middle-img img-thumbnail center-block"
+                     ng-src="../app/images/gallery/middle{{
+                             model.category.imageDTOs[0].middle}}"/>
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-5">
+            <div ng-include="'partials/gallery/handlers/_paging.html'"></div>
+        </div>
+    </div>
+</div>
+</div>

@@ -10,8 +10,15 @@ public abstract class GalleryModiferDTO implements Serializable {
     protected String label;
     protected String description;
     protected boolean isActive;
+    protected Object addition;
 
+    public Object getAddition() {
+        return addition;
+    }
 
+    public void setAddition(Object addition) {
+        this.addition = addition;
+    }
 
     public boolean isActive() {
         return isActive;

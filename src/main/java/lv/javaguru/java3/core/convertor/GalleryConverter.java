@@ -1,6 +1,7 @@
 package lv.javaguru.java3.core.convertor;
 
 
+import lv.javaguru.java3.core.domain.gallerycluster.category.Category;
 import lv.javaguru.java3.core.domain.gallerycluster.gallery.Gallery;
 import static lv.javaguru.java3.core.domain.gallerycluster.gallery.GalleryBuilder.aGallery;
 import lv.javaguru.java3.core.dto.gallerycluster.GalleryDTO;
@@ -16,7 +17,7 @@ import static lv.javaguru.java3.core.dto.gallerycluster.GalleryDTOBuilder.aGalle
  * Created by Aleksej_home on 2015.11.17..
  */
 @Component
-public class GalleryConverter {
+public class GalleryConverter extends Converter{
     @Autowired
     private CategoryConverter categoryConverter;
 
@@ -29,7 +30,10 @@ public class GalleryConverter {
                 .withDescription(gallery.getDescription())
                 .withIsActive(gallery.isActive())
                 .withLabel(gallery.getLabel())
-                .withCategories(categoryConverter.convert(gallery.getCategories()))
+                .withCategories(categoryConverter.convert(
+                        (List<Category>)ifProxyDoNotInitialize(gallery.getCategories())
+                    )
+                )
                 .build();
     }
     public Gallery convert(GalleryDTO galleryDTO){
@@ -41,9 +45,22 @@ public class GalleryConverter {
                 .withDescription(galleryDTO.getDescription())
                 .withIsActive(galleryDTO.isActive())
                 .withLabel(galleryDTO.getLabel())
-                .withCategories(categoryConverter.convertDTO(galleryDTO.getCategoryDTOs()))
+                .withCategories(categoryConverter.convertDTO(
+                        galleryDTO.getCategoryDTOs()
+                ))
                 .build();
     }
+  /* private List<Category> ifProxy(List<Category> categories){
+            Object obj = ifProxyDoNotInitialize(categories);
+            if (obj != null){
+                System.out.println("No proxy");
+            }else{
+                System.out.println("Proxy, do not initialize");
+            }
+       return (List<Category>)obj;
+
+   }*/
+
 
 
 }

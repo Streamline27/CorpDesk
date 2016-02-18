@@ -2,6 +2,8 @@ package lv.javaguru.java3.core.convertor;
 
 import lv.javaguru.java3.core.domain.gallerycluster.category.Category;
 import static lv.javaguru.java3.core.domain.gallerycluster.category.CategoryBuilder.aCategory;
+
+import lv.javaguru.java3.core.domain.gallerycluster.image.Image;
 import lv.javaguru.java3.core.dto.gallerycluster.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,9 +17,9 @@ import static lv.javaguru.java3.core.dto.gallerycluster.CategoryDTOBuilder.aCate
  * Created by Aleksej_home on 2015.11.17..
  */
 @Component
-public class CategoryConverter {
-  //  @Autowired
-   // private
+public class CategoryConverter extends Converter{
+    @Autowired
+    private ImageConverter imageConverter;
 
     public CategoryDTO convert(Category category){
         if (category == null) return null;
@@ -31,6 +33,9 @@ public class CategoryConverter {
                 .withAllowRate(category.getAllowRate())
                 .withAllowRateIcons(category.getAllowRateIcons())
                 .withDescription(category.getDescription())
+                .withImages(imageConverter.convert(
+                        (List<Image>)ifProxyDoNotInitialize(category.getImages())
+                ))
                 .build();
     }
     public Category convert(CategoryDTO categoryDTO){
@@ -45,6 +50,7 @@ public class CategoryConverter {
                 .withAllowRate(categoryDTO.getAllowRate())
                 .withAllowRateIcons(categoryDTO.getAllowRateIcons())
                 .withDescription(categoryDTO.getDescription())
+                .withImages(imageConverter.convertDTO(categoryDTO.getImageDTOs()))
                 .build();
     }
 

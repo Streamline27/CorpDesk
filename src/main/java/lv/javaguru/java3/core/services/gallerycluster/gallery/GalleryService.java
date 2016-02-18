@@ -22,7 +22,9 @@ public interface GalleryService {
 
     Gallery update(Gallery gallery);
 
-    Gallery get(Long id);
+    GalleryDTO get(Long id);
+
+    GalleryDTO getWithPagingList(Long id, int page, int size);
 
     List<Gallery> getAll();
 

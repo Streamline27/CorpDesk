@@ -30,7 +30,7 @@ public class JerseyConfig extends ResourceConfig {
         register(PostResourceImpl.class);
         register(CommentResourceImpl.class);
         register(GalleryResourceImpl.class);
-      //  register(CategoryResourceImpl.class);
+        register(CategoryResourceImpl.class);
     }
 
 }

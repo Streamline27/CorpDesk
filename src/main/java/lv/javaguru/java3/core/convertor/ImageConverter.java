@@ -2,6 +2,10 @@ package lv.javaguru.java3.core.convertor;
 
 import lv.javaguru.java3.core.domain.gallerycluster.image.Image;
 import lv.javaguru.java3.core.dto.gallerycluster.ImageDTO;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static lv.javaguru.java3.core.domain.gallerycluster.image.ImageBuilder.anImage;
 import static lv.javaguru.java3.core.dto.gallerycluster.ImageDTOBuilder.anImageDTO;
@@ -9,7 +13,8 @@ import static lv.javaguru.java3.core.dto.gallerycluster.ImageDTOBuilder.anImageD
 /**
  * Created by Aleksej_home on 2015.11.17..
  */
-public class ImageConverter {
+@Component
+public class ImageConverter extends Converter{
 
     public ImageDTO convert(Image image){
         if (image == null) return null;
@@ -45,6 +50,21 @@ public class ImageConverter {
                 .withRate(imageDTO.getRate())
                 .build();
 
+    }
+
+    public List<ImageDTO> convert(List<Image> images) {
+        List<ImageDTO> result = new ArrayList<>();
+        if (images!=null)
+            for (Image image: images)
+                result.add(convert(image));
+        return result;
+    }
+    public List<Image> convertDTO(List<ImageDTO> imageDTOs) {
+        List<Image> result = new ArrayList<>();
+        if (imageDTOs!=null)
+            for (ImageDTO imageDTO: imageDTOs)
+                result.add(convert(imageDTO));
+        return result;
     }
 
 }

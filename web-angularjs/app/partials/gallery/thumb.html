@@ -1,10 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="container">
+    <div class="row text-center">
+        <p><h2><b>{{model.category.label}}</b></h2></p>
+        <p>{{model.category.description}}</p>
+    </div>
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a ng-href="#/app">Home</a></li>
+            <li><a ng-href="/gallery/9">Gallery categories</a></li>
+            <li class="active">Images Thumbs</li>
+        </ol>
+    </div>
 
-</body>
-</html>
+
+    <div class="row">
+        <div class="col-md-offset-5">
+            <div ng-include="'partials/gallery/handlers/_paging.html'"></div>
+        </div>
+    </div>
+    <div class="row" ng-repeat="image in model.category.imageDTOs" ng-if="$index % 4 == 0" >
+        <div class="col-md-3">
+            <div class="row">
+                <p class="text-center">{{model.category.imageDTOs[$index].label}}</p>
+            </div>
+            <div class="row">
+                <img class="img-thumbnail center-block"
+                     ng-src="../app/images/gallery/thumbs{{
+                             model.category.imageDTOs[$index].thumb}}"/>
+            </div>
+            <div class="row">
+                <div class="text-center btnGallery" onload="el = model.category.imageDTOs[$index]"
+                     ng-include="'partials/gallery/handlers/_button-state-thumb.html'"></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div ng-if="$index+1 < model.category.imageDTOs.length">
+                <div class="row">
+                    <p class="text-center">{{model.category.imageDTOs[$index + 1].label}}</p>
+                </div>
+                <div class="row">
+                    <img class="img-thumbnail  center-block"
+                         ng-src="../app/images/gallery/thumbs{{
+                             model.category.imageDTOs[$index + 1].thumb}}"/>
+                </div>
+                <div class="row">
+                    <div class="text-center btnGallery" onload="el = model.category.imageDTOs[$index+1]"
+                         ng-include="'partials/gallery/handlers/_button-state-thumb.html'"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" >
+            <div ng-if="$index+2 < model.category.imageDTOs.length">
+                <div class="row">
+                    <p class="text-center">{{model.category.imageDTOs[$index + 2].label}}</p>
+                </div>
+                <div class="row">
+                    <img class="img-thumbnail  center-block"
+                         ng-src="../app/images/gallery/thumbs{{
+                             model.category.imageDTOs[$index + 2].thumb}}"/>
+                </div>
+                <div class="row">
+                    <div class="text-center btnGallery" onload="el = model.category.imageDTOs[$index+2]"
+                         ng-include="'partials/gallery/handlers/_button-state-thumb.html'"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" >
+            <div ng-if="$index+3 < model.category.imageDTOs.length">
+                <div class="row">
+                    <p class="text-center">{{model.category.imageDTOs[$index + 3].label}}</p>
+                </div>
+                <div class="row">
+                    <img class="img-thumbnail  center-block"
+                         ng-src="../app/images/gallery/thumbs{{
+                             model.category.imageDTOs[$index + 3].thumb}}"/>
+                </div>
+                <div class="row">
+                    <div class="text-center btnGallery" onload="el = model.category.imageDTOs[$index+3]"
+                         ng-include="'partials/gallery/handlers/_button-state-thumb.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-5">
+            <div ng-include="'partials/gallery/handlers/_paging.html'"></div>
+        </div>
+    </div>
+</div>
+</div>

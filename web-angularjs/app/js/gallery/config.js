@@ -9,6 +9,17 @@ var gconf = angular.module('galleryConfigApp', [
 
 gconf.constant('galleryConfig', {
     INFO: "none",
+    PAGINATION: {
+         LIMIT: 4
+    },
+    VERBS:{
+        INDEX: 'index',
+        THUMB: 'thumb',
+        MIDDLE: 'middle',
+        ORIG: 'orig',
+        TEST: 'test'
+    },
+
     RESOURCES: {
         GALLERY: {
             list: 'galleries',
@@ -34,17 +45,59 @@ gconf.constant('galleryConfig', {
             EDIT: '/edit',
             VIEW: '/view'
         },
-        ROOT: 'http://localhost:8080/gallerycluster'
+        ROOT: 'http://localhost:8080',
+        ROOT_OLD: 'http://localhost:8080/gallerycluster'
     },
     CRUDVActions: {
         CREATE: 'cr',
-        UPDATE: 'upd',
+        UPDATE:  'upd',
         DELETE: 'del',
-        VIEW: 'vw',
-        LIST: 'lt',
-        EDIT: 'ed',
-        VIEW_WITH_COLLECTION: 'vwcol'
+        VIEW:  'vw',
+        LIST:  'lt',
+        EDIT:  'ed',
+        VIEW_WITH_COLLECTION:  'vwcol',
+        VIEW_WITH_THUMB: 'vwth',
+        VIEW_WITH_MIDDLE: 'vwmd',
+        VIEW_WITH_ORIG: 'vwor'
     },
+  /*  CRUDVActions: {
+        CREATE: {
+            NAME: 'cr',
+            QUERY_PARAMS: {}
+        },
+        UPDATE: {
+            NAME: 'upd',
+            QUERY_PARAMS: {
+                id: id,
+                page: pg
+            }
+        },
+        DELETE: {
+            NAME: 'del',
+            QUERY_PARAMS: {}
+        },
+        VIEW: {
+            NAME: 'vw',
+            QUERY_PARAMS: {
+                id: id,
+                page: pg
+            }
+        },
+        LIST: {
+            NAME: 'lt',
+            QUERY_PARAMS: {}
+        },
+        EDIT: {
+            NAME: 'ed',
+            QUERY_PARAMS: {
+                id: id
+            }
+        },
+        VIEW_WITH_COLLECTION: {
+            NAME: 'vwcol',
+            QUERY_PARAMS: {}
+        }
+    },*/
     CRUDVArgs: {
         ERROR: 'error',
         SUCCESS: 'success',
@@ -80,7 +133,7 @@ gconf.config(['$routeProvider', 'galleryConfig',  function ($routeProvider, gall
             templateUrl: "partials"+galleryConfig.PATHS.SUB+"/index.html",
             controller: "GalleryListCtrl",
             controllerAs: "GalleryListCtrl",
-            action: galleryConfig.CRUDVActions.VIEW
+            action: galleryConfig.CRUDVActions.VIEW_WITH_COLLECTION
         })
      .when("/gallery/:id"+galleryConfig.PATHS.PREFIX.EDIT, {
             templateUrl: "partials"+galleryConfig.PATHS.SUB+"/gallery-edit.html",
@@ -93,7 +146,25 @@ gconf.config(['$routeProvider', 'galleryConfig',  function ($routeProvider, gall
         controller: "GalleryListCtrl",
         controllerAs: "GalleryListCtrl",
         action: galleryConfig.CRUDVActions.CREATE
-    });
+    })
+        .when("/gallery/category/:id/thumb", {
+            templateUrl: "partials"+galleryConfig.PATHS.SUB+"/thumb.html",
+            controller: "CategoryListCtrl",
+            controllerAs: "CategoryListCtrl",
+            action: galleryConfig.CRUDVActions.VIEW_WITH_THUMB
+        })
+        .when("/gallery/category/:id/middle", {
+            templateUrl: "partials"+galleryConfig.PATHS.SUB+"/middle.html",
+            controller: "CategoryListCtrl",
+            controllerAs: "CategoryListCtrl",
+            action: galleryConfig.CRUDVActions.VIEW_WITH_MIDDLE
+        })
+        .when("/gallery/category/:id/orig", {
+            templateUrl: "partials"+galleryConfig.PATHS.SUB+"/orig.html",
+            controller: "CategoryListCtrl",
+            controllerAs: "CategoryListCtrl",
+            action: galleryConfig.CRUDVActions.VIEW_WITH_ORIG
+        });
 
 }]);
 

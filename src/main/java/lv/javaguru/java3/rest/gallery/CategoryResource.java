@@ -16,29 +16,48 @@ public interface CategoryResource {
     @GET
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/gallerycluster/category/{id}")
+    @Path("/gallery/category/{id}")
     Response get(@PathParam("id")Long id) throws Exception;
 
     @GET
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/gallerycluster/category")
+    @Path("/gallery/category/{id}/thumb")
+    Response getThumb(@PathParam("id")Long id, @QueryParam("page") Integer page) throws Exception;
+
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/gallery/category/{id}/middle")
+    Response getMiddle(@PathParam("id")Long id, @QueryParam("page") Integer page) throws Exception;
+
+
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/gallery/category/{id}/orig")
+    Response getOrig(@PathParam("id")Long id, @QueryParam("page") Integer page) throws Exception;
+
+    @GET
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Path("/gallery/category")
     Response getAll() throws Exception;
 
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    @Path("/gallerycluster/category")
+    @Path("/gallery/category")
     Response create(CategoryDTO categoryDTO) throws Exception;
 
     @PUT
-    @Path("/gallerycluster/category/{id}")
+    @Path("/gallery/category/{id}")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    Response update(@PathParam("id")Long id, CategoryDTO categoryDTO) throws Exception;
+    Response update(@PathParam("id") Long id, CategoryDTO categoryDTO) throws Exception;
 
     @DELETE
-    @Path("/gallerycluster/category/{id}")
+    @Path("/gallery/category/{id}")
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     Response delete(@PathParam("id")Long id) throws Exception;
