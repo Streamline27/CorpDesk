@@ -41,12 +41,16 @@
                     <th>Date sent</th>
                     <th>Sender</th>
                     <th>Subject</th>
+                    <th>Action</th>
                 </tr>
 
                 <tr class=row" ng-repeat="message in FolderListCtrl.messages">
                     <td>{{message.created}}</td>
                     <td>{{message.sender}}</td>
                     <td><a href="" ng-click="FolderListCtrl.viewMessage(message)">{{message.title}}</a></td>
+                    <td>
+                        <a href="" ng-click="FolderListCtrl.deleteMessage(message)">Delete</a>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -68,9 +72,8 @@
                         <textarea ng-model="messageBody" rows="20" cols="80"/>
                     </td>
                     <td>
-                        <select multiple ng-model="selectedRecipients"
+                        <select multiple ng-model="selectedRecipients" ng-multiple="true"
                                 ng-options="{id: item.id} as item.firstName + ' ' + item.lastName for item in messageRecipients">
-                            <option selected value="">Select Recipient</option>
                         </select>
                     </td>
                 </tr>

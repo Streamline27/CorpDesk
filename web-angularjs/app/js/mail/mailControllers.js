@@ -14,17 +14,24 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '
     function($scope, $rootScope, $http, $location) {
         var ctrl = this;
 
-        $http({
-            method: 'GET',
-            url: apiHost + '/mail/folder/list?userLogin=' + $rootScope.loginContext.user
-        }).success(function (data) {
-            ctrl.folders = data;
-            // load right after folder load first folder messages
-            if (ctrl.folders && ctrl.folders.length > 0)
-                ctrl.viewFolder(ctrl.folders[0]);
-        }).catch(function (err) {
-            alert(err.data);
-        });
+        loadFolders(true);
+
+        function loadFolders(selectFirst){
+            $http({
+                method: 'GET',
+                url: apiHost + '/mail/folder/list?userLogin=' + $rootScope.loginContext.user
+            }).success(function (data) {
+                ctrl.folders = data;
+                // load right after folder load first folder messages
+                if (selectFirst) {
+                    if (ctrl.folders && ctrl.folders.length > 0)
+                        ctrl.viewFolder(ctrl.folders[0]);
+                } else
+                    ctrl.viewFolder($scope.folder);
+            }).catch(function (err) {
+                alert(err.data);
+            });
+        }
 
         $scope.selectedRecipient = null;
         $scope.messageRecipients = [];
@@ -68,6 +75,20 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '
             });
         }
 
+        ctrl.deleteMessage = function(message) {
+            $http({
+                method: 'DELETE',
+                url: apiHost + '/mail/message?messageId=' + message.messageId
+            }).success(function () {
+                alert("Message deleted");
+                loadFolders(false);
+            }).catch(function (err) {
+                if (err.data) {
+                    alert(err.data);
+                }
+            })
+        }
+
         ctrl.clearMessage = function () {
             $scope.messageTitle = "";
             $scope.messageBody = "";
@@ -94,6 +115,7 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '
                 data: message
             }).success(function () {
                 alert("Message sent");
+                loadFolders(false);
             }).catch(function (err) {
                 if (err.data) {
                     alert(err.data);
@@ -115,6 +137,7 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '
                 data: folder
             }).success(function () {
                 alert("Folder created");
+                loadFolders(false);
             }).catch(function (err) {
                 if (err.data) {
                     alert(err.data);
@@ -128,6 +151,7 @@ mailControllers.controller('FolderListCtrl', ['$scope', '$rootScope', '$http', '
                 url: apiHost + '/mail/folder?folderId=' + folderId
             }).success(function () {
                 alert("Folder deleted");
+                loadFolders(false);
             }).catch(function (err) {
                 if (err.data) {
                     alert(err.data);
