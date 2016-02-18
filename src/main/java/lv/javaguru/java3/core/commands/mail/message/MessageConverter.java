@@ -61,7 +61,6 @@ public class MessageConverter {
             headerDTOList.add(createMessageHeaderDTO()
                     .withMessageId(recipient.getMessageId())
                     .withTitle(message.getTitle())
-                            //.withSender(userService.get(message.getSenderId()))
                     .withSender(createUser().withId(message.getSenderId()).build())
                     .withCreated(message.getCreated())
                     .isImportant(message.isImportant())
@@ -76,7 +75,6 @@ public class MessageConverter {
         for (Recipient recipient : recipients)
             if (recipient.getUserId() != senderUserId)
                 users.add(createUser().withId(recipient.getUserId()).build());
-                //users.add(userService.get(recipient.getUserId()));
         return users;
     }
 

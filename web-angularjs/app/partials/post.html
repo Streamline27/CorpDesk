@@ -6,8 +6,6 @@
             <h1 class="page-header">{{ post.title }}
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#/">Home</a>
-                </li>
                 <li class="active">
                     <a href="#/posts">Posts List</a>
                 </li>
@@ -23,7 +21,7 @@
 
             <!-- the actual blog post: title/author/date/content -->
             <hr>
-            <p><i class="fa fa-clock-o"></i> Posted on {{ post.createdDate }} by <a href="#">user</a>
+            <p><i class="fa fa-clock-o"></i> Posted on {{ post.createdDate | date : 'medium'}} by <a href="#">user</a>
             </p>
             <hr>
             <p>{{ post.body }}</p>
@@ -31,32 +29,32 @@
             <hr>
 
             <!-- the comment box -->
-            <div class="well">
-                <h4>Leave a Comment:</h4>
+            <!--<div class="well">-->
+                <!--<h4>Leave a Comment:</h4>-->
 
-                <form role="form">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+                <!--<form role="form">-->
+                    <!--<div class="form-group">-->
+                        <!--<textarea class="form-control" rows="3"></textarea>-->
+                    <!--</div>-->
+                    <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+                <!--</form>-->
+            <!--</div>-->
 
-            <hr>
+            <!--<hr>-->
 
-            <!-- the comments -->
-            <h3>Start Bootstrap
-                <small>9:41 PM on August 24, 2013</small>
-            </h3>
-            <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking
-                about space or something, then you randomly start babbling about cupcakes, and you end off with random
-                fish names.</p>
+            <!--&lt;!&ndash; the comments &ndash;&gt;-->
+            <!--<h3>Start Bootstrap-->
+                <!--<small>9:41 PM on August 24, 2013</small>-->
+            <!--</h3>-->
+            <!--<p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking-->
+                <!--about space or something, then you randomly start babbling about cupcakes, and you end off with random-->
+                <!--fish names.</p>-->
 
-            <h3>Start Bootstrap
-                <small>9:47 PM on August 24, 2013</small>
-            </h3>
-            <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals,
-                alien abductions, business casual, robots, and fireworks' has true potential.</p>
+            <!--<h3>Start Bootstrap-->
+                <!--<small>9:47 PM on August 24, 2013</small>-->
+            <!--</h3>-->
+            <!--<p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals,-->
+                <!--alien abductions, business casual, robots, and fireworks' has true potential.</p>-->
 
         </div>
     </div>

@@ -1,34 +1,89 @@
 <div class="container">
 
 
-    <div class="col-md-3">
-
-        <h3>Folders</h3>
-
-        <div class="row" ng-repeat="folder in FolderListCtrl.folders">
-
-            <span><a href="" ng-click="FolderListCtrl.viewFolder(folder)">{{folder.name}}</a></span>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-9">
-
-        <h3>Messages</h3>
-        <table><tr>
-            <th>Date sent</th>
-            <th>Sender</th>
-            <th>Subject</th>
+    <table align="center">
+        <tr>
+            <th><h3 align="center">Folders</h3></th>
+            <th><h3 align="center">Messages</h3></th>
         </tr>
 
-            <tr class=row" ng-repeat="message in FolderListCtrl.messages">
-                <td>{{message.created}}</td>
-                <td>{{message.sender.id}}</td>
-                <td>{{message.title}}</td>
-            </tr>
-        </table>
+        <tr><td>
+            <table>
+                <tr class="row">
+                    <td colspan="2">
+                        <input type="text" size="15" ng-model="newFolder">
+                        <input type="button" ng-click="FolderListCtrl.createFolder()" value="Create New">
+                    </td>
+                </tr>
+                <tr class="row" ng-repeat="folder in FolderListCtrl.folders">
+                    <td>
+                        <a href="" ng-click="FolderListCtrl.viewFolder(folder)">{{folder.name}}</a>
+                        (<b>{{folder.unreadMessageCount}}</b>/{{folder.messageCount}})
+                    </td>
+                    <td>
+                        <a href="" ng-click="FolderListCtrl.deleteFolder(folder.id)">Delete</a>
+                        <!--
+                        <script>
+                            if (folder.isRemovable) {
+                                document.write("<a href='' ng-click='FolderListCtrl.deleteFolder(folder.id)'" +
+                                        ">Delete</a>");
+                            }
+                        </script>
+                        -->
+                    </td>
+                </tr>
+            </table>
+        </td>
 
-    </div>
+        <td>
+            <table>
+                <tr>
+                    <th>Date sent</th>
+                    <th>Sender</th>
+                    <th>Subject</th>
+                    <th>Action</th>
+                </tr>
+
+                <tr class=row" ng-repeat="message in FolderListCtrl.messages">
+                    <td>{{message.created}}</td>
+                    <td>{{message.sender}}</td>
+                    <td><a href="" ng-click="FolderListCtrl.viewMessage(message)">{{message.title}}</a></td>
+                    <td>
+                        <a href="" ng-click="FolderListCtrl.deleteMessage(message)">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <tr>
+
+        <td colspan="2">
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" name="messageTitle" ng-model="messageTitle" size="40">
+                        <input type="checkbox" name="messageIsImportant" ng-model="messageIsImportant"/>
+                        Important
+                        <input type="button" ng-click="FolderListCtrl.clearMessage()" value="Clear">
+                        <input type="button" ng-click="FolderListCtrl.sendMessage()" value="Send">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea ng-model="messageBody" rows="20" cols="80"/>
+                    </td>
+                    <td>
+                        <select multiple ng-model="selectedRecipients" ng-multiple="true"
+                                ng-options="{id: item.id} as item.firstName + ' ' + item.lastName for item in messageRecipients">
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+
+    </tr>
+
+    </table>
 
 </div>

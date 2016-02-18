@@ -13,6 +13,8 @@ public class FolderDTO implements Serializable{
     private String name;
     private long userId;
     private boolean isRemovable;
+    private long messageCount;
+    private long unreadMessageCount;
 
     public long getId() {
         return id;
@@ -44,5 +46,21 @@ public class FolderDTO implements Serializable{
 
     public void setIsRemovable(boolean isRemovable) {
         this.isRemovable = isRemovable;
+    }
+
+    public long getMessageCount() {
+        return messageCount;
+    }
+
+    public void setMessageCount(long messageCount) {
+        this.messageCount = messageCount;
+    }
+
+    public long getUnreadMessageCount() {
+        return unreadMessageCount;
+    }
+
+    public void setUnreadMessageCount(long unreadMessageCount) {
+        this.unreadMessageCount = unreadMessageCount;
     }
 }
